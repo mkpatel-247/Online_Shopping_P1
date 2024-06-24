@@ -9,5 +9,6 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./header-menu.component.scss']
 })
 export class HeaderMenuComponent {
-
+  //Variable to show/hide categories menu
+  dropDownCat: boolean = false;
 }
