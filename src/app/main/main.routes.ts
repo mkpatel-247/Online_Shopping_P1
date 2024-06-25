@@ -10,11 +10,11 @@ export const mainRoutes: Routes = [
             {
                 path: '',
                 pathMatch: 'full',
-                redirectTo:'home'
+                redirectTo: 'home'
             },
             {
                 path: 'home',
-                component:HomeComponent
+                component: HomeComponent
             },
             {
                 path: 'aboutus',
@@ -27,8 +27,12 @@ export const mainRoutes: Routes = [
             {
                 path: 'faq',
                 loadComponent: () => import('../pages/faq/faq.component').then((c) => c.FaqComponent)
-            }
+            },
+            {
+                path: 'product',
+                loadChildren: () => import('./products/products.routes').then((c) => c.productsRoutes)
+            },
         ]
     },
-   
+
 ];
