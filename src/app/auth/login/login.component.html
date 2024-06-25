@@ -1,27 +1,42 @@
-<section class="container-fluid gradient-bg d-flex flex-column justify-content-center align-items-center p-3" style="height: 100vh;">
-    <form class="position-relative bg-light shadow rounded bg-light-subtle p-5" [formGroup]="loginForm" (ngSubmit)="handleLogin()">
-        <h2 class="mb-3 text-center border-2 border-bottom border-danger-subtle p-2 mr-auto text-color">Login</h2>
+<section class="container-fluid gradient-bg d-flex flex-column justify-content-center align-items-center  rounded-lg "
+    style="height: 100vh;">
+    <form class="position-relative bg-light shadow rounded-lg bg-light-subtle" [formGroup]="loginForm"
+        (ngSubmit)="handleLogin()">
         <div class="row justify-content-center align-items-center">
-            <div class="col-sm">
-                <img src="/assets/img/login.png" alt="login svg" class="img-fluid">
-            </div>
-            <div class="col-sm">
-                <div class="my-3"> 
-                    <label for="email" class="form-label">Email address<span class="text-danger">*</span></label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter your email" formControlName="email" [ngClass]="{'border-danger':(fc.email.touched || submitted ) && fc.email.hasError('required')}">
-                    <span *ngIf="(fc.email.touched || submitted ) && fc.email.hasError('required')" class="text-danger">Email is required</span>
-                    <span *ngIf="fc.email.hasError('email')" class="text-danger">Enter a valid email</span>    
-                </div>
+            <div class="col-sm p-5">
+                <p>Welcome back !</p>
+                <h2 class="mb-3  mr-auto text-color">Login</h2>
+                <hr class="border text-blue">
                 <div class="my-3">
+                    <label for="email" class="form-label">Email address<span class="text-danger">*</span></label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter your email"
+                        formControlName="email"
+                        [ngClass]="{'border-danger':(fc.email.touched || submitted ) && fc.email.hasError('required')}">
+                    <span *ngIf="(fc.email.touched || submitted ) && fc.email.hasError('required')"
+                        class="text-danger">Email is required</span>
+                    <span *ngIf="fc.email.hasError('email') && loginForm.value.email" class="text-danger">Enter a valid
+                        email</span>
+                </div>
+                <div class="">
                     <label for="password" class="form-label">Password<span class="text-danger">*</span></label>
                     <div class="d-flex flex-row">
-                        <input [type]="!showPassword ? 'password' : 'text'" class="form-control" id="password" placeholder="Enter your password" formControlName="password" [ngClass]="{'border-danger':(fc.password.touched || submitted ) && fc.password.hasError('required')}">
-                        <span class="btn btn-color" [ngClass]="!showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'" (click)="showPassword = !showPassword"></span>
+                        <input [type]="!showPassword ? 'password' : 'text'" class="form-control" id="password"
+                            placeholder="Enter your password" formControlName="password"
+                            [ngClass]="{'border-danger':(fc.password.touched || submitted ) && fc.password.hasError('required')}">
+                        <span class="btn btn-color" [ngClass]="!showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"
+                            (click)="showPassword = !showPassword"></span>
                     </div>
-                        <p class="text-right"><small><a routerLink="/forgetPassword" class="text-blue ">Forgot Password?</a></small></p>
-                    <span class="text-danger mt-2" *ngIf="(fc.password.touched || submitted ) && fc.password.hasError('required')">Password isRequired</span>
+                    <span class="text-danger"
+                        *ngIf="(fc.password.touched || submitted ) && fc.password.hasError('required')">Password
+                        isRequired</span>
+                    <p class="text-right"><small><a routerLink="/forgetPassword" class="text-blue ">Forgot
+                                Password?</a></small></p>
                 </div>
-                <button type="submit" class="btn btn-color rounded w-100 my-3" >Login</button>
+                <button type="submit" class="btn btn-color rounded w-100 my-3">Login</button>
+                <p>Don't have an account?<a class="text-blue" routerLink="/auth/register"> Register</a></p>
+            </div>
+            <div class="col-sm">
+                <img src="/assets/img/login.png" alt="login svg" class="img-fluid">
             </div>
         </div>
     </form>
