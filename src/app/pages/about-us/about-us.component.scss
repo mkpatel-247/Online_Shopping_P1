@@ -1,0 +1,59 @@
+.container {
+    margin-top: 50px;
+  }
+  
+  h1, h2, h3 {
+    color: #343a40;
+  }
+  
+  .lead {
+    font-size: 1.25rem;
+    font-weight: 300;
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .rounded-circle {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .text-muted {
+    color: #6c757d !important;
+  }
+  
+  blockquote {
+    background-color: #f8f9fa;
+    border-left: 10px solid #007bff;
+    padding: 1rem;
+    margin: 2rem 0;
+  }
+  
+  blockquote .blockquote-footer {
+    color: #6c757d;
+    font-size: 0.875rem;
+  }
+  
+  form {
+    background-color: #f8f9fa;
+    padding: 2rem;
+    border-radius: 0.5rem;
+  }
+  
+  form .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  form .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  form .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+  
