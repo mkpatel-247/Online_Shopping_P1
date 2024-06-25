@@ -3,16 +3,11 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
     {
         path: '',
-        pathMatch: 'full',
-        redirectTo: 'home'
+        loadChildren:() => import('./main/main.routes').then((c) => c.mainRoutes)
     },
     {
-        path: 'home',
-        loadComponent: () => import('./main/home/home.component').then((c) => c.HomeComponent)
-    },
-    {
-        path: 'login',
-        loadComponent: () => import('./auth/login/login.component').then((c) => c.LoginComponent)
+        path: 'auth',
+        loadChildren: () => import('./auth/auth.routes').then((c) => c.authRoutes)
     },
     {
         path: 'product',

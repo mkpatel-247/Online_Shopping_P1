@@ -46,6 +46,10 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+.text-blue {
+  color : var(--blue)  !important;
+}
+
 article,
 aside,
 figcaption,
