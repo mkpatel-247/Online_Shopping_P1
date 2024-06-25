@@ -1,1 +1,55 @@
-<p>register works!</p>
+<section
+    class="container-fluid gradient-bg d-flex flex-column justify-content-center align-items-center  rounded-lg p-3"
+    style="height: 100vh;">
+    <form class="position-relative bg-light shadow rounded-lg bg-light-subtle" [formGroup]="registrationForm"
+        (ngSubmit)="handleLogin()">
+        <div class="row justify-content-center align-items-center p-5">
+            <div class="col-sm">
+                <h2 class="mb-3 text-center mr-auto text-color">Create Account</h2>
+                <hr class="border text-blue">
+                <div class="my-3">
+                    <label for="username" class="form-label">User Name<span class="text-danger">*</span></label>
+                    <input type="username" class="form-control" id="username" placeholder="Enter your username"
+                        formControlName="username"
+                        [ngClass]="{'border-danger':(fc.username.touched || submitted ) && fc.username.hasError('required')}">
+                    <span *ngIf="(fc.username.touched || submitted ) && fc.username.hasError('required')"
+                        class="text-danger">
+                        Username is required
+                    </span>
+                </div>
+                <div class="my-3">
+                    <label for="email" class="form-label">Email address<span class="text-danger">*</span></label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter your email"
+                        formControlName="email"
+                        [ngClass]="{'border-danger':(fc.email.touched || submitted ) && fc.email.hasError('required')}">
+                    <span *ngIf="(fc.email.touched || submitted ) && fc.email.hasError('required')" class="text-danger">
+                        Email is required
+                    </span>
+                    <span *ngIf="fc.email.hasError('email') && registrationForm.value.email" class="text-danger">
+                        Enter a valid email
+                    </span>
+                </div>
+                <div class="my-3">
+                    <label for="password" class="form-label">Password<span class="text-danger">*</span></label>
+                    <div class="d-flex flex-row">
+                        <input [type]="!showPassword ? 'password' : 'text'" class="form-control" id="password"
+                            placeholder="Enter your password" formControlName="password"
+                            [ngClass]="{'border-danger':(fc.password.touched || submitted ) && fc.password.hasError('required')}">
+                        <span class="btn btn-color" [ngClass]="!showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"
+                            (click)="showPassword = !showPassword"></span>
+                    </div>
+                    <span class="text-danger"
+                        *ngIf="(fc.password.touched || submitted ) && fc.password.hasError('required')">Password
+                        isRequired</span>
+                    <span *ngIf="fc.password.hasError('password') && registrationForm.value.password"
+                        class="text-danger">Enter a strong Password</span>
+                </div>
+                <button type="submit" class="btn btn-color rounded w-100 my-3">Register</button>
+                <p>Already have an account?<a class="text-blue" routerLink="/auth/login"> Login</a></p>
+            </div>
+            <div class="col-sm py-3 hide-img">
+                <img src="/assets/img/register.png" alt="login svg" class="img-fluid">
+            </div>
+        </div>
+    </form>
+</section>
