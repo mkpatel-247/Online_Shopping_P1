@@ -11,12 +11,14 @@ import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 export class HomeComponent implements OnInit{
 
   isCarouselActive: boolean = false;
-  customOptions: any = {
+  customOptions: OwlOptions = {
     loop: true,
     margin: 29,
-    nav: false,
+    nav: true,
+    navText: ['<ol class="carousel-indicators"> <li class="active"></li><li ></li><li></li></ol>'],
+    dots: false,
     autoplay: true,
-    // smartSpeed: 1000,
+    smartSpeed: 1000,
     responsive: {
         0:{
             items:1
