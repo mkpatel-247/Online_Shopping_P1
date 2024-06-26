@@ -17,7 +17,7 @@ export const mainRoutes: Routes = [
                 component: HomeComponent
             },
             {
-                path: 'aboutUs',
+                path: 'aboutus',
                 loadComponent: () => import('../pages/about-us/about-us.component').then((c) => c.AboutUsComponent)
             },
             {
@@ -27,6 +27,14 @@ export const mainRoutes: Routes = [
             {
                 path: 'faq',
                 loadComponent: () => import('../pages/faq/faq.component').then((c) => c.FaqComponent)
+            },
+            {
+                path: 'cart',
+                loadComponent: () => import('../main/cart/cart.component').then((c) => c.CartComponent)
+            },
+            {
+                path: 'checkout',
+                loadComponent: () => import('../main/checkout/checkout.component').then((c) => c.CheckoutComponent)
             },
             {
                 path: 'contact',
