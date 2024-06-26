@@ -33,9 +33,6 @@ export class LoginComponent {
 
   handleLogin() {
     this.submitted = true;
-
-    if (this.loginForm.valid) {
-    }
   }
 
 }
