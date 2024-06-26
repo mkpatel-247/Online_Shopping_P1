@@ -22,8 +22,5 @@ export class ForgotPasswordComponent {
    */
   handleSubmit() {
     this.submitted = true;
-    if (this.forgotPassForm.valid) {
-
-    }
   }
 }

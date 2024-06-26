@@ -54,6 +54,10 @@ html {
   color: var(--blue) !important;
 }
 
+.toast {
+  z-index: 100 !important;
+}
+
 article,
 aside,
 figcaption,
