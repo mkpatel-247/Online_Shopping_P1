@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [CommonModule,RouterModule, HeaderComponent, HeaderMenuComponent, FooterComponent],
+  imports: [CommonModule, RouterModule, HeaderComponent, HeaderMenuComponent, FooterComponent],
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
