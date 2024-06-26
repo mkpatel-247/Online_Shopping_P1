@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class CommonService {
 
+  // Store breadCrumb data
   breadCrumb = new BehaviorSubject<any>('');
 
   constructor() { }
