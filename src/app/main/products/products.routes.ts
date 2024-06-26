@@ -13,21 +13,5 @@ export const productsRoutes: Routes = [
                 ]
             }
         ],
-        children: [
-            {
-                path: '',
-                redirectTo: 'product-gallery',
-                pathMatch: 'full',
-            },
-            {
-                path: 'product-gallery',
-                loadComponent: () => import('../grid-view/grid-view.component').then((c) => c.GridViewComponent),
-
-            },
-            {
-                path: 'product-list',
-                loadComponent: () => import('../list-view/list-view.component').then((c) => c.ListViewComponent),
-            }
-        ]
     },
 ];

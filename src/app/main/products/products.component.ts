@@ -4,17 +4,19 @@ import { CommonService } from 'src/app/shared/service/common.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { FilterByComponent } from './filter-by/filter-by.component';
 import { ViewTypeComponent } from './view-type/view-type.component';
+import { ProductCardComponent } from '../product-grid/product-grid.component';
+import { ProductListComponent } from '../product-list/product-list.component';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, FilterByComponent, ViewTypeComponent, RouterModule],
+  imports: [CommonModule, FilterByComponent, ViewTypeComponent, RouterModule, ProductCardComponent, ProductListComponent],
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit, OnDestroy {
 
-  constructor(private route: ActivatedRoute, private common: CommonService) { }
+  constructor(private route: ActivatedRoute, public common: CommonService) { }
 
   ngOnInit(): void {
     //Add router's data into common service breadCrumb subject

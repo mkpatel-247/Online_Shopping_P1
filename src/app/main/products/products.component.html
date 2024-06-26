@@ -7,7 +7,22 @@
             <div class="row pb-3">
                 <div class="col-12 pb-1">
                     <app-view-type></app-view-type>
-                    <router-outlet></router-outlet>
+                </div>
+                <ng-container *ngFor="let item of [1,2,3,4,5]">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <app-product-grid></app-product-grid>
+                    </div>
+                </ng-container>
+                <div class="col-12">
+                    <nav>
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item disabled"><a class="page-link" href="#"><span>Previous</span></a></li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
