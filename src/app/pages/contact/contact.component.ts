@@ -1,19 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import { CommonService } from 'src/app/shared/service/common.service';
-import { ActivatedRoute, RouterModule } from '@angular/router';
-import { FilterByComponent } from './filter-by/filter-by.component';
-import { ViewTypeComponent } from './view-type/view-type.component';
 
 @Component({
-  selector: 'app-products',
+  selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule, FilterByComponent, ViewTypeComponent, RouterModule],
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss']
+  imports: [CommonModule],
+  templateUrl: './contact.component.html',
+  styleUrls: ['./contact.component.scss']
 })
-export class ProductsComponent implements OnInit, OnDestroy {
-
+export class ContactComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, private common: CommonService) { }
 
   ngOnInit(): void {

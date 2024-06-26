@@ -3,8 +3,9 @@
         <div class="row px-xl-5">
             <div class="col-12">
                 <nav class="breadcrumb bg-light mb-30">
-                    <ng-container *ngFor="let item of data; last as isLast">
-                        <a class="breadcrumb-item text-dark" routerLink="item.link" routerLinkActive="active">
+                    <ng-container *ngFor="let item of data.value[0].linkList; last as isLast">
+                        <a class="breadcrumb-item text-dark" [routerLink]="item.link"
+                            routerLinkActive="not-allowed-link">
                             {{ item.label }}
                         </a>
                     </ng-container>
