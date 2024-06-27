@@ -1,12 +1,12 @@
 <section class="container-fluid gradient-bg d-flex flex-column justify-content-center align-items-center  rounded-lg "
     style="height: 100vh;">
-    <form class="position-relative bg-light shadow rounded-lg bg-light-subtle" [formGroup]="loginForm"
+    <form class="position-relative bg-light shadow rounded-lg form-bg" [formGroup]="loginForm"
         (ngSubmit)="handleLogin()">
         <div class="row justify-content-center align-items-center">
             <div class="col-sm p-5">
                 <p>Welcome back !</p>
                 <h2 class="mb-3  mr-auto text-color">Login</h2>
-                <hr class="border border-primary">
+                <hr class="border-2 border-black">
                 <div class="my-3">
                     <label for="email" class="form-label">Email address<span class="text-danger">*</span></label>
                     <input type="email" class="form-control" id="email" placeholder="Enter your email"
