@@ -17,7 +17,7 @@ export const mainRoutes: Routes = [
                 component: HomeComponent
             },
             {
-                path: 'aboutus',
+                path: 'about-us',
                 loadComponent: () => import('../pages/about-us/about-us.component').then((c) => c.AboutUsComponent)
             },
             {
@@ -53,6 +53,10 @@ export const mainRoutes: Routes = [
                 path: 'product',
                 loadChildren: () => import('./products/products.routes').then((c) => c.productsRoutes)
             },
+            {
+                path: 'profile',
+                loadComponent: () => import('./user-profile/user-profile.component').then((c) => c.UserProfileComponent)
+            }
         ]
     },
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { TOAST_STATE } from '../../constant/toastState.contant';
+import { TOAST_STATE } from '../../constant/app.constant';
 
 @Injectable({
   providedIn: 'root'

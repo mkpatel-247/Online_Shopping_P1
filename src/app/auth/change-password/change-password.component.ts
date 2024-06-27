@@ -20,6 +20,7 @@ export class ChangePasswordComponent {
     newPass: new FormControl('', [Validators.required, isPasswordStrong()])
   });
   submitted: boolean = false;
+  showPassword: boolean = false;
 
   /**
    * 
