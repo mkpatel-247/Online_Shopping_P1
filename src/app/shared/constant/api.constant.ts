@@ -1,14 +1,17 @@
-export const API_PREFIX = 'http://192.168.1.236:3000';
+import { API_PREFIX } from "src/environment/api.env"
+
+const AUTH_PREFIX = `${API_PREFIX}/user`
+const PRODUCT_PREFIX = `${API_PREFIX}/product`
 
 export const AUTH = {
-    LOGIN_API: `${API_PREFIX}/user/login`,
-    REGISTER_API: `${API_PREFIX}/user/register`,
+    LOGIN_API: `${AUTH_PREFIX}/login`,
+    REGISTER_API: `${AUTH_PREFIX}/register`,
 }
 
 export const PRODUCT = {
-    PRODUCT_DETAILS: `${API_PREFIX}/product`,
-    PRODUCT_BY_ID: `${API_PREFIX}/product/`,
-    FEATURED_pRODUCT: `${API_PREFIX}/product/related/`
+    PRODUCT_DETAILS: `${PRODUCT_PREFIX}`,
+    PRODUCT_BY_ID: `${PRODUCT_PREFIX}`,
+    FEATURED_PRODUCT: `${PRODUCT_PREFIX}/related/`
 }
 
 export const CONTACT = {

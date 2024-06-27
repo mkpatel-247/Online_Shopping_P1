@@ -51,6 +51,15 @@ export class ContactComponent implements OnInit, OnDestroy {
   handleSubmit() {
     const value = this.contactForm.value;
     if (this.contactForm.valid) {
+      this.commonService.sendMessage(value).subscribe({
+        next: (response: any) => {
+          console.log("Enquiry Form Response: ", response);
+        },
+        error: (err: any) => {
+          console.log("Error: ", err);
+        },
+        complete: () => { }
+      });
       this.toastService.showToast(TOAST_ICON.successIcon, TOAST_STATE.success, 'Message Sent');
       this.messageSent = false;
     } else {
