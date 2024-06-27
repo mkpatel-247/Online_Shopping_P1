@@ -10,3 +10,7 @@ export const PRODUCT = {
     PRODUCT_BY_ID: `${API_PREFIX}/product/`,
     FEATURED_pRODUCT: `${API_PREFIX}/product/related/`
 }
+
+export const CONTACT = {
+    enquiry: `${API_PREFIX}/enquiry`,
+}

@@ -12,6 +12,6 @@ import { RouterModule } from '@angular/router';
 })
 export class BreadCrumbComponent {
 
-  constructor(public common: CommonService) { }
+  constructor(public commonService: CommonService) { }
 
 }

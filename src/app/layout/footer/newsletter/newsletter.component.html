@@ -7,10 +7,10 @@
     </div>
     <span class="text-danger"
         *ngIf="newsLetterForm.get('email')?.hasError('required') && newsLetterForm.get('email')?.touched">
-        * Enter your email
+        * Enter your email.
     </span>
     <span class="text-danger"
         *ngIf="(!newsLetterForm.get('email')?.hasError('required') && newsLetterForm.get('email')?.hasError('email')) && newsLetterForm.get('email')?.touched">
-        * Enter a valid email
+        * Enter a valid email.
     </span>
 </form>

@@ -11,5 +11,5 @@ import { CommonService } from 'src/app/shared/service/common.service';
 })
 export class ViewTypeComponent {
 
-  constructor(public common: CommonService) { }
+  constructor(public commonService: CommonService) { }
 }

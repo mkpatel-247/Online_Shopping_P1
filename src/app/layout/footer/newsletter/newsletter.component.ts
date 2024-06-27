@@ -20,12 +20,18 @@ export class NewsletterComponent implements OnInit {
     this.initializeNewsletterForm();
   }
 
+  /**
+   * Create form control for newsletter form.
+   */
   initializeNewsletterForm() {
     this.newsLetterForm = this.fb.group({
       email: new FormControl('', [Validators.required, isEmailValid()])
     })
   }
 
+  /**
+   * When newsletter form is submit.
+   */
   handleSubmit() {
     const value = this.newsLetterForm.value
     if (this.newsLetterForm.valid) {
