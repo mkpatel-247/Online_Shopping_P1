@@ -16,15 +16,15 @@ import { ProductListComponent } from '../product-list/product-list.component';
 })
 export class ProductsComponent implements OnInit, OnDestroy {
 
-  constructor(private route: ActivatedRoute, public common: CommonService) { }
+  constructor(private route: ActivatedRoute, public commonService: CommonService) { }
 
   ngOnInit(): void {
     //Add router's data into common service breadCrumb subject
-    this.common.breadCrumb.next(this.route.data);
+    this.commonService.breadCrumb.next(this.route.data);
   }
 
   ngOnDestroy(): void {
     //Add empty string so that data get empty when this component destroy.
-    this.common.breadCrumb.next('');
+    this.commonService.breadCrumb.next('');
   }
 }
