@@ -1,15 +1,23 @@
 <div class="card mb-3">
-    <div class="row g-0">
-        <div class="col-md-4">
-            <img src="../../../assets/img/product-1.jpg" class="img-fluid rounded-start" alt="...">
+    <div class="d-flex align-items-center">
+        <div class="flex-shrink-0">
+            <img src="../../../assets/img/product-1.jpg" alt="...">
         </div>
-        <div class="col-md-8">
-            <div class="card-body">
-                <h5 class="card-title">
-                    <ng-content select="product-name"></ng-content>
-                </h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                    additional content. This content is a little bit longer.</p>
+        <div class="card-body">
+            <h5 class="card-title">
+                Product Name
+            </h5>
+            <div class="flex-grow-1 ms-3">
+                This is some content from a media component. You can replace this with any content and adjust it as
+                needed.
+            </div>
+            <div class="text-center d-grid gap-2 d-md-flex">
+                <button type="submit" class="btn btn-outline-primary">
+                    Add to Wishlist
+                </button>
+                <button type="button" class="btn btn-primary">
+                    Add to cart
+                </button>
             </div>
         </div>
     </div>
