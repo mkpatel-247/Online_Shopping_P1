@@ -1,18 +1,20 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { isPasswordStrong } from 'src/app/shared/validators/custom.validator';
-
 @Component({
-  selector: 'app-reset-password',
+  selector: 'app-change-password',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
-  templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.scss']
+  templateUrl: './change-password.component.html',
+  styleUrls: ['./change-password.component.scss']
 })
-export class ResetPasswordComponent {
+export class ChangePasswordComponent {
 
-  resetPassForm = new FormGroup({
+  constructor(public modal: NgbActiveModal) { }
+
+  changePassForm = new FormGroup({
     oldPass: new FormControl('', [Validators.required]),
     newPass: new FormControl('', [Validators.required, isPasswordStrong()])
   });
@@ -24,8 +26,10 @@ export class ResetPasswordComponent {
    */
   handleSubmit() {
     this.submitted = true;
-    if (this.resetPassForm.valid) {
+
+    if (this.changePassForm.valid) {
 
     }
   }
+
 }

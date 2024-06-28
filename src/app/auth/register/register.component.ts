@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { isEmailValid } from 'src/app/shared/validators/isEmailValid.validator';
-import { isPasswordStrong } from 'src/app/shared/validators/isPasswordStrong.validator';
+import { isEmailValid, isPasswordStrong } from 'src/app/shared/validators/custom.validator';
 
 @Component({
   selector: 'app-register',
