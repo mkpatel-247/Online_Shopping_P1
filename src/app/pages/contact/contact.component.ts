@@ -4,9 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonService } from 'src/app/shared/service/common.service';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { isEmailValid } from 'src/app/shared/validators/isEmailValid.validator';
-import { isOnlySpaceExist } from 'src/app/shared/validators/isOnlySpaceExist.validator';
 import { ToastMessageService } from 'src/app/shared/components/toast-message/toast-message.service';
 import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/toastState.contant';
+import { isOnlySpaceExist } from 'src/app/shared/validators/custom.validator';
 
 @Component({
   selector: 'app-contact',
