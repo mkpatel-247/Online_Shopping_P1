@@ -7,4 +7,11 @@ import { Injectable } from '@angular/core';
 export class ProductService {
 
   constructor(private http: HttpClient) { }
+
+  /**
+   * Get product details.
+   */
+  getProducts() {
+    return this.http.get('../../../assets/dummyData/products.json');
+  }
 }

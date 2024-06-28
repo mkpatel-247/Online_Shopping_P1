@@ -7,11 +7,11 @@
             <div class="contact-form bg-light p-30">
                 <form [formGroup]="contactForm" (ngSubmit)="handleSubmit()" *ngIf="messageSent else messageBlock">
                     <div class="control-group">
-                        <input type="text" class="form-control" id="name" placeholder="Your Name"
-                            formControlName="name">
+                        <input type="text" class="form-control" id="name" placeholder="Your Name" formControlName="name"
+                            [ngClass]="{'border-danger': contactForm.get('name')?.hasError('required') && contactForm.get('email')?.touched}">
                         <p class="text-danger">
                             <span
-                                *ngIf="contactForm.get('name')?.hasError('required') && contactForm.get('email')?.touched">
+                                *ngIf="(contactForm.get('name')?.hasError('required') || contactForm.get('name')?.hasError('spaceExist')) && contactForm.get('email')?.touched">
                                 * Name is required.
                             </span>
                             <span
@@ -22,7 +22,8 @@
                     </div>
                     <div class="control-group">
                         <input type="email" class="form-control" id="email" placeholder="Your Email"
-                            formControlName="email">
+                            formControlName="email"
+                            [ngClass]="{'border-danger': (contactForm.get('email')?.hasError('required') || contactForm.get('email')?.hasError('email')) && contactForm.get('email')?.touched}">
                         <p class="text-danger">
                             <span
                                 *ngIf="contactForm.get('email')?.hasError('required') && contactForm.get('email')?.touched">
@@ -36,7 +37,8 @@
                     </div>
                     <div class="control-group">
                         <input type="text" class="form-control" id="subject" placeholder="Subject"
-                            formControlName="subject">
+                            formControlName="subject"
+                            [ngClass]="{'border-danger': (contactForm.get('subject')?.hasError('required') || contactForm.get('subject')?.hasError('spaceExist')) && contactForm.get('subject')?.touched}">
                         <p class="text-danger">
                             <span
                                 *ngIf="contactForm.get('subject')?.hasError('required') && contactForm.get('subject')?.touched">
@@ -50,7 +52,8 @@
                     </div>
                     <div class="control-group">
                         <textarea class="form-control" rows="8" id="message" placeholder="Message"
-                            formControlName="message"></textarea>
+                            formControlName="message"
+                            [ngClass]="{'border-danger': (contactForm.get('message')?.hasError('required') || contactForm.get('message')?.hasError('spaceExist')) && contactForm.get('message')?.touched}"></textarea>
                         <p class="text-danger">
                             <span
                                 *ngIf="contactForm.get('message')?.hasError('required') && contactForm.get('message')?.touched">

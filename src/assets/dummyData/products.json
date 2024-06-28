@@ -1,0 +1,48 @@
+[
+    {
+        "productId": 1,
+        "productName": "T-Shirt",
+        "averageRating": "4.4",
+        "price": "$50",
+        "description": "It is good a casual t-Shirt.",
+        "size": [
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "color": [
+            "Blue",
+            "Red",
+            "Black"
+        ],
+        "images": [
+            "/assets/img/product-1.jpg",
+            "/assets/img/product-2.jpg",
+            "/assets/img/product-3.jpg"
+        ]
+    },
+    {
+        "productId": 2,
+        "productName": "Shirt",
+        "averageRating": "4.4",
+        "price": "$50",
+        "description": "It is good a casual Shirt.",
+        "size": [
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "color": [
+            "Blue",
+            "Red",
+            "Black"
+        ],
+        "images": [
+            "/assets/img/product-3.jpg",
+            "/assets/img/product-1.jpg",
+            "/assets/img/product-2.jpg"
+        ]
+    }
+]
