@@ -1,0 +1,112 @@
+<section class="container-fluid">
+    <div class="row p-3">
+        <div class="col-xl-4">
+            <div class="card border-0 shadow bg-light">
+                <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                    <img src="assets/img/carousel-1.jpg" alt="Profile" class="rounded-circle" width="150" height="150">
+                    <h2>Dhvani</h2>
+                    <p>k.anderson@example.com</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-xl-8">
+            <div class="card border-0 shadow bg-light">
+                <div class="card-body pt-3">
+                    <!-- Bordered Tabs -->
+                    <ul class="nav nav-tabs">
+
+                        <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">
+                                Profile
+                            </button>
+                        </li>
+
+                        <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#your-orders">
+                                Your Orders
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="tab-content pt-2">
+
+                        <div class="tab-pane fade show active profile-edit pt-3" id="profile-edit">
+
+                            <form [formGroup]="userProfileForm" (ngSubmit)="handleSubmit()">
+                                <div class="row mb-3">
+                                    <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile
+                                        Image</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <img src="assets/img/carousel-1.jpg" alt="Profile" class="img-fluid" width="150"
+                                            height="300">
+                                        <div class="pt-2">
+                                            <a class="btn btn-primary btn-sm" title="Upload new profile image"><i
+                                                    class="bi bi-upload"></i></a>
+                                            <a class="btn btn-danger btn-sm" title="Remove my profile image"><i
+                                                    class="bi bi-trash"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="userName" class="col-md-4 col-lg-3 col-form-label">User Name</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="userName" type="text" class="form-control" id="userName"
+                                            formControlName="userName">
+                                        <span
+                                            *ngIf="(userProfileForm.controls.userName.touched || submitted ) && userProfileForm.controls.userName.hasError('required')"
+                                            class="text-danger"
+                                            [ngClass]="{'border-danger':(userProfileForm.controls.userName.touched || submitted ) && userProfileForm.controls.userName.hasError('required')}">
+                                            Username is required.
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="email" type="email" class="form-control" id="Email"
+                                            formControlName="email"
+                                            [ngClass]="{'border-danger':(userProfileForm.controls.email.touched || submitted ) && userProfileForm.controls.email.hasError('required')}">
+                                        <span
+                                            *ngIf="(userProfileForm.controls.email.touched || submitted ) && userProfileForm.controls.email.hasError('required')"
+                                            class="text-danger">Email is required.</span>
+                                        <span
+                                            *ngIf="userProfileForm.controls.email.hasError('email') && userProfileForm.value.email"
+                                            class="text-danger">
+                                            Enter a valid email.</span>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="Password" class="col-md-4 col-lg-3 col-form-label">Password</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <div class="d-flex flex-row">
+                                            <input name="password" [type]="!showPassword ? 'password' : 'text'"
+                                                class="form-control" id="Password" formControlName="password" readonly>
+                                            <span class="btn btn-color bi"
+                                                [ngClass]="!showPassword ? 'bi-eye-slash' : 'bi-eye'"
+                                                (click)="showPassword = !showPassword"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </div>
+                            </form>
+
+                        </div>
+
+                        <div class="tab-pane fade profile-edit pt-3" id="your-orders">
+                            <p>my Orders</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

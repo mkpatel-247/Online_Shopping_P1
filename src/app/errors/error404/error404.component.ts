@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-banner',
+  selector: 'app-error404',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './banner.component.html',
-  styleUrls: ['./banner.component.scss']
+  templateUrl: './error404.component.html',
+  styleUrls: ['./error404.component.scss']
 })
-export class BannerComponent {
+export class Error404Component {
 
 }
