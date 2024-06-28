@@ -17,3 +17,7 @@ export const PRODUCT = {
 export const CONTACT = {
     enquiry: `${API_PREFIX}/enquiry`,
 }
+
+export const HOME = {
+    banner: '/assets/dummyData/banner.json'
+}
