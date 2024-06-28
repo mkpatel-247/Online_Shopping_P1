@@ -4183,11 +4183,14 @@ input[type="button"].btn-block {
   border-color: transparent;
 }
 
+.nav-link {
+  color: var(--gray-dark);
+}
+
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
-  color: #495057;
-  background-color: #f5f5f5;
-  border-color: #dee2e6 #dee2e6 #f5f5f5;
+  color: var(--blue);
+  border-color: var(--blue) var(--blue) #dee2e6 var(--blue);
 }
 
 .nav-tabs .dropdown-menu {
@@ -10352,6 +10355,7 @@ h6 {
   padding: 15px;
   font-weight: 600;
 }
+
 .gradient-bg {
   background-color: #F5F5F5 !important;
 
@@ -10380,10 +10384,4 @@ h6 {
   .hide-img {
     display: none;
   }
-}
-
-.nav-tabs-bordered .nav-link.active {
-  background-color: #fff !important;
-  color: #4154f1 !important;
-  border-bottom: 2px solid #4154f1 !important;
 }
