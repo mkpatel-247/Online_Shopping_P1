@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { isEmailValid } from 'src/app/shared/validators/isEmailValid.validator';
+import { isEmailValid } from 'src/app/shared/validators/custom.validator';
 
 @Component({
   selector: 'app-newsletter',

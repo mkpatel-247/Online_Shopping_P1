@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { isPasswordStrong } from 'src/app/shared/validators/isPasswordStrong.validator';
+import { isPasswordStrong } from 'src/app/shared/validators/custom.validator';
 
 @Component({
   selector: 'app-reset-password',

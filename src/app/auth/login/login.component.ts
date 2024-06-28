@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { isEmailValid } from 'src/app/shared/validators/isEmailValid.validator';
+import { isEmailValid } from 'src/app/shared/validators/custom.validator';
 
 @Component({
   selector: 'app-login',
