@@ -8,12 +8,12 @@
                 <div class="col-12 pb-1">
                     <app-view-type></app-view-type>
                 </div>
-                <ng-container *ngFor="let item of [1,2,3,4,5]">
+                <ng-container *ngFor="let item of productDetails.data">
                     <div class="col-lg-4 col-md-6 col-sm-6" *ngIf="commonService.shopView.value; else listView">
-                        <app-product-grid></app-product-grid>
+                        <app-product-grid [products]="item"></app-product-grid>
                     </div>
                     <ng-template #listView>
-                        <app-product-list></app-product-list>
+                        <app-product-list [products]="item"></app-product-list>
                     </ng-template>
                 </ng-container>
                 <div class="col-12">

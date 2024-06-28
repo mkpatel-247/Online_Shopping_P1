@@ -1,14 +1,8 @@
-<div class="position-relative">
-    <div class="position-absolute" style="top: 50px; right: 100px; z-index: 100;">
-        <div class="rounded-2 float-right" *ngIf="toastService.showToast$ | async"
-            [ngClass]="{'bg-success':  (toastService.toastState$ | async) === 'success-toast', 'bg-danger' : (toastService.toastState$ | async) === 'danger-toast', 'bg-warning' : (toastService.toastState$ | async) === 'warning-toast' }">
-            <div class="toast-header ps-2">
-                <i [ngClass]="toastService.toastIcon$ | async"></i>
-                <strong class="me-auto text-black fs-6 p-2">{{toastService.toastMessage$ | async}}</strong>
-                <button type="button" class="btn " (click)="toastService.closeToast()">
-                    <i class="fas fa-times text-black"></i>
-                </button>
-            </div>
-        </div>
+<ng-container *ngFor="let item of toastService.toasts">
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1200" *ngIf="item.show">
+        <ngb-toast [class]="item.class" [autohide]="true" [delay]="3000" (click)="toastService.closeToast()">
+            <i class="{{ toastService }}"></i>
+            {{ item.message }}
+        </ngb-toast>
     </div>
-</div>
+</ng-container>

@@ -1,10 +1,10 @@
 export const TOAST_STATE = {
-    success: 'success-toast',
-    warning: 'warning-toast',
-    danger: 'danger-toast'
+    success: 'bg-success',
+    warning: 'bg-warning',
+    danger: 'bg-danger'
 };
 export const TOAST_ICON = {
-    successIcon: "text-success fas fa-solid fa-check",
-    warningIcon: "text-warning fas fa-exclamation-circle",
-    dangerIcon: "text-danger fas fa-exclamation-triangle"
+    successIcon: "text-success fas fa-solid fa-check text-light",
+    warningIcon: "text-warning fas fa-exclamation-circle text-light",
+    dangerIcon: "text-danger fas fa-exclamation-triangle text-light"
 }
