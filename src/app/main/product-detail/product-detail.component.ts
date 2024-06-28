@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService } from 'src/app/shared/service/product.service';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { RelatedProductComponent } from './related-product/related-product.component';
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RelatedProductComponent],
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.scss']
 })
@@ -15,7 +16,7 @@ export class ProductDetailComponent implements OnInit {
   products: any = '';
   colorSizeForm!: FormGroup;
 
-  constructor(private productService: ProductService, private fb: FormBuilder) { }
+  constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
     this.getProductsData();

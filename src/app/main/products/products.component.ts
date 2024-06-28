@@ -4,15 +4,15 @@ import { CommonService } from 'src/app/shared/service/common.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { FilterByComponent } from './filter-by/filter-by.component';
 import { ViewTypeComponent } from './view-type/view-type.component';
-import { ProductCardComponent } from '../product-grid/product-grid.component';
+import { ProductGridComponent } from '../product-grid/product-grid.component';
 import { ProductListComponent } from '../product-list/product-list.component';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, FilterByComponent, ViewTypeComponent, RouterModule, ProductCardComponent, ProductListComponent],
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss']
+  styleUrls: ['./products.component.scss'],
+  imports: [CommonModule, FilterByComponent, ViewTypeComponent, RouterModule, ProductListComponent, ProductGridComponent]
 })
 export class ProductsComponent implements OnInit, OnDestroy {
 
