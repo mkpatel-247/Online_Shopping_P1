@@ -10,7 +10,7 @@ export const AUTH = {
 
 export const PRODUCT = {
     PRODUCT_DETAILS: `${PRODUCT_PREFIX}`,
-    PRODUCT_BY_ID: `${PRODUCT_PREFIX}`,
+    PRODUCT_BY_ID: `${PRODUCT_PREFIX}/`,
     FEATURED_PRODUCT: `${PRODUCT_PREFIX}/related/`
 }
 

@@ -45,22 +45,22 @@ export class ContactComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * On contact form submit.
+   * On contact form submit API call will be execute to send data.
+   * As per the response from API toast message will be shown.
    */
   handleSubmit() {
     const value = this.contactForm.value;
     if (this.contactForm.valid) {
       this.commonService.sendMessage(value).subscribe({
         next: (response: any) => {
-          console.log("Enquiry Form Response: ", response);
+          this.toastService.showToast(TOAST_ICON.successIcon, TOAST_STATE.success, response.message);
+          this.messageSent = false;
         },
         error: (err: any) => {
-          console.log("Error: ", err);
+          this.toastService.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.warning, 'There is error in sending messages');
         },
         complete: () => { }
       });
-      this.toastService.showToast(TOAST_ICON.successIcon, TOAST_STATE.success, 'Message Sent');
-      this.messageSent = false;
     } else {
       this.contactForm.markAllAsTouched();
     }

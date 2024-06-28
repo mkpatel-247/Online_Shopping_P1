@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { TOAST_STATE } from '../../constant/app.constant';
+import { toast } from '../../interface/shared.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ToastMessageService {
-  public showToast$ = new BehaviorSubject<boolean>(false);
-  public toastMessage$ = new BehaviorSubject<string>('')
-  public toastState$ = new BehaviorSubject<string>(TOAST_STATE.success);
-  public toastIcon$ = new BehaviorSubject<string>('');
+  public toasts: toast[] = [];
+  private showToast$ = new BehaviorSubject<toast>({ message: '', class: '', show: false, icon: '' });
   constructor() { }
 
   /**
@@ -18,20 +16,13 @@ export class ToastMessageService {
    * @param toastMsg message to show on toaster
    */
   showToast(toastIcon: string, toastState: string, toastMsg: string) {
-    this.toastIcon$.next(toastIcon)
-    this.toastState$.next(toastState);
-    this.toastMessage$.next(toastMsg);
-    this.showToast$.next(true);
-
-    setTimeout(() => {
-      this.closeToast()
-    }, 4000);
+    this.toasts.push({ message: toastMsg, class: toastState, show: true, icon: toastIcon });
   }
 
   /**
    * close the toaster notification
    */
   closeToast() {
-    this.showToast$.next(false)
+    this.showToast$.value.show = false;
   }
 }
