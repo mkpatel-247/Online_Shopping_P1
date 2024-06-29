@@ -54,30 +54,68 @@
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="userName" class="col-md-4 col-lg-3 col-form-label">User Name</label>
+                                    <label for="firstName" class="col-md-4 col-lg-3 col-form-label">First Name</label>
                                     <div class="col-md-8 col-lg-9">
-                                        <input name="userName" type="text" class="form-control" id="userName"
-                                            formControlName="userName">
+                                        <input name="firstName" type="text" class="form-control" id="firstName"
+                                            formControlName="firstName">
                                         <span
-                                            *ngIf="(userProfileForm.controls.userName.touched || submitted ) && userProfileForm.controls.userName.hasError('required')"
+                                            *ngIf="(fc.firstName.touched || submitted ) && fc.firstName.hasError('required')"
                                             class="text-danger"
-                                            [ngClass]="{'border-danger':(userProfileForm.controls.userName.touched || submitted ) && userProfileForm.controls.userName.hasError('required')}">
-                                            Username is required.
+                                            [ngClass]="{'border-danger':(fc.firstName.touched || submitted ) && fc.firstName.hasError('required')}">
+                                            First name is required.
                                         </span>
                                     </div>
                                 </div>
-
+                                <div class="row mb-3">
+                                    <label for="lastName" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="lastName" type="text" class="form-control" id="lastName"
+                                            formControlName="lastName"
+                                            [ngClass]="{'border-danger':(fc.lastName.touched || submitted ) && fc.lastName.hasError('required')}">
+                                        <span
+                                            *ngIf="(fc.lastName.touched || submitted ) && fc.lastName.hasError('required')"
+                                            class="text-danger">
+                                            Last name is required.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="lastName" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="lastName" type="text" class="form-control" id="lastName"
+                                            formControlName="lastName"
+                                            [ngClass]="{'border-danger':(fc.lastName.touched || submitted ) && fc.lastName.hasError('required')}">
+                                        <span
+                                            *ngIf="(fc.lastName.touched || submitted ) && fc.lastName.hasError('required')"
+                                            class="text-danger">
+                                            Last name is required.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="phone" class="col-md-4 col-lg-3 col-form-label">Phone NUmber</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="phone" type="text" class="form-control" id="phone"
+                                            formControlName="phone"
+                                            [ngClass]="{'border-danger':(fc.phone.touched || submitted ) && fc.phone.hasError('required')}">
+                                        <span *ngIf="(fc.phone.touched || submitted ) && fc.phone.hasError('required')"
+                                            class="text-danger">
+                                            Phone Number is required.
+                                        </span>
+                                        <span *ngIf="fc.phone.hasError('pattern')" class="text-danger">
+                                            Phone must be between 0-9.
+                                        </span>
+                                    </div>
+                                </div>
                                 <div class="row mb-3">
                                     <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="email" type="email" class="form-control" id="Email"
                                             formControlName="email"
-                                            [ngClass]="{'border-danger':(userProfileForm.controls.email.touched || submitted ) && userProfileForm.controls.email.hasError('required')}">
-                                        <span
-                                            *ngIf="(userProfileForm.controls.email.touched || submitted ) && userProfileForm.controls.email.hasError('required')"
+                                            [ngClass]="{'border-danger':(fc.email.touched || submitted ) && fc.email.hasError('required')}">
+                                        <span *ngIf="(fc.email.touched || submitted ) && fc.email.hasError('required')"
                                             class="text-danger">Email is required.</span>
-                                        <span
-                                            *ngIf="userProfileForm.controls.email.hasError('email') && userProfileForm.value.email"
+                                        <span *ngIf="fc.email.hasError('email') && userProfileForm.value.email"
                                             class="text-danger">
                                             Enter a valid email.</span>
                                     </div>

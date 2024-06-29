@@ -14,9 +14,11 @@ import { isEmailValid, isPasswordStrong } from 'src/app/shared/validators/custom
 export class RegisterComponent {
 
   registrationForm = new FormGroup({
-    username: new FormControl('', [Validators.required]),
+    firstName: new FormControl('', [Validators.required]),
+    lastName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, isEmailValid()]),
-    password: new FormControl('', [Validators.required, isPasswordStrong()])
+    password: new FormControl('', [Validators.required, isPasswordStrong()]),
+    phone: new FormControl('', [Validators.required, Validators.pattern('[0-9]*')]),
   });
   submitted: boolean = false;
   showPassword: boolean = false;
@@ -32,7 +34,7 @@ export class RegisterComponent {
     return this.registrationForm.controls;
   }
 
-  handleLogin() {
+  handleSubmit() {
     this.submitted = true;
 
     if (this.registrationForm.valid) {
