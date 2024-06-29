@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService } from 'src/app/shared/service/product.service';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { RelatedProductComponent } from './related-product/related-product.component';
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule, RelatedProductComponent],
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.scss']
 })
@@ -15,22 +16,22 @@ export class ProductDetailComponent implements OnInit {
   products: any = '';
   colorSizeForm!: FormGroup;
 
-  constructor(private productService: ProductService, private fb: FormBuilder) { }
+  constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
     this.getProductsData();
-    this.colorSizeControls();
+    this.colorSizeFormControls();
   }
 
   /**
-   * Available Sizes form.
+   * Form controls for color and size.
    */
-  colorSizeControls() {
+  colorSizeFormControls() {
     this.colorSizeForm = new FormGroup({
-      size: new FormArray([]),
-      color: new FormArray([]),
+      size: new FormControl(''),
+      color: new FormControl(''),
+      quantity: new FormControl(1)
     })
-    
   }
 
   /**
@@ -42,11 +43,16 @@ export class ProductDetailComponent implements OnInit {
         this.products = res[0];
       },
       error: (err: any) => {
-
+        //Toast Message.
       },
-      complete: () => {
-
-      }
     })
+  }
+
+  addToCart() {
+    if (this.colorSizeForm.valid) {
+      console.log();
+
+    }
+    console.log(this.colorSizeForm.value);
   }
 }

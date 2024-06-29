@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ProductListComponent } from '../product-list/product-list.component';
 import { isEmailValid } from 'src/app/shared/validators/custom.validator';
+import { ProductListComponent } from '../products/product-list/product-list.component';
 
 @Component({
   selector: 'app-user-profile',
