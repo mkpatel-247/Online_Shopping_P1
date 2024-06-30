@@ -1,8 +1,7 @@
-<section class="container-fluid gradient-bg d-flex flex-column justify-content-center align-items-center rounded-lg w-100"
-    style="height: 100vh;">
-    <form class="bg-light shadow rounded-lg form-bg" [formGroup]="registrationForm"
-        (ngSubmit)="handleSubmit()">
-        <div class="row justify-content-center align-items-center p-lg-3 p-md-0">
+<section class="container-fluid gradient-bg d-flex flex-column justify-content-center align-items-center rounded-lg"
+    style="height: auto; min-height: 100vh;">
+    <form class="bg-light shadow rounded-lg form-bg" [formGroup]="registrationForm" (ngSubmit)="handleSubmit()">
+        <div class="row justify-content-center align-items-center p-lg-3 p-3">
             <div class="col-xl-6 col-lg-8 col-md-10 col-sm-12">
                 <h2 class="mb-3 text-center text-color">Create Account</h2>
                 <hr class="border-2 border-black">
@@ -10,9 +9,8 @@
                     <label for="firstName" class="form-label">First Name<span class="text-danger">*</span></label>
                     <input type="text" class="form-control rounded" id="firstName" placeholder="Enter your first name"
                         formControlName="firstName"
-                        [ngClass]="{'border-danger':(fc.firstName.touched || submitted ) && fc.firstName.hasError('required')}">
-                    <span *ngIf="(fc.firstName.touched || submitted ) && fc.firstName.hasError('required')"
-                        class="text-danger">
+                        [ngClass]="{'border-danger': (fc.firstName.touched || submitted) && fc.firstName.hasError('required')}">
+                    <span *ngIf="(fc.firstName.touched || submitted) && fc.firstName.hasError('required')" class="text-danger">
                         First name is required.
                     </span>
                 </div>
@@ -20,9 +18,8 @@
                     <label for="lastName" class="form-label">Last Name<span class="text-danger">*</span></label>
                     <input type="text" class="form-control rounded" id="lastName" placeholder="Enter your last name"
                         formControlName="lastName"
-                        [ngClass]="{'border-danger':(fc.lastName.touched || submitted ) && fc.lastName.hasError('required')}">
-                    <span *ngIf="(fc.lastName.touched || submitted ) && fc.lastName.hasError('required')"
-                        class="text-danger">
+                        [ngClass]="{'border-danger': (fc.lastName.touched || submitted) && fc.lastName.hasError('required')}">
+                    <span *ngIf="(fc.lastName.touched || submitted) && fc.lastName.hasError('required')" class="text-danger">
                         Last name is required.
                     </span>
                 </div>
@@ -30,13 +27,11 @@
                     <label for="phone" class="form-label">Phone Number<span class="text-danger">*</span></label>
                     <input type="text" class="form-control rounded" id="phone" placeholder="Enter your phone number"
                         formControlName="phone"
-                        [ngClass]="{'border-danger':(fc.phone.touched || submitted ) && fc.phone.hasError('required')}">
-                    <span *ngIf="(fc.phone.touched || submitted ) && fc.phone.hasError('required')"
-                        class="text-danger">
+                        [ngClass]="{'border-danger': (fc.phone.touched || submitted) && fc.phone.hasError('required')}">
+                    <span *ngIf="(fc.phone.touched || submitted) && fc.phone.hasError('required')" class="text-danger">
                         Phone is required.
                     </span>
-                    <span *ngIf="fc.phone.hasError('pattern')"
-                        class="text-danger">
+                    <span *ngIf="fc.phone.hasError('pattern')" class="text-danger">
                         Phone must be between 0-9.
                     </span>
                 </div>
@@ -44,8 +39,8 @@
                     <label for="email" class="form-label">Email address<span class="text-danger">*</span></label>
                     <input type="email" class="form-control rounded" id="email" placeholder="Enter your email"
                         formControlName="email"
-                        [ngClass]="{'border-danger':(fc.email.touched || submitted ) && fc.email.hasError('required')}">
-                    <span *ngIf="(fc.email.touched || submitted ) && fc.email.hasError('required')" class="text-danger">
+                        [ngClass]="{'border-danger': (fc.email.touched || submitted) && fc.email.hasError('required')}">
+                    <span *ngIf="(fc.email.touched || submitted) && fc.email.hasError('required')" class="text-danger">
                         Email is required.
                     </span>
                     <span *ngIf="fc.email.hasError('email') && registrationForm.value.email" class="text-danger">
@@ -57,16 +52,16 @@
                     <div class="d-flex flex-row">
                         <input [type]="!showPassword ? 'password' : 'text'" class="form-control rounded" id="password"
                             placeholder="Enter your password" formControlName="password"
-                            [ngClass]="{'border-danger':(fc.password.touched || submitted ) && fc.password.hasError('required')}">
-                        <span class="btn btn-color bi" [ngClass]="!showPassword ? 'bi-eye-slash' : 'bi-eye'"
+                            [ngClass]="{'border-danger': (fc.password.touched || submitted) && fc.password.hasError('required')}">
+                        <span class="btn btn-color rounded bi" [ngClass]="!showPassword ? 'bi-eye-slash' : 'bi-eye'"
                             (click)="showPassword = !showPassword"></span>
                     </div>
-                    <span class="text-danger"
-                        *ngIf="(fc.password.touched || submitted ) && fc.password.hasError('required')">
+                    <span class="text-danger" *ngIf="(fc.password.touched || submitted) && fc.password.hasError('required')">
                         Password is required.
                     </span>
-                    <span *ngIf="fc.password.hasError('password') && registrationForm.value.password"
-                        class="text-danger">Enter a strong Password.</span>
+                    <span *ngIf="fc.password.hasError('password') && registrationForm.value.password" class="text-danger">
+                        Enter a strong Password.
+                    </span>
                 </div>
                 <button type="submit" class="btn btn-color rounded w-100 my-3">Register</button>
                 <p class="text-center">Already have an account?<a class="text-blue" routerLink="/auth/login"> Login</a></p>
