@@ -1,13 +1,16 @@
 <div class="product-item bg-light mb-4">
     <div class="product-img position-relative overflow-hidden">
-        <img class="img-fluid w-100" src="{{products.images[0]}}" alt="">
+        <ng-container *ngFor="let item of products.images; first as isFirst">
+            <img class="img-fluid w-100" src="{{item}}" alt="item" *ngIf="isFirst">
+        </ng-container>
         <div class="product-action">
             <a class="btn btn-outline-dark btn-square" routerLink=""><i class="far fa-heart"></i></a>
-            <a class="btn btn-outline-dark btn-square" routerLink=""><i class="fa fa-search"></i></a>
+            <a class="btn btn-outline-dark btn-square" routerLink="/product/{{products._id}}"><i
+                    class="fa fa-search"></i></a>
         </div>
     </div>
     <div class="text-center py-4">
-        <a class="h6 text-decoration-none text-truncate" routerLink="">{{ products.name }}</a>
+        <a class="h6 text-decoration-none text-truncate" routerLink="/product/{{products._id}}">{{ products.name }}</a>
         <div class="d-flex align-items-center justify-content-center mt-2">
             <h5>${{products.price}}</h5>
             <h6 class="text-muted ml-2"><del>$123.00</del></h6>

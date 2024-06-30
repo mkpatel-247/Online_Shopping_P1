@@ -1,8 +1,9 @@
 <ng-container *ngFor="let item of toastService.toasts">
     <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1200" *ngIf="item.show">
         <ngb-toast [class]="item.class" [autohide]="true" [delay]="3000" (click)="toastService.closeToast()">
-            <i class="{{ toastService }}"></i>
-            {{ item.message }}
+            <i class="{{ item.icon }}">
+                {{ item.message }}
+            </i>
         </ngb-toast>
     </div>
 </ng-container>
