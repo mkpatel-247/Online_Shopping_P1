@@ -1,21 +1,34 @@
 <div class="card mb-3">
-    <div class="d-flex align-items-center">
-        <div class="flex-shrink-1">
-            <img [src]="products.images[0]" alt="...">
+    <div class="d-flex flex-row align-items-center">
+        <div class="p-2">
+            <img [src]="products.images[0]" class="img-fluid rounded" alt="Product Image" style="max-width: 150px;">
         </div>
         <div class="card-body">
             <h5 class="card-title">
-                {{ products.name }}
+                <a routerLink="/product/{{products._id}}" class="h6 text-decoration-none text-truncate">
+                    {{ products.name }}
+                </a>
             </h5>
-            <div class="flex-grow-1 ms-3">
-                {{ products.price }}
+            <div class="d-flex align-items-center">
+                <h5 class="me-2">${{products.price}}</h5>
+                <h6 class="text-muted"><del>$123.00</del></h6>
             </div>
-            <div class="text-center d-grid gap-2 d-md-flex">
-                <button type="submit" class="btn btn-outline-primary">
+            <div class="d-flex mb-1">
+                <ngb-rating [rate]="products.avgStars || 0" [max]="5">
+                    <ng-template>
+                        <small>
+                            <i class="fa fa-star text-primary mr-1"></i>
+                        </small>
+                    </ng-template>
+                </ngb-rating>
+                <small>({{products.totalReview}})</small>
+            </div>
+            <div class="text-center d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="button" class="btn btn-outline-primary">
                     Add to Wishlist
                 </button>
                 <button type="button" class="btn btn-primary">
-                    Add to cart
+                    Add to Cart
                 </button>
             </div>
         </div>

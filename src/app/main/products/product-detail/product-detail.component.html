@@ -21,7 +21,7 @@
         <div class="col-lg-7 h-auto mb-30">
             <div class="h-100 bg-light p-30">
                 <!-- Product Name -->
-                <h3>{{ products.productName }}</h3>
+                <h3>{{ products.name }}</h3>
                 <div class="d-flex mb-3">
                     <!-- Rating -->
                     <div class="text-primary mr-2">
@@ -34,12 +34,12 @@
                     <small class="pt-1">(99 Reviews)</small>
                 </div>
                 <h3 class="font-weight-semi-bold mb-4">{{ products.price }}</h3>
-                <p class="mb-4">{{ products.description }}</p>
+                <p class="mb-4">{{ productDescription.short }}</p>
                 <form [formGroup]="colorSizeForm" (ngSubmit)="addToCart()">
                     <div class="d-flex mb-3">
                         <strong class="text-dark mr-3">Sizes:</strong>
                         <div class="custom-control custom-radio custom-control-inline"
-                            *ngFor="let item of products.size; index as i">
+                            *ngFor="let item of products.sizes; index as i">
 
                             <input type="radio" class="custom-control-input" [id]="item" [value]="item" name="size"
                                 formControlName="size">
@@ -53,7 +53,7 @@
                     <div class="d-flex mb-4">
                         <strong class="text-dark mr-3">Colors:</strong>
                         <div class="custom-control custom-radio custom-control-inline"
-                            *ngFor="let item of products.color; index as i">
+                            *ngFor="let item of products.colors; index as i">
                             <input type="radio" class="custom-control-input" [id]="item" [value]="item" name="color"
                                 formControlName="color">
 
@@ -75,7 +75,8 @@
                                 [value]="colorSizeForm.get('quantity')?.value">
                             <div class="input-group-btn">
                                 <button class="btn btn-primary btn-plus" type="button"
-                                    (click)="colorSizeForm.get('quantity')?.setValue(colorSizeForm.get('quantity')?.value+1)">
+                                    (click)="colorSizeForm.get('quantity')?.setValue(colorSizeForm.get('quantity')?.value+1)"
+                                    [disabled]="!(products.quantity > colorSizeForm.get('quantity')?.value)">
                                     <i class="fa fa-plus"></i>
                                 </button>
                             </div>
