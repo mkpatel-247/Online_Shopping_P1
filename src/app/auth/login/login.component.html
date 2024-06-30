@@ -9,7 +9,7 @@
                 <hr class="border-2 border-black">
                 <div class="my-3">
                     <label for="email" class="form-label">Email address<span class="text-danger">*</span></label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter your email"
+                    <input type="email" class="form-control rounded" id="email" placeholder="Enter your email"
                         formControlName="email"
                         [ngClass]="{'border-danger':(fc.email.touched || submitted ) && fc.email.hasError('required')}">
                     <span *ngIf="(fc.email.touched || submitted ) && fc.email.hasError('required')"
@@ -20,7 +20,7 @@
                 <div class="">
                     <label for="password" class="form-label">Password<span class="text-danger">*</span></label>
                     <div class="d-flex flex-row">
-                        <input [type]="!showPassword ? 'password' : 'text'" class="form-control" id="password"
+                        <input [type]="!showPassword ? 'password' : 'text'" class="form-control rounded" id="password"
                             placeholder="Enter your password" formControlName="password"
                             [ngClass]="{'border-danger':(fc.password.touched || submitted ) && fc.password.hasError('required')}">
                         <span class="btn btn-color bi" [ngClass]="!showPassword ? 'bi-eye-slash' : 'bi-eye'"

@@ -15,13 +15,22 @@ export class UserProfileComponent {
 
   userProfileForm = new FormGroup({
     image: new FormControl(''),
-    userName: new FormControl('Dhvani', [Validators.required]),
+    firstName: new FormControl('Dhvani', [Validators.required]),
+    lastName: new FormControl('Patel', [Validators.required]),
+    phone : new FormControl('', [Validators.required, Validators.pattern('[0-9]*')]),
     email: new FormControl('k.anderson@example.com', [Validators.required, isEmailValid()]),
     password: new FormControl('asdfasdfasdf', [Validators.required])
   })
   showPassword: boolean = false;
   submitted: boolean = false;
   profileImage: any;
+
+  /**
+   * getting form all controls
+   */
+  get fc() {
+    return this.userProfileForm.controls;
+  }
 
   /**
    * set the profile image as preview
