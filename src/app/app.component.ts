@@ -24,9 +24,7 @@ export class AppComponent implements OnInit {
         this.showLoading = true;
       }
       if (e instanceof NavigationEnd) {
-        setTimeout(() => {
-          this.showLoading = false;
-        }, 600);
+        this.showLoading = false;
         /**
          * Page is will not refresh due to use of routerLink.
          * So, manually we have to move to top of Page

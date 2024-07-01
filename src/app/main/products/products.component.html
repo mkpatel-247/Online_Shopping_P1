@@ -16,7 +16,10 @@
                         <app-product-list [products]="item"></app-product-list>
                     </ng-template>
                 </ng-container>
-                <div class="col-12">
+                <ng-container *ngIf="!productDetails.data?.length">
+                    <h3 class="text-center">No product exist...</h3>
+                </ng-container>
+                <div class="col-12" *ngIf="productDetails.data?.length">
                     <nav>
                         <ul class="pagination justify-content-center">
                             <li class="page-item disabled"><a class="page-link" href="#"><span>Previous</span></a></li>
