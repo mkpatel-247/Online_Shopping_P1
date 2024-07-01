@@ -34,10 +34,10 @@ export class HeaderComponent implements OnInit {
   getUserDetails() {
     this.authService.getSingleUser().subscribe({
       next: (res: any) => {
+
         if (res.success) {
           this.userDetails = res.data
         }
-
       },
       error: (err: any) => {
         this.toastService.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.danger, "Error occurred while fetching your data")

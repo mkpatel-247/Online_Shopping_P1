@@ -29,7 +29,8 @@ export class ProductDetailComponent implements OnInit {
     this.colorSizeFormControls();
     this.storedItem = JSON.parse(localStorage.getItem('cartItems') as string);
     if (!this.storedItem) {
-      localStorage.setItem('cartItems', JSON.stringify([]));
+      this.storedItem = [];
+      localStorage.setItem('cartItems', JSON.stringify(this.storedItem));
     }
     else if (this.storedItem.length > 0) {
 

@@ -1,7 +1,8 @@
 <div class="card mb-3">
     <div class="d-flex flex-row align-items-center">
         <div class="p-2">
-            <img [src]="products.images[0]" class="img-fluid rounded" alt="Product Image" style="max-width: 150px;">
+            <img [src]="products.images?.length ? products.images[0] : '/assets/img/no-image.webp'"
+                class="img-fluid rounded" alt="Product Image" style="max-width: 250px;">
         </div>
         <div class="card-body">
             <h5 class="card-title">
