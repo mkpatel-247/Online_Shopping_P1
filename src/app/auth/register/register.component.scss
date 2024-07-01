@@ -4,9 +4,14 @@
 }
 
 .form-bg {
-    width: 100%; 
-    max-width: 800px;
+    width: 100%;
+    max-width: 1000px;
     margin: 20px;
 }
 
+@media (min-width: 2000px) {
 
+    .form-bg {
+        max-width: 2000px;
+    }
+}

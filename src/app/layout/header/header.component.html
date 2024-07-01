@@ -10,7 +10,7 @@
         </div>
         <div class="col-lg-6 text-center text-lg-right">
             <div class="d-inline-flex align-items-center">
-                <div class="btn-group">
+                <div class="btn-group" *ngIf="!userDetails">
                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">
                         My Account
                     </button>
@@ -19,9 +19,9 @@
                         <button class="dropdown-item" type="button" routerLink="/auth/register">Sign up</button>
                     </div>
                 </div>
-                <div class="btn-group">
+                <div class="btn-group" *ngIf="userDetails">
                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">
-                        Welcome , Dhvani
+                        Welcome , {{userDetails.firstName}}
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
                         <button class="dropdown-item bi bi-file-earmark-lock" type="button"

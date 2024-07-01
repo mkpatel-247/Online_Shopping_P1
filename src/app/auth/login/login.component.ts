@@ -3,6 +3,9 @@ import { CommonModule, Location } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { isEmailValid } from 'src/app/shared/validators/custom.validator';
+import { AuthService } from 'src/app/shared/service/auth.service';
+import { ToastMessageService } from 'src/app/shared/components/toast-message/toast-message.service';
+import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
 
 @Component({
   selector: 'app-login',
@@ -14,13 +17,13 @@ import { isEmailValid } from 'src/app/shared/validators/custom.validator';
 export class LoginComponent {
 
   loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required, isEmailValid()]),
+    email: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required])
   });
   submitted: boolean = false;
   showPassword: boolean = false;
 
-  constructor(private router: Router,) { }
+  constructor(private router: Router, private authService: AuthService, private toastService: ToastMessageService) { }
 
   ngOnInit(): void {
   }
@@ -33,6 +36,20 @@ export class LoginComponent {
 
   handleLogin() {
     this.submitted = true;
+    if (this.loginForm.valid) {
+      this.authService.loggedInUser(this.loginForm.value).subscribe({
+        next: (res: any) => {
+          if (res.success) {
+            localStorage.setItem('loginToken', res.token);
+            this.router.navigate(['/product'])
+          }
+        },
+        error: (err: any) => {
+          this.toastService.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.danger, "Email or Password is Invalid")
+
+        }
+      })
+    }
   }
 
 }
