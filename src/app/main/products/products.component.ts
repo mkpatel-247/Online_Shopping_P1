@@ -25,9 +25,11 @@ export class ProductsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     //Add router's data into common service breadCrumb subject
     this.commonService.breadCrumb.next(this.route.data);
-    this.route.params.subscribe({
+    this.route.queryParams.subscribe({
       next: (param: any) => {
-        this.catId = param['id'];
+        this.catId = param['categoryId'];
+        console.log(this.catId);
+
         this.getProducts();
       }
     })
@@ -47,9 +49,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
         next: (res: any) => {
           this.productDetails = res.data;
         },
-        error: (err: any) => {
-
-        }
+        error: (err: any) => { }
       })
     } else {
       this.productService.getProducts().subscribe({

@@ -22,8 +22,10 @@ export class CartComponent implements OnInit {
    */
   getCartItem() {
     this.cartItems = JSON.parse(localStorage.getItem('cartItems') as string);
-    this.cartItems.forEach((item: any) => {
-      this.cartTotal += item.price * item.quantity;
-    })
+    if (this.cartItems) {
+      this.cartItems.forEach((item: any) => {
+        this.cartTotal += item.price * item.quantity;
+      })
+    }
   }
 }
