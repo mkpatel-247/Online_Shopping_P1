@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PRODUCT } from '../constant/api.constant';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
+  cartItems = new BehaviorSubject<number>(0)
   constructor(private http: HttpClient) { }
 
   /**
