@@ -11,17 +11,27 @@ import { ProductService } from 'src/app/shared/service/product.service';
   templateUrl: './header-menu.component.html',
   styleUrls: ['./header-menu.component.scss']
 })
-export class HeaderMenuComponent  implements OnInit{ 
+export class HeaderMenuComponent implements OnInit {
+  categories: any = '';
+  numberOfCartItem: number = 0;
+  constructor(public productService: ProductService) { }
 
-  numberOfCartItem : number = 0;
-  constructor(public productService: ProductService) {}
-  
   ngOnInit(): void {
+    this.getCategories();
     const storedItem = JSON.parse(localStorage.getItem('cartItems') as string);
-    if(storedItem) {
-      storedItem.filter((item:any) => this.numberOfCartItem += item.quantity);
+    if (storedItem) {
+      storedItem.filter((item: any) => this.numberOfCartItem += item.quantity);
       this.productService.cartItems.next(this.numberOfCartItem)
     }
-    this.productService.cartItems.subscribe((res:number) => this.numberOfCartItem = res)    
+    this.productService.cartItems.subscribe((res: number) => this.numberOfCartItem = res)
+  }
+
+  getCategories() {
+    this.productService.getAllCategories().subscribe({
+      next: (response: any) => {
+        this.categories = response.data;
+      },
+      error: () => { }
+    })
   }
 }

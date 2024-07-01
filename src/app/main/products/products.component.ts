@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CommonService } from 'src/app/shared/service/common.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
@@ -18,13 +18,19 @@ import { ProductListComponent } from './product-list/product-list.component';
 export class ProductsComponent implements OnInit, OnDestroy {
 
   productDetails: any = '';
+  catId: any = '';
 
   constructor(private route: ActivatedRoute, public commonService: CommonService, private productService: ProductService) { }
 
   ngOnInit(): void {
     //Add router's data into common service breadCrumb subject
     this.commonService.breadCrumb.next(this.route.data);
-    this.getProducts();
+    this.route.params.subscribe({
+      next: (param: any) => {
+        this.catId = param['id'];
+        this.getProducts();
+      }
+    })
   }
 
   ngOnDestroy(): void {
@@ -36,17 +42,22 @@ export class ProductsComponent implements OnInit, OnDestroy {
    * Fetch product details from API.
    */
   private getProducts() {
-    this.productService.getAllProductDetails()
-      .then((value: any) => this.productDetails = value.data)
-    //   .subscribe({
-    //   next: (response: any) => {
-    //     this.productDetails = response;
-    //     console.log(response);
+    if (this.catId) {
+      this.productService.getCategoryProducts(this.catId).subscribe({
+        next: (res: any) => {
+          this.productDetails = res.data;
+        },
+        error: (err: any) => {
 
-    //   },
-    //   error: (err: any) => {
-    //     //TOAST Message.
-    //   }
-    // })
+        }
+      })
+    } else {
+      this.productService.getProducts().subscribe({
+        next: (res: any) => {
+          this.productDetails = res.data;
+        },
+        error: (error: any) => { }
+      })
+    }
   }
 }
