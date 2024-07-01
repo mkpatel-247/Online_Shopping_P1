@@ -10,7 +10,7 @@
         </div>
         <div class="col-lg-6 text-center text-lg-right">
             <div class="d-inline-flex align-items-center">
-                <div class="btn-group" *ngIf="!userDetails">
+                <div class="btn-group mr-2" *ngIf="!userDetails">
                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">
                         My Account
                     </button>
@@ -19,7 +19,7 @@
                         <button class="dropdown-item" type="button" routerLink="/auth/register">Sign up</button>
                     </div>
                 </div>
-                <div class="btn-group" *ngIf="userDetails">
+                <div class="btn-group mr-2" *ngIf="userDetails">
                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">
                         Welcome , {{userDetails.firstName}}
                     </button>
@@ -68,11 +68,11 @@
             <form action="">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search for products">
-                    <div class="input-group-append">
-                        <span class="input-group-text bg-transparent text-primary">
-                            <i class="fa fa-search"></i>
-                        </span>
-                    </div>
+                    <!-- <div class="input-group-append"> -->
+                    <span class="input-group-text bg-transparent text-primary">
+                        <i class="fa fa-search"></i>
+                    </span>
+                    <!-- </div> -->
                 </div>
             </form>
         </div>

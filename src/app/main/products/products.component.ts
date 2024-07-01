@@ -28,8 +28,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.route.queryParams.subscribe({
       next: (param: any) => {
         this.catId = param['categoryId'];
-        console.log(this.catId);
-
         this.getProducts();
       }
     })

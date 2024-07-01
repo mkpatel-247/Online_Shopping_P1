@@ -64,10 +64,8 @@ export class ProductDetailComponent implements OnInit {
     this.productService.getProductById(this.proID).subscribe({
       next: (res: any) => {
         if (res.success) {
-          res['data'].forEach((element: any) => {
-            this.products = element;
-            this.productDescription = element.description;
-          });
+          this.products = res.data;
+          this.productDescription = res.data.description;
         } else {
           this.router.navigateByUrl('/product');
         }

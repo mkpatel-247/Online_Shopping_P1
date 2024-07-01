@@ -43,4 +43,12 @@ export class ProductService {
   getCategoryProducts(categoryId: string): Observable<any> {
     return this.http.get(PRODUCT.RELATED_PRODUCT + categoryId);
   }
+
+  /**
+   * Get the response of featured product.
+   * @returns response of feature products.
+   */
+  getFeatureProducts(): Observable<any> {
+    return this.http.get(PRODUCT.PRODUCT_DETAILS, { params: { isFeatured: true } });
+  }
 }
