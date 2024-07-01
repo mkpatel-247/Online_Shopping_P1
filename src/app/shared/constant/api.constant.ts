@@ -1,6 +1,6 @@
 import { API_PREFIX } from "src/environment/api.env"
 
-const AUTH_PREFIX = `${API_PREFIX}/user`
+export const AUTH_PREFIX = `${API_PREFIX}/user`
 const PRODUCT_PREFIX = `${API_PREFIX}/product`
 export const CATEGORY = `${API_PREFIX}/category/get-all-categories`
 

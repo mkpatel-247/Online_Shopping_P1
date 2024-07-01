@@ -5,6 +5,7 @@
         "averageRating": "4.4",
         "price": "$50",
         "description": "It is good a casual t-Shirt.",
+        "isFeatured": true,
         "size": [
             "S",
             "M",

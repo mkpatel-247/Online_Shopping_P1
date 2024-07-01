@@ -74,7 +74,7 @@
                                 </button>
                             </div>
                             <input type="text" class="form-control bg-secondary border-0 text-center"
-                                [value]="colorSizeForm.get('quantity')?.value">
+                                [value]="colorSizeForm.get('quantity')?.value" formControlName="quantity">
                             <div class="input-group-btn">
                                 <button class="btn btn-primary btn-plus" type="button"
                                     (click)="colorSizeForm.get('quantity')?.setValue(colorSizeForm.get('quantity')?.value+1)"

@@ -14,8 +14,6 @@
                         [ngClass]="{'border-danger':(fc.email.touched || submitted ) && fc.email.hasError('required')}">
                     <span *ngIf="(fc.email.touched || submitted ) && fc.email.hasError('required')"
                         class="text-danger">Email is required.</span>
-                    <span *ngIf="fc.email.hasError('email') && loginForm.value.email" class="text-danger">
-                        Enter a valid email.</span>
                 </div>
                 <div class="">
                     <label for="password" class="form-label">Password<span class="text-danger">*</span></label>
