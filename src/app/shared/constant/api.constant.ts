@@ -3,6 +3,7 @@ import { API_PREFIX } from "src/environment/api.env"
 export const AUTH_PREFIX = `${API_PREFIX}/user`
 const PRODUCT_PREFIX = `${API_PREFIX}/product`
 export const CATEGORY = `${API_PREFIX}/category/get-all-categories`
+const CART_PREFIX = `${API_PREFIX}/cart`
 
 export const AUTH = {
     LOGIN_API: `${AUTH_PREFIX}/login`,
@@ -16,9 +17,16 @@ export const PRODUCT = {
 }
 
 export const CONTACT = {
-    enquiry: `${API_PREFIX}/enquiry`,
+    ENQUIRY: `${API_PREFIX}/enquiry`,
 }
 
 export const HOME = {
-    banner: '/assets/dummyData/banner.json'
+    BANNER: '/assets/dummyData/banner.json'
+}
+
+export const CART = {
+    CREATE_CART_ITEM: `${CART_PREFIX}/manage-cart`,
+    GET_CART_ITEMS: `${CART_PREFIX}`,
+    DEL_CART_ITEM: `${CART_PREFIX}/`,
+    CREATE_MULTIPLE_ITEMS: `${CART_PREFIX}/add-multiple-products`
 }

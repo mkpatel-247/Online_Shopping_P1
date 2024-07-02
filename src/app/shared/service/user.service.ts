@@ -1,19 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HOME } from '../constant/api.constant';
+import { AUTH_PREFIX } from '../constant/api.constant';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HomeService {
+export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  /**
-   * @returns json of banner
-   */
-  getBanner(): Observable<any> {
-    return this.http.get(HOME.BANNER)
+  updateUserProfile(updatedProfileData: any): Observable<any> {
+    return this.http.put(AUTH_PREFIX, updatedProfileData);
   }
 }
