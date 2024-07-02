@@ -23,7 +23,7 @@ export class LoginComponent {
   submitted: boolean = false;
   showPassword: boolean = false;
 
-  constructor(private router: Router, private authService: AuthService, private toastService: ToastMessageService) { }
+  constructor(private router: Router, private _location: Location, private authService: AuthService, private toastService: ToastMessageService) { }
 
   ngOnInit(): void {
   }
@@ -42,6 +42,8 @@ export class LoginComponent {
           if (res.success) {
             localStorage.setItem('loginToken', res.token);
             this.router.navigate(['/product'])
+            this.toastService.showToast(TOAST_ICON.successIcon, TOAST_STATE.success, "You've logged in successfully");
+            this._location.back();
           }
         },
         error: (err: any) => {

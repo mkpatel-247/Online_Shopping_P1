@@ -3,14 +3,16 @@ import { CommonModule } from '@angular/common';
 import { ProductService } from 'src/app/shared/service/product.service';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RelatedProductComponent } from './related-product/related-product.component';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ToastMessageService } from 'src/app/shared/components/toast-message/toast-message.service';
 import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
+import { AuthService } from 'src/app/shared/service/auth.service';
+import { CartService } from 'src/app/shared/service/cart.service';
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RelatedProductComponent],
+  imports: [CommonModule, ReactiveFormsModule, RelatedProductComponent, RouterModule],
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -22,21 +24,20 @@ export class ProductDetailComponent implements OnInit {
   colorSizeForm!: FormGroup;
   storedItem: any[] = [];
   proID: string = '';
-  constructor(private productService: ProductService, private route: ActivatedRoute, private toastService: ToastMessageService, private router: Router, private cd: ChangeDetectorRef) { }
+  cartItems: any = [];
+  isItemAlreadyInCart: boolean = false;
+  constructor(private productService: ProductService, private route: ActivatedRoute, private toastService: ToastMessageService, private authService: AuthService, private cartService: CartService, private router: Router, private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
+
+    this.getAllCartItems();
     this.getProductsData();
     this.colorSizeFormControls();
-    this.storedItem = JSON.parse(localStorage.getItem('cartItems') as string);
-    if (!this.storedItem) {
-      localStorage.setItem('cartItems', JSON.stringify([]));
-    }
-    else if (this.storedItem.length > 0) {
-
-      let isItem = this.storedItem.find((item: any) => item.productId === this.proID);
-      this.colorSizeForm.patchValue({ quantity: isItem.quantity, size: isItem.size, color: isItem.color });
-      console.log(this.colorSizeForm.value);
-
+    if (!this.authService.getLoginTokenFromLocalStorage()) {
+      this.storedItem = JSON.parse(localStorage.getItem('cartItems') as string);
+      if (!this.storedItem) {
+        localStorage.setItem('cartItems', JSON.stringify([]));
+      }
     }
   }
 
@@ -46,15 +47,27 @@ export class ProductDetailComponent implements OnInit {
   colorSizeFormControls() {
     this.colorSizeForm = new FormGroup({
       productId: new FormControl(this.route.snapshot.params['id']),
-      name: new FormControl(''),
       size: new FormControl(''),
       color: new FormControl(''),
       quantity: new FormControl(1)
     })
   }
 
-  setProductImages() {
-
+  /**
+   * getting all the cart items
+   */
+  getAllCartItems() {
+    if (this.authService.getLoginTokenFromLocalStorage()) {
+      this.cartService.getAllCartItems().subscribe({
+        next: (res: any) => {
+          this.cartItems = res?.data?.products;
+          this.productService.cartItems.next(this.cartItems.length);
+        },
+        error: (err: any) => {
+          this.cartItems = [];
+        }
+      })
+    }
   }
   /**
    * Get product data from API.
@@ -66,13 +79,14 @@ export class ProductDetailComponent implements OnInit {
         if (res.success) {
           this.products = res.data;
           this.productDescription = res.data.description;
+          this.colorSizeForm.get('size')?.setValue(this.products.sizes[0])
+          this.colorSizeForm.get('color')?.setValue(this.products.colors[0])
         } else {
           this.router.navigateByUrl('/product');
         }
         this.cd.markForCheck();
       },
       error: (err: any) => {
-        //Toast Message.
         this.toastService.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.danger, err.message || "Not Found")
       },
     })
@@ -85,24 +99,67 @@ export class ProductDetailComponent implements OnInit {
    */
   addToCart() {
     if (this.colorSizeForm.valid) {
-      let itemIndex = -1;
-      if (this.storedItem) {
-        itemIndex = this.storedItem.findIndex((item: any) => item.productId === this.colorSizeForm.value.productId);
-      }
-
-      if (itemIndex === -1) {
-        this.colorSizeForm.value.name = this.products.name;
-        let item = { ...this.colorSizeForm.value, images: this.products.images, price: this.products.price }
-        this.storedItem.push(item);
-        this.productService.cartItems.next(this.storedItem.length);
+      if (this.authService.getLoginTokenFromLocalStorage()) {
+        this.manageCartDynamically()
       } else {
-        console.log(this.colorSizeForm.value.quantity, this.storedItem[itemIndex].quantity);
-        this.storedItem[itemIndex].quantity += this.colorSizeForm.value.quantity;
-        this.colorSizeForm.patchValue({ quantity: this.storedItem[itemIndex].quantity })
-        this.productService.cartItems.next(this.storedItem[itemIndex].quantity);
-
+        this.manageCartLocally()
       }
-      localStorage.setItem('cartItems', JSON.stringify(this.storedItem));
     }
+  }
+
+  /**
+   * if user is logged manage cart through api calls
+   */
+  manageCartDynamically() {
+    const quantity = this.colorSizeForm.value.quantity;
+    this.colorSizeForm.value.quantity += ''
+    this.cartService.addCartItem(this.colorSizeForm.value).subscribe({
+      next: (res: any) => {
+        if (res.success) {
+
+          if (!this.isItemInCart()) {
+
+            this.colorSizeForm.value.quantity = quantity + this.productService.cartItems.value;
+            this.productService.cartItems.next(this.cartItems.length + 1);
+            this.toastService.showToast(TOAST_ICON.successIcon, TOAST_STATE.success, 'Item added to cart');
+            this.getAllCartItems();
+          }
+        }
+      },
+      error: (err: any) => {
+        this.toastService.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.danger, "Error occurred while updating cart")
+      }
+    });
+  }
+
+  /**
+   * checks if the item already presents in cart or not
+   */
+  isItemInCart() {
+    this.isItemAlreadyInCart = this.cartItems.find((item: any) => this.proID === item.productId);
+    return this.isItemAlreadyInCart;
+  }
+  /**
+   * if user is not logged in manage cart through local storage
+   */
+  manageCartLocally() {
+    let itemIndex = -1;
+    this.storedItem = JSON.parse(localStorage.getItem('cartItems') as string);
+
+    if (this.storedItem) {
+      itemIndex = this.storedItem.findIndex((item: any) => item.productId === this.colorSizeForm.value.productId);
+    } else {
+      this.storedItem = [];
+    }
+
+    if (itemIndex === -1) {
+      this.colorSizeForm.value.quantity += '';
+      this.storedItem.push(this.colorSizeForm.value);
+      this.productService.cartItems.next(this.storedItem.length);
+    } else {
+      this.isItemAlreadyInCart = true;
+      this.cd.markForCheck();
+    }
+    localStorage.setItem('cartItems', JSON.stringify(this.storedItem));
   }
 }

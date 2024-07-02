@@ -23,6 +23,6 @@ export class CommonService {
    * @returns make a post request to enquiry API.
    */
   sendMessage(data: ContactForm) {
-    return this.http.post(CONTACT.enquiry, data);
+    return this.http.post(CONTACT.ENQUIRY, data);
   }
 }
