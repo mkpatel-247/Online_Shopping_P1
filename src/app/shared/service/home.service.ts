@@ -14,6 +14,6 @@ export class HomeService {
    * @returns json of banner
    */
   getBanner(): Observable<any> {
-    return this.http.get(HOME.banner)
+    return this.http.get(HOME.BANNER)
   }
 }
