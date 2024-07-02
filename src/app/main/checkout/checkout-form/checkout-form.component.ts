@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { isEmailValid } from '../../validators/custom.validator';
+import { isEmailValid } from 'src/app/shared/validators/custom.validator';
 
 @Component({
   selector: 'app-checkout-form',
   standalone: true,
-  imports: [CommonModule,FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './checkout-form.component.html',
   styleUrls: ['./checkout-form.component.scss']
 })
@@ -24,8 +24,8 @@ export class CheckoutFormComponent {
     state: new FormControl('', [Validators.required]),
     zipCode: new FormControl('', [Validators.required])
   });
-  submitted : boolean = false;
-  
+  submitted: boolean = false;
+
   // Getter functions for easy access to form controls
   get fc() { return this.checkoutForm.controls; }
 

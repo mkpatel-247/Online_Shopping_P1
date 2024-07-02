@@ -1,5 +1,4 @@
-<section class="container-fluid gradient-bg d-flex flex-column justify-content-center align-items-center  rounded-lg "
-    style="height: 100vh;">
+<section class="container-fluid gradient-bg d-flex flex-column justify-content-center align-items-center rounded-lg ">
     <form class="position-relative bg-light shadow rounded-lg form-bg" [formGroup]="loginForm"
         (ngSubmit)="handleLogin()">
         <div class="row justify-content-center align-items-center">
@@ -26,7 +25,7 @@
                     </div>
                     <span class="text-danger"
                         *ngIf="(fc.password.touched || submitted ) && fc.password.hasError('required')">
-                        Password isRequired.</span>
+                        Password is Required.</span>
                     <p class="text-right"><small><a routerLink="/auth/forgot-password" class="text-blue ">Forgot
                                 Password?</a></small></p>
                 </div>

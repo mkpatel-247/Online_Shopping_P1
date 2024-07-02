@@ -1,20 +1,20 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CheckoutFormComponent } from 'src/app/shared/components/checkout-form/checkout-form.component';
 import { RouterModule } from '@angular/router';
+import { CheckoutFormComponent } from './checkout-form/checkout-form.component';
 
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [CommonModule,CheckoutFormComponent, RouterModule],
+  imports: [CommonModule, CheckoutFormComponent, RouterModule],
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent {
-  showShippingForm : boolean = false;
+  showShippingForm: boolean = false;
 
-  setShippingForm(checkbox : any) {
+  setShippingForm(checkbox: any) {
     this.showShippingForm = checkbox.checked;
-    
+
   }
 }

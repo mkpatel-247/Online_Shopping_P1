@@ -3,11 +3,14 @@ import { CommonModule } from '@angular/common';
 import { NavigationEnd, NavigationStart, Router, RouterOutlet } from '@angular/router';
 import { ToastMessageComponent } from './shared/components/toast-message/toast-message.component';
 import { LoaderComponent } from './shared/components/loader/loader.component';
+import { FooterComponent } from './layout/footer/footer.component';
+import { HeaderMenuComponent } from './layout/header-menu/header-menu.component';
+import { HeaderComponent } from './layout/header/header.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, ToastMessageComponent, LoaderComponent],
+  imports: [CommonModule, RouterOutlet, ToastMessageComponent, LoaderComponent, HeaderComponent, HeaderMenuComponent, FooterComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
