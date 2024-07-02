@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CATEGORY, PRODUCT } from '../constant/api.constant';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -14,8 +14,8 @@ export class ProductService {
   /**
    * Get all product details.
    */
-  getProducts(): Observable<any> {
-    return this.http.get(PRODUCT.PRODUCT_DETAILS);
+  getProducts(params?: any): Observable<Object> {
+    return this.http.get(PRODUCT.PRODUCT_DETAILS, { params });
   }
 
   /**
@@ -42,13 +42,5 @@ export class ProductService {
    */
   getCategoryProducts(categoryId: string): Observable<any> {
     return this.http.get(PRODUCT.RELATED_PRODUCT + categoryId);
-  }
-
-  /**
-   * Get the response of featured product.
-   * @returns response of feature products.
-   */
-  getFeatureProducts(): Observable<any> {
-    return this.http.get(PRODUCT.PRODUCT_DETAILS, { params: { isFeatured: true } });
   }
 }

@@ -40,6 +40,5 @@ export class NewsletterComponent implements OnInit {
     } else {
       this.newsLetterForm.markAllAsTouched();
     }
-    console.log(this.newsLetterForm.controls);
   }
 }

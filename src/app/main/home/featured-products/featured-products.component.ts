@@ -22,10 +22,9 @@ export class FeaturedProductsComponent implements OnInit {
   }
 
   private getFeaturedProducts() {
-    this.productService.getFeatureProducts().subscribe({
+    this.productService.getProducts({ 'isFeatured': true }).subscribe({
       next: (res: any) => {
         this.featuredProduct = res.data.data;
-        console.log(this.featuredProduct);
       },
       error: (err: any) => {
         console.log(err);

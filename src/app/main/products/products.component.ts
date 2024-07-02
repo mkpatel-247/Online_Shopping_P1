@@ -18,7 +18,8 @@ import { ProductListComponent } from './product-list/product-list.component';
 export class ProductsComponent implements OnInit, OnDestroy {
 
   productDetails: any = '';
-  catId: any = '';
+  catId: string = '';
+  searchQuery: string = '';
 
   constructor(private route: ActivatedRoute, public commonService: CommonService, private productService: ProductService) { }
 
@@ -28,6 +29,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.route.queryParams.subscribe({
       next: (param: any) => {
         this.catId = param['categoryId'];
+        this.searchQuery = param['search'];
         this.getProducts();
       }
     })
@@ -43,18 +45,24 @@ export class ProductsComponent implements OnInit, OnDestroy {
    */
   private getProducts() {
     if (this.catId) {
+
       this.productService.getCategoryProducts(this.catId).subscribe({
         next: (res: any) => {
           this.productDetails = res.data;
         },
-        error: (err: any) => { }
+        error: (err: any) => {
+          this.productDetails = []
+        }
       })
     } else {
-      this.productService.getProducts().subscribe({
+      const search = { 'search': this.searchQuery || '' }
+      this.productService.getProducts(search).subscribe({
         next: (res: any) => {
           this.productDetails = res.data;
         },
-        error: (error: any) => { }
+        error: (error: any) => {
+          this.productDetails = []
+        }
       })
     }
   }

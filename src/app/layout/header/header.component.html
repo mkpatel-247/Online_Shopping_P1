@@ -34,12 +34,13 @@
                     </div>
                 </div>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-light dropdown-toggle"
-                        data-toggle="dropdown">EN</button>
+                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Change
+                        Language</button>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <button class="dropdown-item" type="button">FR</button>
-                        <button class="dropdown-item" type="button">AR</button>
-                        <button class="dropdown-item" type="button">RU</button>
+                        <ng-container *ngFor="let item of language">
+                            <button class="dropdown-item" type="button"
+                                (click)="changeLanguage(item.code)">{{item.language}} </button>
+                        </ng-container>
                     </div>
                 </div>
             </div>
@@ -65,14 +66,18 @@
             </a>
         </div>
         <div class="col-lg-4 col-6 text-left">
-            <form action="">
+            <form>
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for products">
-                    <!-- <div class="input-group-append"> -->
-                    <span class="input-group-text bg-transparent text-primary">
+                    <input type="text" class="form-control" placeholder="Search for products" [(ngModel)]="searchQuery"
+                        name="search">
+                    <button type="button" (click)="searchQuery = ''" *ngIf="searchQuery"
+                        class="input-group-text bg-transparent text-primary rounded-0">
+                        <i class="fa fa-times"></i>
+                    </button>
+                    <button type="submit" (click)="searchRecords()"
+                        class="input-group-text bg-transparent text-primary rounded-0">
                         <i class="fa fa-search"></i>
-                    </span>
-                    <!-- </div> -->
+                    </button>
                 </div>
             </form>
         </div>

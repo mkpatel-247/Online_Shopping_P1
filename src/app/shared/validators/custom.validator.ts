@@ -15,19 +15,6 @@ export function isOnlySpaceExist(): ValidatorFn {
     }
 }
 
-/**
- * Check validation for checkbox and radio button.
- * One must be selected.
- */
-export function oneCheckBoxMustChecked(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-        const checkbox = control.value;
-
-        const value = checkbox.some((checked: boolean) => checked);
-        return value ? null : { mustBeChecked: true };
-    };
-}
-
 export function isEmailValid(): ValidatorFn {
 
     return (control: AbstractControl): ValidationErrors | null => {
