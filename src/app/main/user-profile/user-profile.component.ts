@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { isEmailValid } from 'src/app/shared/validators/custom.validator';
 import { ProductListComponent } from '../products/product-list/product-list.component';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { UserService } from 'src/app/shared/service/user.service';
-import { HttpHeaders } from '@angular/common/http';
+import { ToastMessageService } from 'src/app/shared/components/toast-message/toast-message.service';
+import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
 
 @Component({
   selector: 'app-user-profile',
@@ -29,8 +29,11 @@ export class UserProfileComponent implements OnInit {
   showPassword: boolean = false;
   submitted: boolean = false;
   profileImage: any;
+  userName: string = '';
+  userEmail: string = '';
 
-  constructor(private cd: ChangeDetectorRef, private authService: AuthService, private userService: UserService) { }
+
+  constructor(private cd: ChangeDetectorRef, private authService: AuthService, private userService: UserService, private toastService: ToastMessageService) { }
 
   ngOnInit(): void {
     this.getUserDetails()
@@ -41,13 +44,19 @@ export class UserProfileComponent implements OnInit {
   get fc() {
     return this.userProfileForm.controls;
   }
+
+  /**
+   * getting user details
+   * showing default img 
+   * patching value of user into form
+   * setting gender to default if gender is undefined
+   */
   getUserDetails() {
     this.authService.getSingleUser().subscribe({
       next: (res: any) => {
         if (res.success) {
-          console.log(res.data.profilePic);
 
-          if (!res.data.profilePic) {
+          if (!res.data?.profilePic) {
             this.profileImage = res.data.gender === 'female' ? '/assets/img/defaultUserFemale.png' : '/assets/img/defaultUserMale.png'
           }
           else {
@@ -61,6 +70,13 @@ export class UserProfileComponent implements OnInit {
             email: res?.data?.email,
             gender: res?.data?.gender,
           });
+          this.userEmail = res?.data?.email;
+          this.userName = res?.data?.firstName;
+
+          if (!this.fc.gender.value) {
+            this.fc.gender.setValue('');
+          }
+          this.fc.email.disable();
           this.setDOB(res?.data?.dob);
 
           this.cd.markForCheck()
@@ -73,20 +89,22 @@ export class UserProfileComponent implements OnInit {
     })
   }
 
+  /**
+   * set dob according to input date type
+   * @param dob 
+   */
   setDOB(dob: any) {
     let date = new Date(dob),
       month = ("0" + (date.getMonth() + 1)).slice(-2),
       day = ("0" + date.getDate()).slice(-2);
     this.userProfileForm.patchValue({ dob: [date.getFullYear(), month, day].join("-") })
-
   }
+
   /**
    * set the profile image as preview
    * @param event Event
    */
   getProfilePhoto(event: any) {
-
-    console.log(event.target.files);
 
     if (event.target.files[0].size > 2097152) {
       alert("File is too big!");
@@ -116,28 +134,24 @@ export class UserProfileComponent implements OnInit {
    * send a put request to update the user data
    */
   handleSubmit() {
-    this.submitted = true
+    this.submitted = true;
 
     if (this.userProfileForm.valid) {
 
       const formData: any = new FormData();
-      formData.append('firstName', this.fc.firstName.value);
-      formData.append('lastName', this.fc.lastName.value);
-      formData.append('phone', this.fc.phone.value);
-      formData.append('profilePic', this.fc.profilePic.value);
-      formData.append('gender', this.fc.gender.value);
-      formData.append('dob', this.fc.dob.value);
-
-
-
+      Object.keys(this.userProfileForm.value).forEach((key: string) => {
+        if (this.userProfileForm.get(key)?.value && key != 'email') {
+          formData.append(key, this.userProfileForm.get(key)?.value);
+        }
+      });
       this.userService.updateUserProfile(formData).subscribe({
         next: (res: any) => {
-          console.log(res);
-          this.getUserDetails()
-
+          if (res.success) {
+            this.toastService.showToast(TOAST_ICON.successIcon, TOAST_STATE.success, "Profile Updated Successfully");
+            this.cd.markForCheck();
+          }
         },
         error: (err: any) => {
-          console.log(err);
         }
       });
     }
