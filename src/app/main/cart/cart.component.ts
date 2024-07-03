@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/shared/service/auth.service';
@@ -12,34 +12,22 @@ import { ProductService } from 'src/app/shared/service/product.service';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.scss']
+  styleUrls: ['./cart.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CartComponent implements OnInit {
 
   cartItems: any = [];
   cartTotal: number = 0;
-  constructor(private authService: AuthService, private cartService: CartService, private toastService: ToastMessageService, private productService: ProductService) { }
+  constructor(private authService: AuthService, private cartService: CartService, private toastService: ToastMessageService, private productService: ProductService, private cd: ChangeDetectorRef) { }
   ngOnInit(): void {
 
     if (this.authService.getLoginTokenFromLocalStorage()) {
-      this.cartItems = this.getDataFromLocalStorage();
+      const storedCartItem = this.getDataFromLocalStorage();
 
-      if (this.cartItems) {
-        const cart = { "products": this.cartItems }
-        this.cartService.addMultipleCartItems({ "products": this.cartItems }).subscribe({
-          next: (res: any) => {
-            if (res.success) {
-              this.getCartItemFDynamically()
-            }
-          },
-          error: (err: any) => {
-
-          }
-        });
-        localStorage.removeItem('cartItems');
-        this.cartItems = [];
+      if (storedCartItem) {
+        this.pushLocalStorageToDB(storedCartItem)
       } else {
-
         this.getCartItemFDynamically()
       }
 
@@ -56,10 +44,15 @@ export class CartComponent implements OnInit {
       next: (res: any) => {
         this.cartItems = res?.data?.products;
         this.productService.cartItems.next(this.cartItems.length);
-        this.setCartTotal()
+        this.cd.markForCheck()
+        this.setCartTotal();
+
       },
       error: (err: any) => {
-        this.cartItems = []
+        this.cartItems = [];
+        this.cartTotal = 0;
+        this.productService.cartItems.next(this.cartItems.length);
+        this.cd.markForCheck()
       }
     })
   }
@@ -67,8 +60,14 @@ export class CartComponent implements OnInit {
   /**
    * differentiae between updating the item i.e., locally/through API
    * @param item updated item details
+   * @param actionType plus/minus
    */
-  updateItem(item: any) {
+  updateItem(item: any, actionType: string) {
+    if (actionType === 'minus') {
+      item.quantity = (parseInt(item.quantity) - 1) + '';
+    } else if (actionType === 'plus') {
+      item.quantity = (parseInt(item.quantity) + 1) + '';
+    }
     if (this.authService.getLoginTokenFromLocalStorage()) {
       this.updateCartDynamically(item)
     } else {
@@ -86,6 +85,7 @@ export class CartComponent implements OnInit {
     } else {
       this.deleteCartItemlocally(itemId);
     }
+
   }
   /**
    * update the quantity of item
@@ -95,7 +95,14 @@ export class CartComponent implements OnInit {
     this.cartTotal = item.quantity * item.totalPrice;
     item.quantity += '';
     const updatedItem = { productId: item.productId, quantity: item.quantity, size: item.size, color: item.color };
+
     this.cartService.addCartItem(updatedItem).subscribe({
+      next: (res: any) => {
+        if (res.success) {
+          this.cd.markForCheck()
+          this.setCartTotal();
+        }
+      },
       error: (err: any) => {
         this.toastService.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.danger, "Can't update item.")
       }
@@ -106,10 +113,12 @@ export class CartComponent implements OnInit {
    * calculate cart subtotal
    */
   setCartTotal() {
-    if (this.cartItems) {
+    this.cartTotal = 0;
+    if (this.cartItems.length > 0) {
       this.cartItems.forEach((item: any) => {
         this.cartTotal += item.totalPrice * item.quantity;
       })
+      this.cd.markForCheck()
     }
   }
 
@@ -120,7 +129,8 @@ export class CartComponent implements OnInit {
   deleteCartItemDynamically(productId: string) {
     this.cartService.deleteCartItem(productId).subscribe({
       next: (res: any) => {
-        this.getCartItemFDynamically()
+        this.getCartItemFDynamically();
+        this.cd.markForCheck()
       },
       error: (err: any) => {
         this.toastService.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.danger, "Can't delete item.")
@@ -134,12 +144,15 @@ export class CartComponent implements OnInit {
   getCartItemLocally() {
     const storedCartItem = this.getDataFromLocalStorage();
     if (storedCartItem) {
+      this.cartItems = [];
       storedCartItem.forEach((item: any) => {
         this.productService.getProductById(item.productId).subscribe({
           next: (res: any) => {
             if (res.success) {
               const itemDetail = { productId: res.data._id, images: [res.data.images[0]], name: res.data.name, totalPrice: res.data.price, quantity: parseInt(item.quantity), totalQuality: res.data.quantity }
-              this.cartItems.push(itemDetail)
+              this.cartItems.push(itemDetail);
+              this.cd.markForCheck();
+              this.setCartTotal()
             }
           },
           error: (err: any) => {
@@ -147,7 +160,6 @@ export class CartComponent implements OnInit {
           }
         })
       });
-      this.setCartTotal()
     }
   }
 
@@ -167,6 +179,7 @@ export class CartComponent implements OnInit {
     const itemIndex = storedCartItem.findIndex((cartItem: any) => cartItem.productId === item.productId);
     storedCartItem[itemIndex].quantity = parseInt(item.quantity)
     storedCartItem[itemIndex].quantity += ''; localStorage.setItem('cartItems', JSON.stringify(storedCartItem));
+    this.cd.markForCheck()
     this.setCartTotal();
   }
 
@@ -178,7 +191,25 @@ export class CartComponent implements OnInit {
     let storedCartItem = this.getDataFromLocalStorage();
     storedCartItem.splice(storedCartItem.findIndex((cartItem: any) => cartItem.productId == itemId), 1);
     localStorage.setItem('cartItems', JSON.stringify(storedCartItem));
+    this.productService.cartItems.next(storedCartItem.length);
+    this.getCartItemLocally();
+    this.cd.markForCheck()
     this.setCartTotal();
-    this.cartItems = [];
+  }
+
+  /**
+   * after login push all the local storage data to Data Base
+   */
+  pushLocalStorageToDB(storedCartItem: any) {
+    this.cartService.addMultipleCartItems({ "products": storedCartItem }).subscribe({
+      next: (res: any) => {
+        if (res.success) {
+          this.getCartItemFDynamically();
+          localStorage.removeItem('cartItems');
+        }
+      },
+      error: (err: any) => {
+      }
+    });
   }
 }

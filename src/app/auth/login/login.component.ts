@@ -26,6 +26,10 @@ export class LoginComponent {
   constructor(private router: Router, private _location: Location, private authService: AuthService, private toastService: ToastMessageService) { }
 
   ngOnInit(): void {
+    if (this.authService.getLoginTokenFromLocalStorage()) {
+      this.router.navigate(['/home']);
+      return;
+    }
   }
   /**
    * getting form all controls

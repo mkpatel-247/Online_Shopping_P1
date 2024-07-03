@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { isPasswordStrong } from 'src/app/shared/validators/custom.validator';
+import { AuthService } from 'src/app/shared/service/auth.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-change-password',
   standalone: true,
@@ -12,8 +14,14 @@ import { isPasswordStrong } from 'src/app/shared/validators/custom.validator';
 })
 export class ChangePasswordComponent {
 
-  constructor(public modal: NgbActiveModal) { }
+  constructor(public modal: NgbActiveModal, private authService: AuthService, private router: Router) { }
 
+  ngOnInit(): void {
+    if (this.authService.getLoginTokenFromLocalStorage()) {
+      this.router.navigate(['/home']);
+      return;
+    }
+  }
   changePassForm = new FormGroup({
     oldPass: new FormControl('', [Validators.required]),
     newPass: new FormControl('', [Validators.required, isPasswordStrong()])

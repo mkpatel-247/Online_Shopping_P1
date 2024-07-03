@@ -30,8 +30,7 @@
                                 <div class="input-group quantity mx-auto" style="width: 100px;">
                                     <div class="input-group-btn">
                                         <button class="btn btn-sm btn-primary btn-minus" type="button"
-                                            [disabled]="!(item.quantity > 1)"
-                                            (click)="item.quantity = item.quantity-1; updateItem(item)">
+                                            [disabled]="!(item.quantity > 1)" (click)="updateItem(item,'minus')">
                                             <i class="fa fa-minus"></i>
                                         </button>
                                     </div>
@@ -40,8 +39,8 @@
                                         [value]='item.quantity' readonly>
                                     <div class="input-group-btn">
                                         <button class="btn btn-sm btn-primary btn-plus" type="button"
-                                            (click)="item.quantity = item.quantity + 1; updateItem(item)"
-                                            [disabled]="(item.quantity-1 > item.totalQuality)">
+                                            (click)="updateItem(item,'plus')"
+                                            [disabled]="(item.quantity - 1 > item.totalQuality)">
                                             <i class="fa fa-plus"></i>
                                         </button>
                                     </div>

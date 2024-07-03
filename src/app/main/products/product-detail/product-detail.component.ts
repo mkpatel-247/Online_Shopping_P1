@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService } from 'src/app/shared/service/product.service';
-import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RelatedProductComponent } from './related-product/related-product.component';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ToastMessageService } from 'src/app/shared/components/toast-message/toast-message.service';
@@ -25,7 +25,6 @@ export class ProductDetailComponent implements OnInit {
   storedItem: any[] = [];
   proID: string = '';
   cartItems: any = [];
-  isItemAlreadyInCart: boolean = false;
   constructor(private productService: ProductService, private route: ActivatedRoute, private toastService: ToastMessageService, private authService: AuthService, private cartService: CartService, private router: Router, private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
@@ -104,6 +103,8 @@ export class ProductDetailComponent implements OnInit {
       } else {
         this.manageCartLocally()
       }
+
+      this.router.navigate(['/cart'])
     }
   }
 
@@ -136,8 +137,7 @@ export class ProductDetailComponent implements OnInit {
    * checks if the item already presents in cart or not
    */
   isItemInCart() {
-    this.isItemAlreadyInCart = this.cartItems.find((item: any) => this.proID === item.productId);
-    return this.isItemAlreadyInCart;
+    return this.cartItems.find((item: any) => this.proID === item.productId);
   }
   /**
    * if user is not logged in manage cart through local storage
@@ -156,9 +156,6 @@ export class ProductDetailComponent implements OnInit {
       this.colorSizeForm.value.quantity += '';
       this.storedItem.push(this.colorSizeForm.value);
       this.productService.cartItems.next(this.storedItem.length);
-    } else {
-      this.isItemAlreadyInCart = true;
-      this.cd.markForCheck();
     }
     localStorage.setItem('cartItems', JSON.stringify(this.storedItem));
   }

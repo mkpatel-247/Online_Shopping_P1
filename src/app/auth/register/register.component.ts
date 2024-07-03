@@ -28,6 +28,10 @@ export class RegisterComponent {
   constructor(private router: Router, private authService: AuthService, private toastService: ToastMessageService) { }
 
   ngOnInit(): void {
+    if (this.authService.getLoginTokenFromLocalStorage()) {
+      this.router.navigate(['/home']);
+      return;
+    }
   }
   /**
    * getting form all controls

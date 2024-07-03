@@ -37,8 +37,6 @@ export class CartService {
    * @param items multiple cart items from local storage
    */
   addMultipleCartItems(items: any) {
-    console.log(items);
-
     return this.http.post(CART.CREATE_MULTIPLE_ITEMS, items)
   }
 }
