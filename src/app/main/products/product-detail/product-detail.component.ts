@@ -8,11 +8,16 @@ import { ToastMessageService } from 'src/app/shared/components/toast-message/toa
 import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { CartService } from 'src/app/shared/service/cart.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ProductDescriptionComponent } from './product-description/product-description.component';
+import { ProductReviewsComponent } from './product-reviews/product-reviews.component';
+import { ProductAdditionalInfoComponent } from './product-additional-info/product-additional-info.component';
+import { SOCIAL_LINKS } from './product-details.data';
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RelatedProductComponent, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RelatedProductComponent, RouterModule, NgbModule, ProductReviewsComponent, ProductDescriptionComponent, ProductAdditionalInfoComponent],
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -21,6 +26,7 @@ export class ProductDetailComponent implements OnInit {
 
   products: any = '';
   productDescription: any = '';
+  socialMediaLinks = SOCIAL_LINKS;
   colorSizeForm!: FormGroup;
   storedItem: any[] = [];
   proID: string = '';

@@ -28,20 +28,18 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        <a routerLink='/home' routerLinkActive="active" class="nav-item nav-link">Home</a>
-                        <a routerLink='/product' class="nav-item nav-link" routerLinkActive="active">Shop Now</a>
-                        <a routerLink='/contact' class="nav-item nav-link" routerLinkActive="active">Contact</a>
+                        <a *ngFor="let item of pageLink" routerLink='{{item.link}}' class="nav-item nav-link"
+                            routerLinkActive="active">{{item.pageLabel}}</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                         <a routerLink="" class="btn px-0">
                             <i class="fas fa-heart text-primary mr-1"></i>
-                            <span class="badge text-secondary border border-secondary rounded-circle"
-                                style="padding-bottom: 2px;">0</span>
+                            <span class="badge text-secondary border border-secondary rounded-circle">0</span>
                         </a>
                         <a routerLink="/cart" class="btn px-0 ml-3">
                             <i class="fas fa-shopping-cart text-primary mr-1"></i>
-                            <span class="badge text-secondary border border-secondary rounded-circle"
-                                style="padding-bottom: 2px;">{{numberOfCartItem}}</span>
+                            <span
+                                class="badge text-secondary border border-secondary rounded-circle">{{numberOfCartItem}}</span>
                         </a>
                     </div>
                 </div>
