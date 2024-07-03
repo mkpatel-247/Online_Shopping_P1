@@ -20,8 +20,7 @@ export class HeaderMenuComponent implements OnInit {
     this.getCategories();
     const storedItem = JSON.parse(localStorage.getItem('cartItems') as string);
     if (storedItem) {
-      storedItem.filter((item: any) => this.numberOfCartItem += item.quantity);
-      this.productService.cartItems.next(this.numberOfCartItem)
+      this.productService.cartItems.next(storedItem.length)
     }
     this.productService.cartItems.subscribe((res: number) => this.numberOfCartItem = res)
   }

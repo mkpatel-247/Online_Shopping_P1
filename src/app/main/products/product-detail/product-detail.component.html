@@ -82,14 +82,10 @@
                                 </button>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary px-3" *ngIf="!isItemAlreadyInCart"
+                        <button type="submit" class="btn btn-primary px-3" *ngIf="!isItemInCart()"
                             [disabled]="!(colorSizeForm.get('size')?.value && colorSizeForm.get('color')?.value)"><i
                                 class="fa fa-shopping-cart mr-1"></i>
                             Add To Cart
-                        </button>
-                        <button *ngIf="isItemAlreadyInCart" class="btn btn-primary px-3" routerLink="/cart"><i
-                                class="fa fa-shopping-cart mr-1"></i>
-                            Update Cart
                         </button>
                     </div>
                 </form>
