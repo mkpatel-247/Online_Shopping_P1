@@ -10,7 +10,7 @@
                             <img class="img-fluid" [src]="item.images || '/assets/img/no-image.webp'" alt="">
                         </div>
                         <div class="flex-fill pl-3">
-                            <h6>{{ item.name }}</h6>
+                            <h6>{{ item.name | titlecase }}</h6>
                             <small class="text-body">{{item.productsCount}} Products</small>
                         </div>
                     </div>

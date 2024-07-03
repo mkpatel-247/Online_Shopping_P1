@@ -8,3 +8,18 @@ export const LANGUAGE = [{
     language: 'Hindi',
     code: 'hi'
 }]
+
+export const PAGES_LINK = [
+    {
+        pageLabel: 'Help',
+        link: '/help'
+    },
+    {
+        pageLabel: 'About',
+        link: '/about-us'
+    },
+    {
+        pageLabel: 'FAQs',
+        link: '/faq'
+    }
+]

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -7,7 +7,9 @@ import { AuthService } from 'src/app/shared/service/auth.service';
 import { ToastMessageService } from 'src/app/shared/components/toast-message/toast-message.service';
 import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
 import { FormsModule } from '@angular/forms';
-import { LANGUAGE } from './header.data';
+import { LANGUAGE, PAGES_LINK } from './header.data';
+import { CookieService } from 'ngx-cookie-service';
+import { UserDetails } from 'src/app/shared/interface/user.interface';
 
 declare var google: any;
 @Component({
@@ -15,14 +17,16 @@ declare var google: any;
   standalone: true,
   imports: [CommonModule, RouterModule, ChangePasswordComponent, FormsModule],
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit {
 
   searchQuery: string = '';
-  userDetails: any;
+  userDetails: UserDetails = { _id: '', firstName: '', lastName: '', email: '', phone: 0, createdAt: '', updatedAt: '', __v: 0, gender: '', dob: '', profilePic: '' };
   language = LANGUAGE;
-  constructor(private modalService: NgbModal, private authService: AuthService, private toastService: ToastMessageService, private router: Router) { }
+  pagesLink = PAGES_LINK;
+  constructor(private modalService: NgbModal, private authService: AuthService, private toastService: ToastMessageService, private router: Router, private cookieService: CookieService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     if (this.authService.getLoginTokenFromLocalStorage()) {
@@ -36,17 +40,20 @@ export class HeaderComponent implements OnInit {
     this.modalService.open(ChangePasswordComponent, {})
   }
 
+  /**
+   * Get the user details to show his/her name and menu.
+   */
   getUserDetails() {
     this.authService.getSingleUser().subscribe({
       next: (res: any) => {
-
         if (res.success) {
-          this.userDetails = res.data
+          this.userDetails = res.data;
+          this.authService.userDetails.next(this.userDetails);
         }
+        this.cdr.markForCheck();
       },
       error: (err: any) => {
         this.toastService.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.danger, "Error occurred while fetching your data")
-
       }
     });
   }
@@ -62,20 +69,20 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  /**
+   * Change the language of page.
+   * @param languageCode code of language
+   */
   changeLanguage(languageCode: string) {
-    if (typeof google !== 'undefined' && google.translate) {
-      console.log(google.translate.TranslateElement());
+    this.cookieService.set('googtrans', '/' + 'en' + '/' + languageCode);
+    this.cdr.detectChanges();
+  }
 
-      const a = new google.translate.TranslateElement(
-        {
-          pageLanguage: languageCode,
-          layout: google.translate.TranslateElement.InlineLayout.VERTICAL,
-          autoDisplay: false,
-        },
-        'google_translate_element'
-      );
-      console.log(a);
-
-    }
+  /**
+   * Logout user.
+   */
+  logout() {
+    localStorage.removeItem('loginToken');
+    this.cdr.markForCheck();
   }
 }

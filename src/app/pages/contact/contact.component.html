@@ -51,7 +51,7 @@
                         </p>
                     </div>
                     <div class="control-group">
-                        <textarea class="form-control" rows="8" id="message" placeholder="Message"
+                        <textarea class="form-control custom-scrollbar" rows="8" id="message" placeholder="Message"
                             formControlName="message"
                             [ngClass]="{'border-danger': (contactForm.get('message')?.hasError('required') || contactForm.get('message')?.hasError('spaceExist')) && contactForm.get('message')?.touched}"></textarea>
                         <p class="text-danger">
