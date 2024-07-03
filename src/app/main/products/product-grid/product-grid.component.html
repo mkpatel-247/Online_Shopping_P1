@@ -1,8 +1,8 @@
-<div class="product-item bg-light mb-4" style="max-height: max-content;">
+<div class="product-item bg-light mb-4">
     <div class="product-img position-relative overflow-hidden">
         <ng-container *ngFor="let item of products.images; first as isFirst">
-            {{ item }}
-            <img class="img-fluid w-100" src="{{item ? item : '/assets/img/no-image.webp'}}" alt="item" *ngIf="isFirst">
+            <img class="img-fluid setImage" src="{{item ? item : '/assets/img/no-image.webp'}}" alt="item"
+                *ngIf="isFirst">
         </ng-container>
         <div class="product-action">
             <a class="btn btn-outline-dark btn-square" routerLink=""><i class="far fa-heart"></i></a>

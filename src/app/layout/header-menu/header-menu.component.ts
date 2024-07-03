@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BreadCrumbComponent } from '../bread-crumb/bread-crumb.component';
 import { RouterModule } from '@angular/router';
 import { ProductService } from 'src/app/shared/service/product.service';
+import { HEADER_MENU_LINKS } from './header-menu.data';
 
 @Component({
   selector: 'app-header-menu',
@@ -14,17 +15,20 @@ import { ProductService } from 'src/app/shared/service/product.service';
 export class HeaderMenuComponent implements OnInit {
   categories: any = '';
   numberOfCartItem: number = 0;
+  pageLink = HEADER_MENU_LINKS;
   constructor(public productService: ProductService) { }
 
   ngOnInit(): void {
     this.getCategories();
     const storedItem = JSON.parse(localStorage.getItem('cartItems') as string);
     if (storedItem) {
-      this.productService.cartItems.next(storedItem.length)
+      this.numberOfCartItem = storedItem.length;
     }
-    this.productService.cartItems.subscribe((res: number) => this.numberOfCartItem = res)
   }
 
+  /**
+   * Fetch categories data and for dropdown menu
+   */
   getCategories() {
     this.productService.getAllCategories().subscribe({
       next: (response: any) => {
