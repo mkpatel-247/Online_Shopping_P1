@@ -1,8 +1,7 @@
 <div class="product-item bg-light mb-4">
     <div class="product-img position-relative overflow-hidden">
         <ng-container *ngFor="let item of products.images; first as isFirst">
-            <img class="img-fluid setImage" src="{{item ? item : '/assets/img/no-image.webp'}}" alt="item"
-                *ngIf="isFirst">
+            <img src="{{item ? item : '/assets/img/no-image.webp'}}" alt="item" *ngIf="isFirst" appProductGridImage>
         </ng-container>
         <div class="product-action">
             <a class="btn btn-outline-dark btn-square" routerLink=""><i class="far fa-heart"></i></a>
@@ -21,7 +20,7 @@
             <ngb-rating [rate]="products.avgStars || 0" [max]="5" [readonly]="true">
                 <ng-template let-fill="fill" let-index="index">
                     <small>
-                        <i class="fa fa-star {{fill === 100 ? 'text-primary':''}} mr-1"></i>
+                        <i class="fa fa-star {{fill === 100 ? 'text-primary':'text-muted'}} mr-1"></i>
                     </small>
                 </ng-template>
             </ngb-rating>

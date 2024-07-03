@@ -1,22 +1,16 @@
 <div class="container-fluid pb-5">
     <div class="row px-xl-5">
         <div class="col-lg-5 mb-30">
-            <div id="product-carousel" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner bg-light">
-                    <ng-container *ngFor="let item of products.images; first as isFirst">
-                        <div class="carousel-item" [ngClass]="{'active': isFirst}">
-                            <img class="w-100 h-100" [src]="item" alt="Image">
-                        </div>
-                    </ng-container>
+            <div>
+                <div class="bg-light">
+                    <ngb-carousel [showNavigationIndicators]="false">
+                        <ng-container *ngFor="let item of products.images; first as isFirst">
+                            <ng-template ngbSlide>
+                                <img class="min-vw-10 min-vh-10" [src]="item" alt="Image">
+                            </ng-template>
+                        </ng-container>
+                    </ngb-carousel>
                 </div>
-                <ng-container *ngIf="products.images?.length > 1">
-                    <a class="carousel-control-prev" ata-slide="prev">
-                        <i class="fa fa-2x fa-angle-left text-dark"></i>
-                    </a>
-                    <a class="carousel-control-next" ata-slide="next">
-                        <i class="fa fa-2x fa-angle-right text-dark"></i>
-                    </a>
-                </ng-container>
             </div>
         </div>
 

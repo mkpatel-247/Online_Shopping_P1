@@ -8,10 +8,10 @@
                 <form [formGroup]="contactForm" (ngSubmit)="handleSubmit()" *ngIf="messageSent else messageBlock">
                     <div class="control-group">
                         <input type="text" class="form-control" id="name" placeholder="Your Name" formControlName="name"
-                            [ngClass]="{'border-danger': contactForm.get('name')?.hasError('required') && contactForm.get('email')?.touched}">
+                            [ngClass]="{'border-danger': contactForm.get('name')?.hasError('required') && contactForm.get('name')?.touched}">
                         <p class="text-danger">
                             <span
-                                *ngIf="(contactForm.get('name')?.hasError('required') || contactForm.get('name')?.hasError('spaceExist')) && contactForm.get('email')?.touched">
+                                *ngIf="(contactForm.get('name')?.hasError('required')) && contactForm.get('name')?.touched">
                                 * Name is required.
                             </span>
                             <span

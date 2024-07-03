@@ -12,7 +12,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductDescriptionComponent } from './product-description/product-description.component';
 import { ProductReviewsComponent } from './product-reviews/product-reviews.component';
 import { ProductAdditionalInfoComponent } from './product-additional-info/product-additional-info.component';
-import { SOCIAL_LINKS } from './product-details.data';
+import { SOCIAL_LINKS } from 'src/app/shared/data/shared.data';
 
 @Component({
   selector: 'app-product-detail',
