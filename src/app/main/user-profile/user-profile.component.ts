@@ -6,11 +6,12 @@ import { AuthService } from 'src/app/shared/service/auth.service';
 import { UserService } from 'src/app/shared/service/user.service';
 import { ToastMessageService } from 'src/app/shared/components/toast-message/toast-message.service';
 import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
+import { ContainSpaceDirective } from 'src/app/shared/directive/contain-space.directive';
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, ProductListComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, ProductListComponent, ContainSpaceDirective],
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -94,42 +95,13 @@ export class UserProfileComponent implements OnInit {
    * @param dob 
    */
   setDOB(dob: any) {
-    let date = new Date(dob),
-      month = ("0" + (date.getMonth() + 1)).slice(-2),
-      day = ("0" + date.getDate()).slice(-2);
-    this.userProfileForm.patchValue({ dob: [date.getFullYear(), month, day].join("-") })
-  }
-
-  /**
-   * set the profile image as preview
-   * @param event Event
-   */
-  getProfilePhoto(event: any) {
-
-    if (event.target.files[0].size > 2097152) {
-      alert("File is too big!");
-    }
-    else {
-
-      let reader = new FileReader();
-      reader.onload = () => {
-        this.profileImage = reader.result;
-        this.cd.markForCheck()
-      }
-      reader.readAsDataURL(event.target.files[0]);
-      this.userProfileForm.patchValue({ profilePic: event.target.files[0] })
+    if (dob) {
+      let date = new Date(dob),
+        month = ("0" + (date.getMonth() + 1)).slice(-2),
+        day = ("0" + date.getDate()).slice(-2);
+      this.userProfileForm.patchValue({ dob: [date.getFullYear(), month, day].join("-") })
     }
   }
-
-  /**
-   * removes the profile pic
-   */
-  removeProfile() {
-    this.profileImage = '/assets/img/defaultUserMale.png'
-    this.fc.profilePic.setValue('');
-    this.cd.markForCheck()
-  }
-
   /**
    * send a put request to update the user data
    */
@@ -152,6 +124,7 @@ export class UserProfileComponent implements OnInit {
           }
         },
         error: (err: any) => {
+          this.toastService.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.danger, err.message);
         }
       });
     }

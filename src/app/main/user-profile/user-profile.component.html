@@ -43,10 +43,7 @@
                                             <div class="form-group">
                                                 <div class="d-flex flex-row">
                                                     <input type="file" class="form-control"
-                                                        accept="image/png, image/jpeg, image/jpg"
-                                                        (change)="getProfilePhoto($event)">
-                                                    <a class="btn btn-danger" title="Remove my profile image"><i
-                                                            class="bi bi-trash" (click)="removeProfile()"></i></a>
+                                                        accept="image/png, image/jpeg, image/jpg">
                                                 </div>
                                             </div>
                                         </div>
@@ -57,7 +54,7 @@
                                     <label for="firstName" class="col-md-4 col-lg-3 col-form-label">First Name</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="firstName" type="text" class="form-control" id="firstName"
-                                            formControlName="firstName">
+                                            formControlName="firstName" appContainSpace>
                                         <span
                                             *ngIf="(fc.firstName.touched || submitted ) && fc.firstName.hasError('required')"
                                             class="text-danger"
@@ -70,7 +67,7 @@
                                     <label for="lastName" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="lastName" type="text" class="form-control" id="lastName"
-                                            formControlName="lastName"
+                                            formControlName="lastName" appContainSpace
                                             [ngClass]="{'border-danger':(fc.lastName.touched || submitted ) && fc.lastName.hasError('required')}">
                                         <span
                                             *ngIf="(fc.lastName.touched || submitted ) && fc.lastName.hasError('required')"
@@ -83,7 +80,7 @@
                                     <label for="phone" class="col-md-4 col-lg-3 col-form-label">Phone NUmber</label>
                                     <div class="col-md-8 col-lg-9">
                                         <input name="phone" type="text" class="form-control" id="phone"
-                                            formControlName="phone"
+                                            formControlName="phone" maxlength="10"
                                             [ngClass]="{'border-danger':(fc.phone.touched || submitted ) && fc.phone.hasError('required')}">
                                         <span *ngIf="(fc.phone.touched || submitted ) && fc.phone.hasError('required')"
                                             class="text-danger">

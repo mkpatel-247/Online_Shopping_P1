@@ -15,6 +15,9 @@ export function isOnlySpaceExist(): ValidatorFn {
     }
 }
 
+/**
+ * @returns true if the email is valid ex : abc@gmail.com
+ */
 export function isEmailValid(): ValidatorFn {
 
     return (control: AbstractControl): ValidationErrors | null => {
@@ -22,6 +25,9 @@ export function isEmailValid(): ValidatorFn {
     }
 }
 
+/**
+ * @returns true if the password is strong
+ */
 export function isPasswordStrong(): ValidatorFn {
 
     return (control: AbstractControl): ValidationErrors | null => {
