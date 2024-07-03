@@ -1,13 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AUTH, AUTH_PREFIX } from '../constant/api.constant';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { UserDetails } from '../interface/user.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  userDetails = new BehaviorSubject<UserDetails>({ _id: '', firstName: '', lastName: '', email: '', phone: 0, createdAt: '', updatedAt: '', __v: 0, gender: '', dob: '', profilePic: '' });
   constructor(private http: HttpClient) { }
 
   /**

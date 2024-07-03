@@ -28,11 +28,6 @@ export class AppComponent implements OnInit {
       }
       if (e instanceof NavigationEnd) {
         this.showLoading = false;
-        /**
-         * Page is will not refresh due to use of routerLink.
-         * So, manually we have to move to top of Page
-         */
-        window.scroll(0, 0);
       }
     })
   }
