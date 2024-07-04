@@ -28,7 +28,7 @@ export class CartService {
   /**
    * delete the cart item
    */
-  deleteCartItem(productId: string) {
+  deleteCartItem(productId: string): Observable<any> {
     return this.http.delete(CART.DEL_CART_ITEM + productId);
   }
 

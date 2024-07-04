@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule, ɵparseCookieValue } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { isEmailValid, isPasswordStrong } from 'src/app/shared/validators/custom.validator';
@@ -25,7 +25,8 @@ export class RegisterComponent {
   });
   submitted: boolean = false;
   showPassword: boolean = false;
-  constructor(private router: Router, private authService: AuthService, private toastService: ToastMessageService) { }
+  constructor(private router: Router, private authService: AuthService, private toastService: ToastMessageService,
+    private _location: Location) { }
 
   ngOnInit(): void {
     if (this.authService.getLoginTokenFromLocalStorage()) {
@@ -49,14 +50,15 @@ export class RegisterComponent {
           if (res.success) {
             this.toastService.showToast(TOAST_ICON.successIcon, TOAST_STATE.success, "Registration successful")
             localStorage.setItem('loginToken', res.token);
-            this.router.navigate(['product'])
+            localStorage.setItem('userDetail', JSON.stringify(this.registrationForm.value));
+
+            this._location.back();
           }
-
         },
-        error: (err: any) => {
-          this.toastService.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.danger, "Error occurred while registration")
-          console.log(err);
-
+        error: (err: any) => { },
+        complete: () => {
+          this.authService.isLoggedIn.next(true);
+          this.authService.userDetail.next(this.registrationForm.value);
         }
       });
     }

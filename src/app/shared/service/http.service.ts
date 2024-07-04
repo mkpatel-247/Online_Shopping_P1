@@ -1,6 +1,6 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { ToastMessageService } from '../components/toast-message/toast-message.service';
 import { TOAST_ICON, TOAST_STATE } from '../constant/app.constant';
 import { Router } from '@angular/router';
@@ -64,10 +64,29 @@ export class HttpService {
   }
 
   /**
+   * 
+   * Custom delete service that handle error.
+   * @param url api url in string.
+   * @param data data that need to send.
+   * @param params parameter if exist.
+   * @param headers headers if exist. eg. headers = {key, value}
+   * @returns response.
+   */
+  delete<T>(url: string, body?: any): Observable<T | any> {
+    return this.http.request<T>("delete", url, { body, observe: "response" })
+      .pipe(
+        map((res: HttpResponse<T>) => {
+          return res.body;
+        })
+      );
+    // return this.http.delete<T>(url, headers).pipe(catchError(this.handleError.bind(this)));
+  }
+
+  /**
    * If any error occur that toast message will be shown.
    */
   private handleError(error: HttpErrorResponse): Observable<never> {
-    if (error) {
+    if (error.error) {
       this.toast.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.danger, error.error.message);
     }
     return throwError(() => {

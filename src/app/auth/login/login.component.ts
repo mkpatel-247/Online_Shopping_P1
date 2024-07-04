@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { isEmailValid } from 'src/app/shared/validators/custom.validator';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { ToastMessageService } from 'src/app/shared/components/toast-message/toast-message.service';
 import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
@@ -45,7 +44,9 @@ export class LoginComponent {
         next: (res: any) => {
           if (res.success) {
             localStorage.setItem('loginToken', res.token);
-            this.router.navigate(['/product'])
+            localStorage.setItem('userDetail', JSON.stringify(res.data));
+            this.authService.isLoggedIn.next(true);
+            this.authService.userDetail.next(res.data);
             this.toastService.showToast(TOAST_ICON.successIcon, TOAST_STATE.success, "You've logged in successfully");
             this._location.back();
           }

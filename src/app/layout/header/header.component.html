@@ -11,7 +11,7 @@
             <div class="d-inline-flex align-items-center">
                 <div class="btn-group mr-2" *ngIf="authService.isLoggedIn | async; else validUser">
                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">
-                        Welcome , {{userDetails.firstName}}
+                        Welcome , {{firstName}}
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
                         <button class="dropdown-item bi bi-file-earmark-lock" type="button"
@@ -20,8 +20,9 @@
                         </button>
                         <button class="dropdown-item border-2 border-bottom bi bi-gear" type="button"
                             routerLink="/profile"> Profile Setting</button>
-                        <button class="dropdown-item bi bi-box-arrow-left" type="button" (click)="logout()"> Log
-                            Out</button>
+                        <button class="dropdown-item bi bi-box-arrow-left" type="button" (click)="logout()">
+                            Log Out
+                        </button>
                     </div>
                 </div>
                 <ng-template #validUser>

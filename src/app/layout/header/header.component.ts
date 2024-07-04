@@ -5,11 +5,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ChangePasswordComponent } from 'src/app/auth/change-password/change-password.component';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { ToastMessageService } from 'src/app/shared/components/toast-message/toast-message.service';
-import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
 import { FormsModule } from '@angular/forms';
 import { LANGUAGE, PAGES_LINK } from './header.data';
 import { CookieService } from 'ngx-cookie-service';
-import { UserDetails } from 'src/app/shared/interface/user.interface';
+import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
 
 declare var google: any;
 @Component({
@@ -23,11 +22,11 @@ declare var google: any;
 export class HeaderComponent implements OnInit {
 
   searchQuery: string = '';
-  userDetails: UserDetails = { _id: '', firstName: '', lastName: '', email: '', phone: 0, createdAt: '', updatedAt: '', __v: 0, gender: '', dob: '', profilePic: '' };
+  firstName: string = '';
   language = LANGUAGE;
   pagesLink = PAGES_LINK;
   numberOfCartItem: number = 0;
-  constructor(private modalService: NgbModal, public authService: AuthService, private toastService: ToastMessageService, private router: Router, private cookieService: CookieService, private cdr: ChangeDetectorRef) { }
+  constructor(private modalService: NgbModal, public authService: AuthService, private toastService: ToastMessageService, private router: Router, private cookieService: CookieService, private cdr: ChangeDetectorRef, private toast: ToastMessageService) { }
 
   ngOnInit(): void {
     if (this.authService.getLoginTokenFromLocalStorage()) {
@@ -49,10 +48,10 @@ export class HeaderComponent implements OnInit {
    * Get the user details to show his/her name and menu.
    */
   getUserDetails() {
-    this.authService.getSingleUser().subscribe({
+    this.authService.userDetail.subscribe({
       next: (res: any) => {
         if (res.success) {
-          this.userDetails = res.data;
+          this.firstName = res;
           this.authService.isLoggedIn.next(true);
         }
         this.cdr.markForCheck();
@@ -85,7 +84,9 @@ export class HeaderComponent implements OnInit {
    */
   logout() {
     localStorage.removeItem('loginToken');
+    localStorage.removeItem('userDetail');
     this.authService.isLoggedIn.next(false);
+    this.toast.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.danger, "Logout Successfully");
     this.cdr.markForCheck();
   }
 }

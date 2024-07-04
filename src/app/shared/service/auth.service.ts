@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AUTH, AUTH_PREFIX } from '../constant/api.constant';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { UserDetails } from '../interface/user.interface';
 import { HttpService } from './http.service';
 
 @Injectable({
@@ -10,6 +9,7 @@ import { HttpService } from './http.service';
 export class AuthService {
 
   isLoggedIn = new BehaviorSubject<boolean>(false);
+  userDetail = new BehaviorSubject<any>('');
   constructor(private http: HttpService) { }
 
   /**
@@ -34,6 +34,11 @@ export class AuthService {
    * @returns login Token 
    */
   getLoginTokenFromLocalStorage() {
+    const data = localStorage.getItem('userDetail');
+    if (data) {
+      this.isLoggedIn.next(true);
+      this.userDetail.next(JSON.parse(data));
+    }
     return localStorage.getItem('loginToken');
   }
 
