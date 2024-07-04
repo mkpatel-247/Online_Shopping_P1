@@ -29,7 +29,6 @@ export class BannerComponent implements OnInit {
         this.bannerData = res;
       },
       error: (err: any) => {
-        console.log(err);
       }
     })
   }

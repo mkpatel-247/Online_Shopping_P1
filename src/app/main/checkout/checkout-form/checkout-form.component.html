@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-6 form-group">
                 <label>First Name<span class="text-danger">*</span></label>
-                <input class="form-control" type="text" placeholder="John" formControlName="firstName"
+                <input class="form-control" type="text" placeholder="John" formControlName="firstName" appContainSpace
                     [ngClass]="{'border-danger': (fc.firstName.touched || submitted) && fc.firstName.hasError('required')}">
                 <span *ngIf="(fc.firstName.touched || submitted) && fc.firstName.hasError('required')"
                     class="text-danger">
@@ -12,19 +12,18 @@
             </div>
             <div class="col-md-6 form-group">
                 <label>Last Name<span class="text-danger">*</span></label>
-                <input class="form-control" type="text" placeholder="Doe" formControlName="lastName"
-                    [ngClass]="{'border-danger': fc.lastName.touched && fc.lastName.hasError('required')}">
-                <span *ngIf="fc.lastName.touched && fc.lastName.hasError('required')" class="text-danger">
+                <input class="form-control" type="text" placeholder="Doe" formControlName="lastName" appContainSpace
+                    [ngClass]="{'border-danger': (fc.lastName.touched || submitted) && fc.lastName.hasError('required')}">
+                <span *ngIf="(fc.lastName.touched || submitted) && fc.lastName.hasError('required')"
+                    class="text-danger">
                     Last name is required.
                 </span>
             </div>
             <div class="col-md-6 form-group">
                 <label>E-mail<span class="text-danger">*</span></label>
-                <input class="form-control" type="text" placeholder="example@email.com"
-                    formControlName="email"
+                <input class="form-control" type="text" placeholder="example@email.com" formControlName="email"
                     [ngClass]="{'border-danger': (fc.email.touched || submitted) && fc.email.invalid}">
-                <span *ngIf="(fc.email.touched || submitted) && fc.email.hasError('required')"
-                    class="text-danger">
+                <span *ngIf="(fc.email.touched || submitted) && fc.email.hasError('required')" class="text-danger">
                     Email is required.
                 </span>
                 <span *ngIf="fc.email.hasError('email') && checkoutForm.value.email" class="text-danger">
@@ -34,64 +33,89 @@
             <div class="col-md-6 form-group">
                 <label>Mobile No<span class="text-danger">*</span></label>
                 <input class="form-control" type="text" placeholder="+123 456 789" formControlName="phone"
+                    maxlength="10"
                     [ngClass]="{'border-danger': (fc.phone.touched || submitted) && fc.phone.hasError('required')}">
-                <span *ngIf="(fc.phone.touched || submitted) && fc.phone.hasError('required')"
-                    class="text-danger">
+                <span *ngIf="(fc.phone.touched || submitted) && fc.phone.hasError('required')" class="text-danger">
                     Phone number is required.
                 </span>
                 <span *ngIf="fc.phone.hasError('pattern')" class="text-danger">
                     Phone must be between 0-9.
                 </span>
+                <span
+                    *ngIf="fc.phone.hasError('minlength') && checkoutForm.value.phone && !fc.phone.hasError('pattern')"
+                    class="text-danger">
+                    Phone Must contains 10 digits.
+                </span>
             </div>
             <div class="col-md-6 form-group">
                 <label>Address Line 1<span class="text-danger">*</span></label>
                 <input class="form-control" type="text" placeholder="123 Street" formControlName="address1"
-                    [ngClass]="{'border-danger': fc.address1.touched && fc.address1.hasError('required')}">
-                <span *ngIf="fc.address1.touched && fc.address1.hasError('required')" class="text-danger">
+                    appContainSpace
+                    [ngClass]="{'border-danger': (fc.address1.touched || submitted) && fc.address1.hasError('required')}">
+                <span *ngIf="(fc.address1.touched || submitted) && fc.address1.hasError('required')"
+                    class="text-danger">
                     Address is required.
                 </span>
             </div>
             <div class="col-md-6 form-group">
-                <label>Address Line 2</label>
-                <input class="form-control" type="text" placeholder="123 Street" formControlName="address2">
+                <label>Address Line 2<span class="text-danger">*</span></label>
+                <input class="form-control" type="text" placeholder="123 Street" formControlName="address2"
+                    appContainSpace
+                    [ngClass]="{'border-danger': (fc.address2.touched || submitted) && fc.address2.hasError('required')}">
+                <span *ngIf="(fc.address2.touched || submitted) && fc.address2.hasError('required')"
+                    class="text-danger">
+                    Address is required.
+                </span>
             </div>
             <div class="col-md-6 form-group">
                 <label>Country<span class="text-danger">*</span></label>
                 <select class="custom-select" formControlName="country"
-                    [ngClass]="{'border-danger': fc.country.touched && fc.country.hasError('required')}">
+                    [ngClass]="{'border-danger':( fc.country.touched|| submitted) && fc.country.hasError('required')}">
+                    <option value="">Select Country</option>
                     <option selected>United States</option>
                     <option>Afghanistan</option>
                     <option>Albania</option>
                     <option>Algeria</option>
                 </select>
-                <span *ngIf="fc.country.touched && fc.country.hasError('required')" class="text-danger">
+                <span *ngIf="(fc.country.touched || submitted) && fc.country.hasError('required')" class="text-danger">
                     Country is required.
                 </span>
             </div>
             <div class="col-md-6 form-group">
                 <label>City<span class="text-danger">*</span></label>
-                <input class="form-control" type="text" placeholder="New York" formControlName="city"
-                    [ngClass]="{'border-danger': fc.city.touched && fc.city.hasError('required')}">
-                <span *ngIf="fc.city.touched && fc.city.hasError('required')" class="text-danger">
+                <input class="form-control" type="text" placeholder="New York" formControlName="city" appContainSpace
+                    [ngClass]="{'border-danger': (fc.city.touched || submitted) && fc.city.hasError('required')}">
+                <span *ngIf="(fc.city.touched || submitted) && fc.city.hasError('required')" class="text-danger">
                     City is required.
                 </span>
             </div>
             <div class="col-md-6 form-group">
                 <label>State<span class="text-danger">*</span></label>
-                <input class="form-control" type="text" placeholder="New York" formControlName="state"
-                    [ngClass]="{'border-danger': fc.state.touched && fc.state.hasError('required')}">
-                <span *ngIf="fc.state.touched && fc.state.hasError('required')" class="text-danger">
+                <input class="form-control" type="text" placeholder="New York" formControlName="state" appContainSpace
+                    [ngClass]="{'border-danger': (fc.state.touched || submitted) && fc.state.hasError('required')}">
+                <span *ngIf="(fc.state.touched || submitted)&& fc.state.hasError('required')" class="text-danger">
                     State is required.
                 </span>
             </div>
             <div class="col-md-6 form-group">
                 <label>ZIP Code<span class="text-danger">*</span></label>
-                <input class="form-control" type="text" placeholder="123" formControlName="zipCode"
-                    [ngClass]="{'border-danger': fc.zipCode.touched && fc.zipCode.hasError('required')}">
-                <span *ngIf="fc.zipCode.touched && fc.zipCode.hasError('required')" class="text-danger">
+                <input class="form-control" type="text" placeholder="123" formControlName="zipCode" maxlength="6"
+                    [ngClass]="{'border-danger': (fc.zipCode.touched || submitted) && fc.zipCode.hasError('required')}">
+                <span *ngIf="(fc.zipCode.touched || submitted) && fc.zipCode.hasError('required')" class="text-danger">
                     ZIP Code is required.
                 </span>
+                <span *ngIf="fc.zipCode.hasError('pattern')" class="text-danger">
+                    Zip code must be between 0-9.
+                </span>
+                <span
+                    *ngIf="fc.zipCode.hasError('minlength') && checkoutForm.value.zipCode && !fc.zipCode.hasError('pattern')"
+                    class="text-danger">
+                    Zip Code should contain 6 digits.
+                </span>
             </div>
+        </div>
+        <div class="text-end">
+            <button type="submit" class="btn btn-primary">Save Address</button>
         </div>
     </div>
 </form>

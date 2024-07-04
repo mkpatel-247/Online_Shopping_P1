@@ -10,6 +10,10 @@ export class UserService {
 
   constructor(private http: HttpService) { }
 
+  /**
+   * update the user profile
+   * @param updatedProfileData user data
+   */
   updateUserProfile(updatedProfileData: any): Observable<any> {
     return this.http.put(AUTH_PREFIX, updatedProfileData);
   }

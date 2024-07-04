@@ -39,6 +39,11 @@ export const mainRoutes: Routes = [
                 loadComponent: () => import('../main/checkout/checkout.component').then((c) => c.CheckoutComponent)
             },
             {
+                path: 'orders',
+                canActivate: [authGuard],
+                loadComponent: () => import('../main/orders/orders.component').then((c) => c.OrdersComponent)
+            },
+            {
                 path: 'contact',
                 loadComponent: () => import('../pages/contact/contact.component').then((c) => c.ContactComponent),
                 data: [

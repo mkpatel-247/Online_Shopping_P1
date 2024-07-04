@@ -28,6 +28,8 @@ export class FeaturedProductsComponent implements OnInit {
     this.productService.getProducts({ 'isFeatured': true }).subscribe({
       next: (res: any) => {
         this.featuredProduct = res.data.data;
+      },
+      error: (err: any) => {
       }
     })
   }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CART } from '../constant/api.constant';
+import { CART, ORDERS } from '../constant/api.constant';
 import { Observable } from 'rxjs';
 import { HttpService } from './http.service';
 
@@ -36,7 +36,21 @@ export class CartService {
    * add all the items to data base
    * @param items multiple cart items from local storage
    */
-  addMultipleCartItems(items: any) {
+  addMultipleCartItems(items: any): Observable<any> {
     return this.http.post(CART.CREATE_MULTIPLE_ITEMS, items)
+  }
+
+  /**
+   * @param addressDetails
+   */
+  addOrder(addressDetails: any): Observable<any> {
+    return this.http.post(ORDERS.PLACE_ORDER, addressDetails);
+  }
+
+  /**
+   * gating all orders
+   */
+  getAllOrders(): Observable<any> {
+    return this.http.get(ORDERS.GET_ORDERS);
   }
 }

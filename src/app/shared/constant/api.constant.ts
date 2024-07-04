@@ -30,3 +30,8 @@ export const CART = {
     DEL_CART_ITEM: `${CART_PREFIX}/`,
     CREATE_MULTIPLE_ITEMS: `${CART_PREFIX}/add-multiple-products`
 }
+
+export const ORDERS = {
+    PLACE_ORDER: `${API_PREFIX}/checkout`,
+    GET_ORDERS: `${AUTH_PREFIX}/orders`
+}
