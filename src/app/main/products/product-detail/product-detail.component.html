@@ -1,16 +1,15 @@
 <div class="container-fluid pb-5">
     <div class="row px-xl-5">
         <div class="col-lg-5 mb-30">
-            <div>
-                <div class="bg-light">
-                    <ngb-carousel [showNavigationIndicators]="false">
-                        <ng-container *ngFor="let item of products.images; first as isFirst">
-                            <ng-template ngbSlide>
-                                <img class="min-vw-10 min-vh-10" [src]="item" alt="Image">
-                            </ng-template>
-                        </ng-container>
-                    </ngb-carousel>
-                </div>
+            <div class="bg-light">
+                <ngb-carousel [showNavigationIndicators]="false" [showNavigationArrows]="products.images.length > 1"
+                    class="carousel-container">
+                    <ng-container *ngFor="let item of products.images">
+                        <ng-template ngbSlide>
+                            <img class="d-block w-100 product-detail-image" [src]="item" alt="Image">
+                        </ng-template>
+                    </ng-container>
+                </ngb-carousel>
             </div>
         </div>
 
@@ -18,24 +17,26 @@
             <div class="h-100 bg-light p-30">
                 <!-- Product Name -->
                 <h3>{{ products.name }}</h3>
+                <!-- Rating -->
                 <div class="d-flex mb-3">
-                    <!-- Rating -->
-                    <div class="text-primary mr-2">
-                        <small class="fas fa-star"></small>
-                        <small class="fas fa-star"></small>
-                        <small class="fas fa-star"></small>
-                        <small class="fas fa-star-half-alt"></small>
-                        <small class="far fa-star"></small>
+                    <div class="text-primary">
+                        <ngb-rating [rate]="products.avgStars || 0" [max]="5" [readonly]="true">
+                            <ng-template let-fill="fill" let-index="index">
+                                <small>
+                                    <i class="{{fill === 100 ? 'fas fa-star':'far fa-star'}} mr-1"></i>
+                                </small>
+                            </ng-template>
+                        </ngb-rating>
                     </div>
-                    <small class="pt-1">(99 Reviews)</small>
+                    <small class="pt-1">({{products.totalReview}} Reviews)</small>
                 </div>
-                <h3 class="font-weight-semi-bold mb-4">{{ products.price }}</h3>
+                <h3 class="font-weight-semi-bold mb-4">{{ products.price | currency : '$ ' }}</h3>
                 <p class="mb-4">{{ productDescription.short }}</p>
                 <form [formGroup]="colorSizeForm" (ngSubmit)="addToCart()">
                     <div class="d-flex mb-3">
                         <strong class="text-dark mr-3">Sizes:</strong>
                         <div class="custom-control custom-radio custom-control-inline"
-                            *ngFor="let item of products.sizes; index as i">
+                            *ngFor="let item of products.sizes">
 
                             <input type="radio" class="custom-control-input" [id]="item" [value]="item" name="size"
                                 formControlName="size">
@@ -111,9 +112,11 @@
                         </ng-template>
                     </ng-container>
                     <ng-container [ngbNavItem]="3">
-                        <button class="nav-item nav-link text-dark" ngbNavLink>Reviews (0)</button>
+                        <button class="nav-item nav-link text-dark" ngbNavLink>Reviews
+                            ({{products.totalReview}})</button>
                         <ng-template ngbNavContent>
-                            <app-product-reviews></app-product-reviews>
+                            <app-product-reviews [productId]="proID"
+                                [productName]="products.name"></app-product-reviews>
                         </ng-template>
                     </ng-container>
                 </div>

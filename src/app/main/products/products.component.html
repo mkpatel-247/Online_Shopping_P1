@@ -8,19 +8,25 @@
                 <div class="col-12 pb-1">
                     <app-view-type></app-view-type>
                 </div>
-                <ng-container *ngFor="let item of productDetails.data">
-                    <div class="col-lg-4 col-md-6 col-sm-6" *ngIf="commonService.shopView.value; else listView">
-                        <app-product-grid [products]="item"></app-product-grid>
-                    </div>
-                    <ng-template #listView>
-                        <app-product-list [products]="item"></app-product-list>
-                    </ng-template>
+                <ng-container *ngIf="productDetails.data?.length; else noProduct">
+                    <ng-container *ngFor="let item of productDetails.data">
+                        <div class="col-lg-4 col-md-6 col-sm-6" *ngIf="commonService.shopView.value; else listView">
+                            <app-product-grid [products]="item"></app-product-grid>
+                        </div>
+                        <ng-template #listView>
+                            <app-product-list [products]="item"></app-product-list>
+                        </ng-template>
+                    </ng-container>
                 </ng-container>
-                <ng-container *ngIf="!productDetails.data?.length">
+                <ng-template #noProduct>
                     <h3 class="text-center">No product exist...</h3>
-                </ng-container>
-                <div class="col-12" *ngIf="productDetails.data?.length">
-                    <!-- TODO: Pagination -->
+                </ng-template>
+                <div class="col-12" *ngIf="productDetails.totalPages > 1">
+                    <ngb-pagination class="d-flex justify-content-center"
+                        [collectionSize]="productDetails.totalProducts" [(page)]="productDetails.currentPage"
+                        [pageSize]="productDetails.productPerPage">
+                        <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+                    </ngb-pagination>
                 </div>
             </div>
         </div>

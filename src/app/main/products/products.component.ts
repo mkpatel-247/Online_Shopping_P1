@@ -7,13 +7,14 @@ import { ViewTypeComponent } from './view-type/view-type.component';
 import { ProductService } from 'src/app/shared/service/product.service';
 import { ProductGridComponent } from './product-grid/product-grid.component';
 import { ProductListComponent } from './product-list/product-list.component';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-products',
   standalone: true,
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
-  imports: [CommonModule, FilterByComponent, ViewTypeComponent, RouterModule, ProductListComponent, ProductGridComponent]
+  imports: [CommonModule, FilterByComponent, ViewTypeComponent, RouterModule, ProductListComponent, ProductGridComponent, NgbPaginationModule]
 })
 export class ProductsComponent implements OnInit, OnDestroy {
 
@@ -55,7 +56,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
         }
       })
     } else {
-      const search = { 'search': this.searchQuery || '' }
+      const search = { 'search': this.searchQuery || '', productPerPage: 6, currentPage: 1 }
       this.productService.getProducts(search).subscribe({
         next: (res: any) => {
           this.productDetails = res.data;

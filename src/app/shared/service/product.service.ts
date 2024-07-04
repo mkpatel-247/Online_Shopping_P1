@@ -43,4 +43,22 @@ export class ProductService {
   getCategoryProducts(categoryId: string): Observable<any> {
     return this.http.get(PRODUCT.RELATED_PRODUCT + categoryId);
   }
+
+  /**
+   * Add new review into product.
+   * @param productId unique id of product in which we need to add review.
+   * @param data review and rating object => { rating: 3, review: "..." }
+   * @returns response from API.
+   */
+  addProductReview(productId: string, data: any): Observable<any> {
+    return this.http.post(PRODUCT.ADD_REVIEW + productId, data);
+  }
+
+  /**
+   * Get product review.
+   * @returns API response.
+   */
+  getProductReview(productId: string): Observable<any> {
+    return this.http.get(PRODUCT.GET_REVIEW + productId);
+  }
 }
