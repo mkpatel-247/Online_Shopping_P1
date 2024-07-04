@@ -35,8 +35,7 @@ export class HeaderMenuComponent implements OnInit {
       next: (response: any) => {
         this.categories = response.data;
         this.cdr.markForCheck();
-      },
-      error: () => { }
+      }
     })
   }
 }

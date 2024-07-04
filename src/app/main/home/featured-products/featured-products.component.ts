@@ -21,6 +21,9 @@ export class FeaturedProductsComponent implements OnInit {
     this.getFeaturedProducts();
   }
 
+  /**
+   * Get the featured product list that we need to show on home page.
+   */
   private getFeaturedProducts() {
     this.productService.getProducts({ 'isFeatured': true }).subscribe({
       next: (res: any) => {

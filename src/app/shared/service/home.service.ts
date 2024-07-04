@@ -1,14 +1,14 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HOME } from '../constant/api.constant';
+import { HttpService } from './http.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HomeService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpService) { }
 
   /**
    * @returns json of banner

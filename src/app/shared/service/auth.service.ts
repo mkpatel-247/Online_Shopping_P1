@@ -1,16 +1,16 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AUTH, AUTH_PREFIX } from '../constant/api.constant';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { UserDetails } from '../interface/user.interface';
+import { HttpService } from './http.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  userDetails = new BehaviorSubject<UserDetails>({ _id: '', firstName: '', lastName: '', email: '', phone: 0, createdAt: '', updatedAt: '', __v: 0, gender: '', dob: '', profilePic: '' });
-  constructor(private http: HttpClient) { }
+  isLoggedIn = new BehaviorSubject<boolean>(false);
+  userDetail = new BehaviorSubject<any>('');
+  constructor(private http: HttpService) { }
 
   /**
    * register the user into DB
@@ -34,6 +34,11 @@ export class AuthService {
    * @returns login Token 
    */
   getLoginTokenFromLocalStorage() {
+    const data = localStorage.getItem('userDetail');
+    if (data) {
+      this.isLoggedIn.next(true);
+      this.userDetail.next(JSON.parse(data));
+    }
     return localStorage.getItem('loginToken');
   }
 

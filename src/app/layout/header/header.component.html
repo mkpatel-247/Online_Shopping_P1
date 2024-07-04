@@ -5,24 +5,13 @@
             <div class="d-inline-flex align-items-center h-100">
                 <a class="text-body mr-3" *ngFor="let item of pagesLink" routerLink="{{item.link}}"
                     routerLinkActive="text-dark">{{item.pageLabel}}</a>
-                <!-- <a class="text-body mr-3" routerLink='/about-us' routerLinkActive="text-dark">About</a>
-                <a class="text-body mr-3" routerLink="/faq" routerLinkActive="text-dark">FAQs</a> -->
             </div>
         </div>
         <div class="col-lg-6 text-center text-lg-right">
             <div class="d-inline-flex align-items-center">
-                <div class="btn-group mr-2" *ngIf="!userDetails.firstName">
+                <div class="btn-group mr-2" *ngIf="authService.isLoggedIn | async; else validUser">
                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">
-                        My Account
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <button class="dropdown-item" type="button" routerLink="/auth/login">Sign in</button>
-                        <button class="dropdown-item" type="button" routerLink="/auth/register">Sign up</button>
-                    </div>
-                </div>
-                <div class="btn-group mr-2" *ngIf="userDetails.firstName">
-                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">
-                        Welcome , {{userDetails.firstName}}
+                        Welcome , {{firstName}}
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
                         <button class="dropdown-item bi bi-file-earmark-lock" type="button"
@@ -31,10 +20,20 @@
                         </button>
                         <button class="dropdown-item border-2 border-bottom bi bi-gear" type="button"
                             routerLink="/profile"> Profile Setting</button>
-                        <button class="dropdown-item bi bi-box-arrow-left" type="button" (click)="logout()"> Log
-                            Out</button>
+                        <button class="dropdown-item bi bi-box-arrow-left" type="button" (click)="logout()">
+                            Log Out
+                        </button>
                     </div>
                 </div>
+                <ng-template #validUser>
+                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">
+                        My Account
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <button class="dropdown-item" type="button" routerLink="/auth/login">Sign in</button>
+                        <button class="dropdown-item" type="button" routerLink="/auth/register">Sign up</button>
+                    </div>
+                </ng-template>
                 <div class="btn-group">
                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Change
                         Language</button>
@@ -53,7 +52,7 @@
                 </a>
                 <a routerLink="/cart" class="btn px-0 ml-2">
                     <i class="fas fa-shopping-cart text-dark"></i>
-                    <span class="badge text-dark border border-dark rounded-circle">0</span>
+                    <span class="badge text-dark border border-dark rounded-circle">{{numberOfCartItem}}</span>
                 </a>
             </div>
         </div>

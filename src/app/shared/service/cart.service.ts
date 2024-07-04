@@ -1,14 +1,14 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CART, ORDERS } from '../constant/api.constant';
 import { Observable } from 'rxjs';
+import { HttpService } from './http.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpService) { }
 
   /**
    * @param cartItemDetail (productId,size,color,quantity)

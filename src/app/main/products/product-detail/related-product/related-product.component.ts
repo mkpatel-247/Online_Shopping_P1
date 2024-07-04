@@ -12,7 +12,7 @@ import { ProductGridComponent } from '../../product-grid/product-grid.component'
 })
 export class RelatedProductComponent {
 
-  @Input() categoryId: string = '';
+  @Input({ required: true }) categoryId: string = '';
 
   customOptions: OwlOptions = {
     loop: true,
