@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CATEGORY, PRODUCT } from '../constant/api.constant';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpService } from './http.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +10,13 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class ProductService {
 
   cartItems = new BehaviorSubject<number>(0)
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpService) { }
 
   /**
    * Get all product details.
    */
   getProducts(params?: any): Observable<Object> {
-    return this.http.get(PRODUCT.PRODUCT_DETAILS, { params });
+    return this.http.get(PRODUCT.PRODUCT_DETAILS, params);
   }
 
   /**

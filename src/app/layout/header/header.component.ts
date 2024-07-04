@@ -26,11 +26,16 @@ export class HeaderComponent implements OnInit {
   userDetails: UserDetails = { _id: '', firstName: '', lastName: '', email: '', phone: 0, createdAt: '', updatedAt: '', __v: 0, gender: '', dob: '', profilePic: '' };
   language = LANGUAGE;
   pagesLink = PAGES_LINK;
-  constructor(private modalService: NgbModal, private authService: AuthService, private toastService: ToastMessageService, private router: Router, private cookieService: CookieService, private cdr: ChangeDetectorRef) { }
+  numberOfCartItem: number = 0;
+  constructor(private modalService: NgbModal, public authService: AuthService, private toastService: ToastMessageService, private router: Router, private cookieService: CookieService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     if (this.authService.getLoginTokenFromLocalStorage()) {
       this.getUserDetails()
+    }
+    const storedItem = JSON.parse(localStorage.getItem('cartItems') as string);
+    if (storedItem) {
+      this.numberOfCartItem = storedItem.length;
     }
   }
   /**
@@ -48,12 +53,9 @@ export class HeaderComponent implements OnInit {
       next: (res: any) => {
         if (res.success) {
           this.userDetails = res.data;
-          this.authService.userDetails.next(this.userDetails);
+          this.authService.isLoggedIn.next(true);
         }
         this.cdr.markForCheck();
-      },
-      error: (err: any) => {
-        this.toastService.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.danger, "Error occurred while fetching your data")
       }
     });
   }
@@ -83,6 +85,7 @@ export class HeaderComponent implements OnInit {
    */
   logout() {
     localStorage.removeItem('loginToken');
+    this.authService.isLoggedIn.next(false);
     this.cdr.markForCheck();
   }
 }

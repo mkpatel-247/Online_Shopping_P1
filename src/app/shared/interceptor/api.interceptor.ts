@@ -29,6 +29,6 @@ export class ApiInterceptor implements HttpInterceptor {
         }
         return throwError(error);
       })
-    );;
+    );
   }
 }

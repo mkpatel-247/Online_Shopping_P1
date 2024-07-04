@@ -9,7 +9,7 @@ import { UserDetails } from '../interface/user.interface';
 })
 export class AuthService {
 
-  userDetails = new BehaviorSubject<UserDetails>({ _id: '', firstName: '', lastName: '', email: '', phone: 0, createdAt: '', updatedAt: '', __v: 0, gender: '', dob: '', profilePic: '' });
+  isLoggedIn = new BehaviorSubject<boolean>(false);
   constructor(private http: HttpClient) { }
 
   /**

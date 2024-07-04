@@ -12,6 +12,6 @@ import { ProductGridImageDirective } from 'src/app/shared/directive/product-grid
   styleUrls: ['./product-grid.component.scss']
 })
 export class ProductGridComponent {
-  @Input() products: any = '';
+  @Input({ required: true }) products: any = '';
 
 }

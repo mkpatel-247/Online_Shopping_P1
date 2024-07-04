@@ -1,8 +1,11 @@
 <div class="product-item bg-light mb-4">
     <div class="product-img position-relative overflow-hidden">
-        <ng-container *ngFor="let item of products.images; first as isFirst">
-            <img src="{{item ? item : '/assets/img/no-image.webp'}}" alt="item" *ngIf="isFirst" appProductGridImage>
+        <ng-container *ngIf="products.images?.length; else defaultImage">
+            <img src="{{products.images[0]}}" alt="product-image" appProductGridImage>
         </ng-container>
+        <ng-template #defaultImage>
+            <img src="/assets/img/no-image.webp" alt="item" appProductGridImage>
+        </ng-template>
         <div class="product-action">
             <a class="btn btn-outline-dark btn-square" routerLink=""><i class="far fa-heart"></i></a>
             <a class="btn btn-outline-dark btn-square" routerLink="/product/details/{{products._id}}"><i
