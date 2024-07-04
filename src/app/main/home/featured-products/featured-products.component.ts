@@ -27,7 +27,6 @@ export class FeaturedProductsComponent implements OnInit {
         this.featuredProduct = res.data.data;
       },
       error: (err: any) => {
-        console.log(err);
       }
     })
   }

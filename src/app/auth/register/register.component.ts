@@ -54,9 +54,7 @@ export class RegisterComponent {
 
         },
         error: (err: any) => {
-          this.toastService.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.danger, "Error occurred while registration")
-          console.log(err);
-
+          this.toastService.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.danger, err.error.message)
         }
       });
     }

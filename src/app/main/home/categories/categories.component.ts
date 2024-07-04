@@ -24,7 +24,7 @@ export class CategoriesComponent implements OnInit {
       next: (response: any) => {
         this.categories = response.data;
       },
-      error: (err: any) => { console.log(err) },
+      error: (err: any) => { },
     })
   }
 }
