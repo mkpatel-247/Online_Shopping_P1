@@ -31,7 +31,7 @@ export class ApiInterceptor implements HttpInterceptor {
           this.router.navigate(['/auth/login']);
           return throwError(() => "Logout");
         }
-        if (error.status === 400) {
+        if (error.status === 400 && !request.url.includes('/cart')) {
           this.toast.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.danger, error.error.message);
         }
         return throwError(() => 'Unknown Error');

@@ -50,11 +50,11 @@ export class HeaderComponent implements OnInit {
   getUserDetails() {
     this.authService.userDetail.subscribe({
       next: (res: any) => {
-        if (res.success) {
-          this.firstName = res;
-          this.authService.isLoggedIn.next(true);
-        }
+        this.firstName = res.firstName;
         this.cdr.markForCheck();
+      },
+      complete: () => {
+        this.authService.isLoggedIn.next(true);
       }
     });
   }

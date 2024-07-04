@@ -6,11 +6,12 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { ToastMessageService } from 'src/app/shared/components/toast-message/toast-message.service';
 import { isEmailValid, isOnlySpaceExist } from 'src/app/shared/validators/custom.validator';
 import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
+import { ContainSpaceDirective } from 'src/app/shared/directive/contain-space.directive';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ContainSpaceDirective],
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss']
 })
