@@ -84,8 +84,7 @@ export class UserProfileComponent implements OnInit {
         }
       },
       error: (err: any) => {
-        console.log("error occurred");
-
+        this.toastService.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.danger, "Error occurred while fetching your data");
       }
     })
   }
@@ -102,6 +101,24 @@ export class UserProfileComponent implements OnInit {
       this.userProfileForm.patchValue({ dob: [date.getFullYear(), month, day].join("-") })
     }
   }
+
+
+  /**
+   * set the profile image as preview
+   * @param event Event
+   */
+  getProfilePhoto(event: any) {
+
+    let reader = new FileReader();
+    reader.onload = () => {
+      this.profileImage = reader.result;
+      this.cd.markForCheck()
+    }
+    reader.readAsDataURL(event.target.files[0]);
+    this.userProfileForm.patchValue({ profilePic: event.target.files[0] })
+
+  }
+
   /**
    * send a put request to update the user data
    */
@@ -124,7 +141,7 @@ export class UserProfileComponent implements OnInit {
           }
         },
         error: (err: any) => {
-          this.toastService.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.danger, err.message);
+          this.toastService.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.danger, err.error.message);
         }
       });
     }

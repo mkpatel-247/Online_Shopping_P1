@@ -1,21 +1,34 @@
-import { Directive, ElementRef, HostListener } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
   selector: '[appContainSpace]',
   standalone: true
 })
-export class ContainSpaceDirective {
+/**
+ * removes and trim extra white spaces between words 
+ */
+export class ContainSpaceDirective implements AfterViewInit {
 
+  el: any;
   constructor(private elementRef: ElementRef) { }
 
+  ngAfterViewInit(): void {
+    this.el = this.elementRef.nativeElement as HTMLInputElement;
+  }
   @HostListener('input') keydown() {
-    const el = this.elementRef.nativeElement as HTMLInputElement;
-    const inputValue = el.value;
-    const newValue = inputValue.replace(/(\s{2,})|[^a-zA-Z']/g, ' ');
+    const inputValue = this.el.value;
+    const newValue = inputValue.replace(/^\s+|\s+$|\s+(?=\s)/g, ' ');
 
     if (inputValue !== newValue) {
-      el.value = newValue;
-      el.dispatchEvent(new Event('input'))
+      this.el.value = newValue;
+      this.el.dispatchEvent(new Event('input'))
+    }
+  }
+  @HostListener('blur') trim() {
+    const inputValue = this.el.value.trim();
+    if (inputValue !== this.el.value) {
+      this.el.value = inputValue;
+      this.el.dispatchEvent(new Event('input'))
     }
   }
 }
