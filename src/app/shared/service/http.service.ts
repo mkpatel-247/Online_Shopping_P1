@@ -50,6 +50,20 @@ export class HttpService {
   }
 
   /**
+   * 
+   * Custom put service that handle error.
+   * @param url api url in string.
+   * @param data data that need to send.
+   * @param params parameter if exist.
+   * @param headers headers if exist. eg. headers = {key, value}
+   * @returns response.
+   */
+  put<T>(url: string, data: any, params?: HttpParams, headers?: HttpHeaders): Observable<T> {
+    const options = { params, headers };
+    return this.http.put<T>(url, data, options).pipe(catchError(this.handleError.bind(this)));
+  }
+
+  /**
    * If any error occur that toast message will be shown.
    */
   private handleError(error: HttpErrorResponse): Observable<never> {

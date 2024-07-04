@@ -1,4 +1,3 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CATEGORY, PRODUCT } from '../constant/api.constant';
 import { BehaviorSubject, Observable } from 'rxjs';

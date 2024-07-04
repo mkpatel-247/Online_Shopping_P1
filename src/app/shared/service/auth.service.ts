@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AUTH, AUTH_PREFIX } from '../constant/api.constant';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { UserDetails } from '../interface/user.interface';
+import { HttpService } from './http.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ import { UserDetails } from '../interface/user.interface';
 export class AuthService {
 
   isLoggedIn = new BehaviorSubject<boolean>(false);
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpService) { }
 
   /**
    * register the user into DB
