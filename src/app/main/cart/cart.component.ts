@@ -44,8 +44,8 @@ export class CartComponent implements OnInit {
       next: (res: any) => {
         this.cartItems = res?.data?.products;
         this.productService.cartItems.next(this.cartItems.length);
-        this.cd.markForCheck()
         this.setCartTotal();
+        this.cd.markForCheck()
 
       },
       error: (err: any) => {
@@ -68,6 +68,7 @@ export class CartComponent implements OnInit {
     } else if (actionType === 'plus') {
       item.quantity = (parseInt(item.quantity) + 1) + '';
     }
+
     if (this.authService.getLoginTokenFromLocalStorage()) {
       this.updateCartDynamically(item)
     } else {
@@ -99,8 +100,8 @@ export class CartComponent implements OnInit {
     this.cartService.addCartItem(updatedItem).subscribe({
       next: (res: any) => {
         if (res.success) {
-          this.cd.markForCheck()
           this.setCartTotal();
+          this.cd.markForCheck()
         }
       },
       error: (err: any) => {
@@ -149,10 +150,10 @@ export class CartComponent implements OnInit {
         this.productService.getProductById(item.productId).subscribe({
           next: (res: any) => {
             if (res.success) {
-              const itemDetail = { productId: res.data._id, images: [res.data.images[0]], name: res.data.name, totalPrice: res.data.price, quantity: parseInt(item.quantity), totalQuality: res.data.quantity }
+              const itemDetail = { productId: res.data._id, images: [res.data.images[0]], name: res.data.name, actualPrice: res.data.price, quantity: parseInt(item.quantity), totalQuality: res.data.quantity }
               this.cartItems.push(itemDetail);
-              this.cd.markForCheck();
               this.setCartTotal()
+              this.cd.markForCheck();
             }
           },
           error: (err: any) => {
@@ -179,8 +180,8 @@ export class CartComponent implements OnInit {
     const itemIndex = storedCartItem.findIndex((cartItem: any) => cartItem.productId === item.productId);
     storedCartItem[itemIndex].quantity = parseInt(item.quantity)
     storedCartItem[itemIndex].quantity += ''; localStorage.setItem('cartItems', JSON.stringify(storedCartItem));
-    this.cd.markForCheck()
     this.setCartTotal();
+    this.cd.markForCheck()
   }
 
   /**
@@ -193,8 +194,8 @@ export class CartComponent implements OnInit {
     localStorage.setItem('cartItems', JSON.stringify(storedCartItem));
     this.productService.cartItems.next(storedCartItem.length);
     this.getCartItemLocally();
-    this.cd.markForCheck()
     this.setCartTotal();
+    this.cd.markForCheck()
   }
 
   /**
