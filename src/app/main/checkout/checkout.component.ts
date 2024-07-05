@@ -61,7 +61,7 @@ export class CheckoutComponent implements OnInit {
    */
   countSubTotal() {
     this.cartItems.forEach((item: any) => {
-      this.subTotal += item.actualPrice;
+      this.subTotal += item.totalPrice;
     })
   }
 
