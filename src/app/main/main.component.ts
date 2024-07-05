@@ -26,6 +26,7 @@ export class MainComponent implements OnInit {
           this.productService.cartItems.next(res?.data?.products?.length | 0);
         },
         error: (err: any) => {
+          this.productService.cartItems.next(0);
         }
       })
     }

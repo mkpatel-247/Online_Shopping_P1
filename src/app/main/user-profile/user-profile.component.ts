@@ -7,11 +7,12 @@ import { UserService } from 'src/app/shared/service/user.service';
 import { ToastMessageService } from 'src/app/shared/components/toast-message/toast-message.service';
 import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
 import { ContainSpaceDirective } from 'src/app/shared/directive/contain-space.directive';
+import { OrdersComponent } from '../orders/orders.component';
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, ProductListComponent, ContainSpaceDirective],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, ProductListComponent, ContainSpaceDirective, OrdersComponent],
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

@@ -1,8 +1,9 @@
 <div class="container-fluid mb-3">
-    <div class="row px-xl-5">
+    <div class="row" [ngClass]="{'px-xl-5':!(this.router.url == '/profile')}">
         <div class="col-md-12">
             <section class="h-100">
-                <h1 class="position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">
+                <h1 class="position-relative text-uppercase mb-3"><span class="bg-secondary pr-3"
+                        *ngIf="!(this.router.url == '/profile')">
                         Your Orders
                     </span>
                 </h1>

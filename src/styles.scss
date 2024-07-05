@@ -78,6 +78,7 @@ body {
   color: #6c757d;
   text-align: left;
   background-color: #f5f5f5;
+  top: 0px !important;
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -10357,10 +10358,6 @@ textarea {
 
 .skiptranslate {
   display: none !important;
-}
-
-body {
-  top: 0px !important;
 }
 
 .VIpgJd-yAWNEb-VIpgJd-fmcmS-sn54Q {

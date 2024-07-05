@@ -32,8 +32,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.commonService.breadCrumb.next(this.route.data);
     this.route.queryParams.subscribe({
       next: (param: any) => {
-        // this.catId = param['categoryId'];
-        // this.router.navigate(['/product'], { queryParams: { productPerPage: '5', currentPage: '1', ...param } });
+        this.catId = param['categoryId'];
         this.searchQuery = param['search'];
         // console.log(param);
         this.getProducts();

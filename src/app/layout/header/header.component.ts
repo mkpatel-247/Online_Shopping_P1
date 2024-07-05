@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { CommonModule, Location } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ChangePasswordComponent } from 'src/app/auth/change-password/change-password.component';
@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { LANGUAGE, PAGES_LINK } from './header.data';
 import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
 import { ContainSpaceDirective } from 'src/app/shared/directive/contain-space.directive';
+import { ProductService } from 'src/app/shared/service/product.service';
 
 declare var google: any;
 @Component({
@@ -26,7 +27,7 @@ export class HeaderComponent implements OnInit {
   language = LANGUAGE;
   pagesLink = PAGES_LINK;
   numberOfCartItem: number = 0;
-  constructor(private modalService: NgbModal, public authService: AuthService, private toastService: ToastMessageService, private router: Router, private cdr: ChangeDetectorRef, private toast: ToastMessageService) { }
+  constructor(private modalService: NgbModal, public authService: AuthService, private toastService: ToastMessageService, private router: Router, private cdr: ChangeDetectorRef, private productService: ProductService, private location: Location) { }
 
   ngOnInit(): void {
     this.getUserDetails();
@@ -74,7 +75,7 @@ export class HeaderComponent implements OnInit {
    * Change the language of page.
    * @param languageCode code of language
    */
-  async changeLanguage(languageCode: string) {
+  changeLanguage(languageCode: string) {
     document.cookie = 'googtrans=' + `/en/${languageCode}`
     location.reload();
   }
@@ -86,7 +87,9 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem('loginToken');
     localStorage.removeItem('userDetail');
     this.authService.isLoggedIn.next(false);
-    this.toast.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.danger, "Logout Successfully");
+    this.productService.cartItems.next(0);
+    this.location.back();
+    this.toastService.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.danger, "Logout Successfully");
     this.cdr.markForCheck();
   }
 

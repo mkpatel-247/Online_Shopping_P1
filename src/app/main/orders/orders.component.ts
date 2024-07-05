@@ -18,7 +18,7 @@ import { OrderListComponent } from './order-list/order-list.component';
 export class OrdersComponent implements OnInit {
 
   orderData: any;
-  constructor(private cd: ChangeDetectorRef, private router: Router, private cartService: CartService, private toastService: ToastMessageService) { }
+  constructor(private cd: ChangeDetectorRef, public router: Router, private cartService: CartService, private toastService: ToastMessageService) { }
 
   ngOnInit(): void {
     this.getAllUserOrders();

@@ -95,7 +95,7 @@ export class ProductDetailComponent implements OnInit {
         this.cd.markForCheck();
       },
       error: (err: any) => {
-        this.toastService.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.danger, err.message || "Not Found")
+        this.router.navigateByUrl('/product');
       },
     })
   }

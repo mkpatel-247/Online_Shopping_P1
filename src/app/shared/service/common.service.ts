@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ContactForm } from '../interface/contact-form';
 import { CONTACT } from '../constant/api.constant';
+import { HttpService } from './http.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class CommonService {
   //Manage shop grid/list view
   shopView = new BehaviorSubject<boolean>(true);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpService) { }
 
   /**
    * Make a post request and send a message.

@@ -71,6 +71,7 @@ export class ProductReviewsComponent implements OnInit {
     const value = this.reviewForm.value;
     if (this.reviewForm.valid) {
       this.addReview(this.productId, value);
+      this.reviewForm.reset();
     } else {
       this.reviewForm.markAllAsTouched();
     }
@@ -84,6 +85,7 @@ export class ProductReviewsComponent implements OnInit {
     this.productService.addProductReview(id, data).subscribe({
       next: (res: any) => {
         if (res.success) {
+          this.getProductReview(id);
           this.toastService.showToast(TOAST_ICON.successIcon, TOAST_STATE.success, res.message);
         }
       }
