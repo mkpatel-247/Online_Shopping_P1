@@ -46,7 +46,6 @@ export class CartComponent implements OnInit {
         this.productService.cartItems.next(this.cartItems.length);
         this.setCartTotal();
         this.cd.markForCheck()
-
       },
       error: (err: any) => {
         this.cartItems = [];
@@ -117,7 +116,7 @@ export class CartComponent implements OnInit {
     this.cartTotal = 0;
     if (this.cartItems.length > 0) {
       this.cartItems.forEach((item: any) => {
-        this.cartTotal += item.totalPrice * item.quantity;
+        this.cartTotal += item.actualPrice * item.quantity;
       })
       this.cd.markForCheck()
     }

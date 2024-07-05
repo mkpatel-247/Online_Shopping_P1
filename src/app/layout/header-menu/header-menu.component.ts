@@ -24,7 +24,14 @@ export class HeaderMenuComponent implements OnInit {
     const storedItem = JSON.parse(localStorage.getItem('cartItems') as string);
     if (storedItem) {
       this.numberOfCartItem = storedItem.length;
+    } else {
+      this.productService.cartItems.subscribe((res) => {
+        this.numberOfCartItem = res;
+        this.cdr.markForCheck();
+      })
     }
+
+
   }
 
   /**

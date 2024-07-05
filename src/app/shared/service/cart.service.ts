@@ -53,4 +53,8 @@ export class CartService {
   getAllOrders(): Observable<any> {
     return this.http.get(ORDERS.GET_ORDERS);
   }
+
+  getSingleOrder(orderId: string): Observable<any> {
+    return this.http.get(ORDERS.GET_SINGLE_ORDER + orderId)
+  }
 }
