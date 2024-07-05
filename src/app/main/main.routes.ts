@@ -44,6 +44,11 @@ export const mainRoutes: Routes = [
                 loadComponent: () => import('../main/orders/orders.component').then((c) => c.OrdersComponent)
             },
             {
+                path: 'orders/order-details/:id',
+                canActivate: [authGuard],
+                loadComponent: () => import('../main/orders/order-list/order-list.component').then((c) => c.OrderListComponent)
+            },
+            {
                 path: 'contact',
                 loadComponent: () => import('../pages/contact/contact.component').then((c) => c.ContactComponent),
                 data: [

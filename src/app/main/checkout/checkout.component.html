@@ -57,7 +57,7 @@
                             <div class="custom-control custom-radio">
                                 <input type="radio" class="custom-control-input" name="payment" [id]="method"
                                     [value]="method" [(ngModel)]="paymentMethod">
-                                <label class="custom-control-label" [for]="method">{{method}}</label>
+                                <label class="custom-control-label" [for]="method">{{method | titlecase}}</label>
                             </div>
                         </div>
                     </ng-container>

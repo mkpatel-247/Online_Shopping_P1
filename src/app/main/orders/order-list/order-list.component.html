@@ -1,0 +1,126 @@
+<div class="container-fluid mb-3">
+    <div class="row px-xl-5">
+        <div class="col-md-12">
+            <div class="card border-1 mb-0">
+                <div class="row p-3">
+                    <div class="col-md-3 col-sm-6 d-flex flex-column align-items-baseline">
+                        <h6 class="mb-0 p-0">Shipping Address</h6>
+                        <small>
+                            {{orderList?.pickUpPerson?.firstName}} {{orderList?.pickUpPerson?.lastName}}
+                        </small>
+                        <small>
+                            {{orderList?.address?.line1}} {{orderList?.address?.line2}}
+                        </small>
+                        <small>
+                            {{orderList?.address?.city}} {{orderList?.address?.state}} {{orderList?.address?.zip}}
+                        </small>
+                        <small>
+                            {{orderList?.address?.country}}
+                        </small>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <h6 class="mb-0 p-0 ">Payment Method</h6>
+                        <p>
+                            {{orderList?.paymentMethod}}
+                        </p>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <h6 class="mb-0 p-0">Order Summary</h6>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <p class="p-0 mb-0"> Order # </p>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <p class="p-0 mb-0">{{orderId}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <p class="p-0 mb-0"> Item(s) Subtotal :</p>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <p class="p-0 mb-0">{{orderList?.amount | number : '1.2-2'}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <p class="p-0 mb-0"> Shipping:</p>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <p class="p-0 mb-0">$10</p>
+                            </div>
+                        </div>
+                        <hr class="m-0 text-dark w-75">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <h6 class=" mt-0"> Gran Total:</h6>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <p class="p-0 mb-0">
+                                    <small class="bg-primary rounded px-1">
+                                        ${{orderList?.amount + 10 | number : '1.2-2'}}
+                                    </small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid mb-3">
+    <div class="row px-xl-5">
+        <ng-container *ngFor="let item of orderList?.products">
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                <div class="card shadow-0 border-1 mb-4 ">
+                    <div class="card-body">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-12">
+                                <img [src]="item?.image" class="grid-image" alt=""
+                                    onerror="this.src='/assets/img/no-image.webp';">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12 d-flex flex-column align-items-baseline col-sm-12">
+                                <a class="my-1 h4  text-decoration-none text-truncate"
+                                    routerLink="/product/details/{{item.productId}}">
+                                    {{item.name | titlecase}}</a>
+                                <p class="text-muted m-0">{{item.description.short | titlecase}}</p>
+                                <fieldset class="border pb-2 px-2 mt-3 rounded-3 w-100">
+                                    <legend class="w-auto float-none fs-6 fw-semibold">Additional Details</legend>
+                                    <div class="row">
+                                        <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12">
+                                            <h6 class="mb-0">Color: <small>{{item.color }}</small>
+                                            </h6>
+                                            <h6 class="mb-0">Size: <small>{{item?.size }}</small>
+                                            </h6>
+
+                                        </div>
+                                        <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+                                            <h6 class="mb-0">Quantity: <small>{{item.quantity}}</small>
+                                            </h6>
+                                            <h6 class="mb-0">Price:
+                                                <small>
+                                                    ${{item.price | number : '1.2-2'}}
+                                                </small>
+                                            </h6>
+                                            <hr class="m-0 w-75">
+                                            <h6 class="mb-0">Total:
+                                                <small class="bg-primary rounded px-1">
+                                                    ${{item.total | number : '1.2-2'}}
+                                                </small>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>
