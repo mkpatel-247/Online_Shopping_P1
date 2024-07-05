@@ -5,7 +5,7 @@
     <div class="row px-xl-5">
         <div class="col-lg-7 mb-5">
             <div class="contact-form bg-light p-30">
-                <form [formGroup]="contactForm" (ngSubmit)="handleSubmit()" *ngIf="messageSent">
+                <form [formGroup]="contactForm" (ngSubmit)="handleSubmit()">
                     <div class="control-group">
                         <label class="form-label mb-1" for="name">Name <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="name" placeholder="Your Name" formControlName="name"

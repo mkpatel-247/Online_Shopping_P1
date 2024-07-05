@@ -31,6 +31,7 @@ export class ProductDetailComponent implements OnInit {
   storedItem: any[] = [];
   proID: string = '';
   cartItems: any = [];
+  listOfRelatedProduct: any = [];
   constructor(private productService: ProductService, private route: ActivatedRoute, private toastService: ToastMessageService, private authService: AuthService, private cartService: CartService, private router: Router, private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
@@ -67,6 +68,7 @@ export class ProductDetailComponent implements OnInit {
         next: (res: any) => {
           this.cartItems = res?.data?.products;
           this.productService.cartItems.next(this.cartItems.length);
+          this.cd.markForCheck();
         },
         error: (err: any) => {
           this.cartItems = [];
@@ -84,6 +86,7 @@ export class ProductDetailComponent implements OnInit {
         if (res.success) {
           this.products = res.data;
           this.productDescription = res.data.description;
+          this.getRelatedProducts(this.products.categoryId);
           this.colorSizeForm.get('size')?.setValue(this.products.sizes[0])
           this.colorSizeForm.get('color')?.setValue(this.products.colors[0])
         } else {
@@ -130,6 +133,7 @@ export class ProductDetailComponent implements OnInit {
             this.productService.cartItems.next(this.cartItems.length + 1);
             this.toastService.showToast(TOAST_ICON.successIcon, TOAST_STATE.success, 'Item added to cart');
             this.getAllCartItems();
+            this.cd.markForCheck();
           }
         }
       },
@@ -164,5 +168,22 @@ export class ProductDetailComponent implements OnInit {
       this.productService.cartItems.next(this.storedItem.length);
     }
     localStorage.setItem('cartItems', JSON.stringify(this.storedItem));
+  }
+
+  private getRelatedProducts(catId: string) {
+
+    this.productService.getCategoryProducts(catId).subscribe({
+      next: (res: any) => {
+        const isDataExist = res.data;
+        if (isDataExist) {
+          this.listOfRelatedProduct = isDataExist.data;
+          this.cd.markForCheck();
+        }
+      },
+      error: (err: any) => {
+        this.listOfRelatedProduct = [];
+        this.cd.markForCheck();
+      }
+    })
   }
 }

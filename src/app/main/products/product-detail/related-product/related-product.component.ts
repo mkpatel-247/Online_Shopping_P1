@@ -1,18 +1,20 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { ProductGridComponent } from '../../product-grid/product-grid.component';
+import { ProductService } from 'src/app/shared/service/product.service';
 
 @Component({
   selector: 'app-related-product',
   standalone: true,
   imports: [CommonModule, CarouselModule, ProductGridComponent],
   templateUrl: './related-product.component.html',
-  styleUrls: ['./related-product.component.scss']
+  styleUrls: ['./related-product.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RelatedProductComponent {
 
-  @Input({ required: true }) categoryId: string = '';
+  @Input({ required: true }) listOfRelatedProduct: any = [];
 
   customOptions: OwlOptions = {
     loop: true,
@@ -36,4 +38,6 @@ export class RelatedProductComponent {
       }
     }
   }
+
+
 }

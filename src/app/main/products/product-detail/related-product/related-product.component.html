@@ -5,9 +5,9 @@
     <div class="row px-xl-5">
         <div class="col">
             <owl-carousel-o [options]="customOptions">
-                <ng-container *ngFor="let item of [1,2,3,4,5,6,7]">
+                <ng-container *ngFor="let item of listOfRelatedProduct">
                     <ng-template carouselSlide>
-                        <app-product-grid [products]="{}"></app-product-grid>
+                        <app-product-grid [products]="item"></app-product-grid>
                     </ng-template>
                 </ng-container>
             </owl-carousel-o>
