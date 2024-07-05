@@ -68,8 +68,8 @@
             <form>
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search for products" [(ngModel)]="searchQuery"
-                        name="search">
-                    <button type="button" (click)="searchQuery = ''" *ngIf="searchQuery"
+                        name="search" appContainSpace>
+                    <button type="button" (click)="eraseSearchRecords()" *ngIf="searchQuery"
                         class="input-group-text bg-transparent text-primary rounded-0">
                         <i class="fa fa-times"></i>
                     </button>

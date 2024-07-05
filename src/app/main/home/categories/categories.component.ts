@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService } from 'src/app/shared/service/product.service';
 import { RouterLink } from '@angular/router';
@@ -8,12 +8,13 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.scss']
+  styleUrls: ['./categories.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoriesComponent implements OnInit {
 
   categories: any = '';
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.getCategories();
@@ -23,6 +24,7 @@ export class CategoriesComponent implements OnInit {
     this.productService.getAllCategories().subscribe({
       next: (response: any) => {
         this.categories = response.data;
+        this.cdr.markForCheck();
       },
       error: (err: any) => {
         this.categories = []

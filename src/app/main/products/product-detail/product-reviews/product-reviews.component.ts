@@ -20,8 +20,6 @@ export class ProductReviewsComponent implements OnInit {
 
   @Input({ required: true }) productId: string = '';
   @Input({ required: true }) productName: string = '';
-  currentPage: string = '1';
-  reviewPerPage: string = '4';
 
   reviews: any = '';
   reviewForm!: FormGroup;
@@ -30,10 +28,7 @@ export class ProductReviewsComponent implements OnInit {
   constructor(private productService: ProductService, private authService: AuthService, private toastService: ToastMessageService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe((res: any) => {
-      console.log(res);
-    })
-    this.getProductReview(this.productId, this.reviewPerPage, this.currentPage);
+    this.getProductReview(this.productId);
     this.reviewFormControls();
     this.getUserDetails();
   }
@@ -60,7 +55,7 @@ export class ProductReviewsComponent implements OnInit {
   /**
    * Get all review of product.
    */
-  getProductReview(id: string, perPage: string, currentPage: string) {
+  getProductReview(id: string) {
     // const params = { "reviewPerPage": perPage, 'currentPage': currentPage }
     this.productService.getProductReview(id).subscribe({
       next: (res: any) => {

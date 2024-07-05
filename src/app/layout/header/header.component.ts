@@ -8,12 +8,13 @@ import { ToastMessageService } from 'src/app/shared/components/toast-message/toa
 import { FormsModule } from '@angular/forms';
 import { LANGUAGE, PAGES_LINK } from './header.data';
 import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
+import { ContainSpaceDirective } from 'src/app/shared/directive/contain-space.directive';
 
 declare var google: any;
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterModule, ChangePasswordComponent, FormsModule],
+  imports: [CommonModule, RouterModule, ChangePasswordComponent, FormsModule, ContainSpaceDirective],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -28,9 +29,7 @@ export class HeaderComponent implements OnInit {
   constructor(private modalService: NgbModal, public authService: AuthService, private toastService: ToastMessageService, private router: Router, private cdr: ChangeDetectorRef, private toast: ToastMessageService) { }
 
   ngOnInit(): void {
-    if (this.authService.getLoginTokenFromLocalStorage()) {
-      this.getUserDetails()
-    }
+    this.getUserDetails();
     const storedItem = JSON.parse(localStorage.getItem('cartItems') as string);
     if (storedItem) {
       this.numberOfCartItem = storedItem.length;
@@ -49,7 +48,9 @@ export class HeaderComponent implements OnInit {
   getUserDetails() {
     this.authService.userDetail.subscribe({
       next: (res: any) => {
-        this.firstName = res.firstName;
+        if (res) {
+          this.firstName = res.firstName;
+        }
         this.cdr.markForCheck();
       },
       complete: () => {
@@ -87,5 +88,14 @@ export class HeaderComponent implements OnInit {
     this.authService.isLoggedIn.next(false);
     this.toast.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.danger, "Logout Successfully");
     this.cdr.markForCheck();
+  }
+
+  eraseSearchRecords() {
+    if (this.searchQuery && this.router.url.includes('/product')) {
+      this.searchQuery = '';
+      this.router.navigate(['/product'], { queryParams: { search: '' } })
+    } else {
+      this.searchQuery = '';
+    }
   }
 }
