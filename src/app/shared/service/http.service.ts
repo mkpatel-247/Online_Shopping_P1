@@ -75,7 +75,7 @@ export class HttpService {
     return this.http.request<T>("delete", url, { body, observe: "response" })
       .pipe(
         map((res: HttpResponse<T>) => {
-          return res.body;
+          return this.handleError.bind(res.body);
         })
       );
     // return this.http.delete<T>(url, headers).pipe(catchError(this.handleError.bind(this)));

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CATEGORY, PRODUCT } from '../constant/api.constant';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpService } from './http.service';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -58,7 +59,7 @@ export class ProductService {
    * Get product review.
    * @returns API response.
    */
-  getProductReview(productId: string): Observable<any> {
-    return this.http.get(PRODUCT.GET_REVIEW + productId);
+  getProductReview(productId: string, params?: any): Observable<any> {
+    return this.http.get(PRODUCT.GET_REVIEW + productId, params);
   }
 }

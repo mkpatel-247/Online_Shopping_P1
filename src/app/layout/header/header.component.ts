@@ -7,7 +7,6 @@ import { AuthService } from 'src/app/shared/service/auth.service';
 import { ToastMessageService } from 'src/app/shared/components/toast-message/toast-message.service';
 import { FormsModule } from '@angular/forms';
 import { LANGUAGE, PAGES_LINK } from './header.data';
-import { CookieService } from 'ngx-cookie-service';
 import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
 
 declare var google: any;
@@ -26,7 +25,7 @@ export class HeaderComponent implements OnInit {
   language = LANGUAGE;
   pagesLink = PAGES_LINK;
   numberOfCartItem: number = 0;
-  constructor(private modalService: NgbModal, public authService: AuthService, private toastService: ToastMessageService, private router: Router, private cookieService: CookieService, private cdr: ChangeDetectorRef, private toast: ToastMessageService) { }
+  constructor(private modalService: NgbModal, public authService: AuthService, private toastService: ToastMessageService, private router: Router, private cdr: ChangeDetectorRef, private toast: ToastMessageService) { }
 
   ngOnInit(): void {
     if (this.authService.getLoginTokenFromLocalStorage()) {
@@ -74,9 +73,9 @@ export class HeaderComponent implements OnInit {
    * Change the language of page.
    * @param languageCode code of language
    */
-  changeLanguage(languageCode: string) {
-    this.cookieService.set('googtrans', '/' + 'en' + '/' + languageCode);
-    this.cdr.detectChanges();
+  async changeLanguage(languageCode: string) {
+    document.cookie = 'googtrans=' + `/en/${languageCode}`
+    location.reload();
   }
 
   /**
