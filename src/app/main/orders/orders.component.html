@@ -39,13 +39,9 @@
                                     {{item?.orderId }}
                                 </small>
                             </div>
-                            <div class="col-md-6 text-center d-flex flex-column align-items-baseline">
-                                <h2 class="mb-0">{{item.name}}</h2>
-                                <p class="text-muted mb-0">{{item.description?.short}}</p>
-                                <div class="col-md-1 text-end">
-                                    <button class="btn" routerLink="/orders/order-details/{{item?.orderId}}"><i
-                                            class="bi bi-chevron-right fs-5"></i></button>
-                                </div>
+                            <div class="col-md-1">
+                                <button class="btn" routerLink="/orders/order-details/{{item?.orderId}}"><i
+                                        class="bi bi-chevron-right fs-5"></i></button>
                             </div>
                         </div>
                     </div>
