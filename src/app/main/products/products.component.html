@@ -21,11 +21,10 @@
                 <ng-template #noProduct>
                     <h3 class="text-center">No product exist...</h3>
                 </ng-template>
-                <div class="col-12" *ngIf="productDetails.totalPages > 1">
+                <div class="col-12">
                     <ngb-pagination class="d-flex justify-content-center"
-                        [collectionSize]="productDetails.totalProducts" [(page)]="productDetails.currentPage"
-                        [pageSize]="productDetails.productPerPage">
-                        <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+                        [collectionSize]="productDetails.totalProducts" [(page)]="page" [pageSize]="6"
+                        (pageChange)="refreshItems(page)">
                     </ngb-pagination>
                 </div>
             </div>

@@ -16,8 +16,8 @@
                         <tr>
                             <td routerLink="/product/details/{{item.productId}}" role="button">
                                 <div class="float-end">
-                                    <img [src]="item.images[0]" alt="product img" class="img-fluid me-1" width="50"
-                                        height="50">
+                                    <img [src]="item.images[0]" alt="product img" onerror="'/assets/img/no-image.webp';"
+                                        class="img-fluid me-1" width="50" height="50">
                                 </div>
                             </td>
                             <td class="align-middle" routerLink="/product/details/{{item.productId}}" role="button">

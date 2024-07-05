@@ -5,25 +5,28 @@
             <h5 class="text-secondary text-uppercase mb-4">Get In Touch</h5>
             <p class="mb-4">No dolore ipsum accusam no lorem. Invidunt sed clita kasd clita et et dolor sed dolor. Rebum
                 tempor no vero est magna amet no</p>
-            <p [ngClass]="{'mb-2': !isLast}" *ngFor="let item of address; last as isLast"><i
-                    class="fa fa-{{item.icon}} text-primary mr-3"></i>{{item.text}}</p>
+            <ng-container *ngFor="let item of address; last as isLast">
+                <p [ngClass]="{'mb-2': !isLast}"><i class="fa fa-{{item.icon}} text-primary mr-3"></i>{{item.text}}</p>
+            </ng-container>
         </div>
         <div class="col-lg-8 col-md-12">
             <div class="row">
                 <div class="col-md-4 mb-5">
                     <h5 class="text-secondary text-uppercase mb-4">Quick Shop</h5>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-secondary" [ngClass]="{'mb-2': !isLast}" routerLink="{{item.link}}"
-                            *ngFor="let item of quickShopLinks; last as isLast"><i
-                                class="fa fa-angle-right mr-2"></i>{{item.label}}</a>
+                        <ng-container *ngFor="let item of quickShopLinks; last as isLast">
+                            <a class="text-secondary" [ngClass]="{'mb-2': !isLast}" routerLink="{{item.link}}">
+                                <i class="fa fa-angle-right mr-2"></i>{{item.label}}</a>
+                        </ng-container>
                     </div>
                 </div>
                 <div class="col-md-4 mb-5">
                     <h5 class="text-secondary text-uppercase mb-4">My Account</h5>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-secondary" [ngClass]="{'mb-2': !isLast}" routerLink="{{item.link}}"
-                            *ngFor="let item of profileLinks; last as isLast"><i
-                                class="fa fa-angle-right mr-2"></i>{{item.label}}</a>
+                        <ng-container *ngFor="let item of profileLinks; last as isLast">
+                            <a class="text-secondary" [ngClass]="{'mb-2': !isLast}" routerLink="{{item.link}}">
+                                <i class="fa fa-angle-right mr-2"></i>{{item.label}}</a>
+                        </ng-container>
                     </div>
                 </div>
                 <div class="col-md-4 mb-5">
@@ -32,8 +35,10 @@
                     <app-newsletter></app-newsletter>
                     <h6 class="text-secondary text-uppercase mt-4 mb-3">Follow Us</h6>
                     <div class="d-flex">
-                        <a class="btn btn-primary btn-square mr-2" *ngFor="let item of socialLinks"
-                            routerLink="{{item.link}}"><i class="fab fa-{{item.icon}}"></i></a>
+                        <ng-container *ngFor="let item of socialLinks">
+                            <a class="btn btn-primary btn-square mr-2" routerLink="{{item.link}}"><i
+                                    class="fab fa-{{item.icon}}"></i></a>
+                        </ng-container>
                     </div>
                 </div>
             </div>

@@ -11,7 +11,7 @@
             <div class="d-inline-flex align-items-center">
                 <div class="btn-group mr-2" *ngIf="authService.isLoggedIn | async; else validUser">
                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">
-                        Welcome , {{firstName}}
+                        Welcome, {{firstName}}
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
                         <button class="dropdown-item bi bi-file-earmark-lock" type="button"
@@ -68,8 +68,8 @@
             <form>
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search for products" [(ngModel)]="searchQuery"
-                        name="search">
-                    <button type="button" (click)="searchQuery = ''" *ngIf="searchQuery"
+                        name="search" appContainSpace>
+                    <button type="button" (click)="eraseSearchRecords()" *ngIf="searchQuery"
                         class="input-group-text bg-transparent text-primary rounded-0">
                         <i class="fa fa-times"></i>
                     </button>

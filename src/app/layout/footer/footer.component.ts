@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NewsletterComponent } from './newsletter/newsletter.component';
 import { RouterModule } from '@angular/router';
@@ -10,7 +10,8 @@ import { ACCOUNT_LINKS, QUICK_SHOP } from './footer.data';
   standalone: true,
   imports: [CommonModule, NewsletterComponent, RouterModule],
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss']
+  styleUrls: ['./footer.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FooterComponent {
   address = ADDRESS;

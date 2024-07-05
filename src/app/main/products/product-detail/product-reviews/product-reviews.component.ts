@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService } from 'src/app/shared/service/product.service';
-import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/service/auth.service';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ToastMessageService } from 'src/app/shared/components/toast-message/toast-message.service';
 import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
 import { ContainSpaceDirective } from 'src/app/shared/directive/contain-space.directive';
@@ -12,7 +12,7 @@ import { ContainSpaceDirective } from 'src/app/shared/directive/contain-space.di
 @Component({
   selector: 'app-product-reviews',
   standalone: true,
-  imports: [CommonModule, NgbRatingModule, RouterLink, ReactiveFormsModule, ContainSpaceDirective],
+  imports: [CommonModule, NgbModule, RouterLink, ReactiveFormsModule, ContainSpaceDirective],
   templateUrl: './product-reviews.component.html',
   styleUrls: ['./product-reviews.component.scss']
 })
@@ -20,11 +20,12 @@ export class ProductReviewsComponent implements OnInit {
 
   @Input({ required: true }) productId: string = '';
   @Input({ required: true }) productName: string = '';
+
   reviews: any = '';
   reviewForm!: FormGroup;
   userDetail: any = '';
 
-  constructor(private productService: ProductService, private authService: AuthService, private toastService: ToastMessageService) { }
+  constructor(private productService: ProductService, private authService: AuthService, private toastService: ToastMessageService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.getProductReview(this.productId);
@@ -32,6 +33,9 @@ export class ProductReviewsComponent implements OnInit {
     this.getUserDetails();
   }
 
+  /**
+   * Add review form control.
+   */
   reviewFormControls() {
     this.reviewForm = new FormGroup({
       rating: new FormControl('', [Validators.required]),
@@ -50,9 +54,9 @@ export class ProductReviewsComponent implements OnInit {
 
   /**
    * Get all review of product.
-   * @param id product id
    */
   getProductReview(id: string) {
+    // const params = { "reviewPerPage": perPage, 'currentPage': currentPage }
     this.productService.getProductReview(id).subscribe({
       next: (res: any) => {
         this.reviews = res.data;

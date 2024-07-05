@@ -14,24 +14,30 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
   standalone: true,
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
-  imports: [CommonModule, FilterByComponent, ViewTypeComponent, RouterModule, ProductListComponent, ProductGridComponent, NgbPaginationModule]
+  imports: [CommonModule, FilterByComponent, ViewTypeComponent, RouterModule, ProductListComponent, ProductGridComponent, NgbPaginationModule],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductsComponent implements OnInit, OnDestroy {
 
   productDetails: any = '';
   catId: string = '';
   searchQuery: string = '';
+  page = 1;
+  totalPage = 1;
 
-  constructor(private route: ActivatedRoute, public commonService: CommonService, private productService: ProductService) { }
+  constructor(private route: ActivatedRoute, public commonService: CommonService, private productService: ProductService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     //Add router's data into common service breadCrumb subject
     this.commonService.breadCrumb.next(this.route.data);
     this.route.queryParams.subscribe({
       next: (param: any) => {
-        this.catId = param['categoryId'];
+        // this.catId = param['categoryId'];
+        // this.router.navigate(['/product'], { queryParams: { productPerPage: '5', currentPage: '1', ...param } });
         this.searchQuery = param['search'];
+        // console.log(param);
         this.getProducts();
+        this.cdr.markForCheck();
       }
     })
   }
@@ -44,27 +50,32 @@ export class ProductsComponent implements OnInit, OnDestroy {
   /**
    * Fetch product details from API.
    */
-  private getProducts() {
+  private getProducts(page?: number) {
     if (this.catId) {
-
       this.productService.getCategoryProducts(this.catId).subscribe({
         next: (res: any) => {
           this.productDetails = res.data;
+          this.cdr.markForCheck();
         },
         error: (err: any) => {
           this.productDetails = []
         }
       })
     } else {
-      const search = { 'search': this.searchQuery || '', productPerPage: 6, currentPage: 1 }
+      const search = { 'search': this.searchQuery || '', productPerPage: 6, currentPage: page || 1 }
       this.productService.getProducts(search).subscribe({
         next: (res: any) => {
           this.productDetails = res.data;
+          this.cdr.markForCheck();
         },
         error: (error: any) => {
           this.productDetails = []
         }
       })
     }
+  }
+
+  refreshItems(page: number) {
+    this.getProducts(page);
   }
 }
