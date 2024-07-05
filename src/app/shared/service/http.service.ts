@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class HttpService {
 
-  constructor(private http: HttpClient, private toast: ToastMessageService, private router: Router) { }
+  constructor(private http: HttpClient, private toast: ToastMessageService) { }
 
   /**
    * Custom get service that handle error.
@@ -36,7 +36,6 @@ export class HttpService {
   }
 
   /**
-   * 
    * Custom patch service that handle error.
    * @param url api url in string.
    * @param data data that need to send.

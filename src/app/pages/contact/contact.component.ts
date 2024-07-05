@@ -56,6 +56,7 @@ export class ContactComponent implements OnInit, OnDestroy {
         next: (response: any) => {
           this.toastService.showToast(TOAST_ICON.successIcon, TOAST_STATE.success, response.message);
           this.messageSent = false;
+          this.contactForm.reset();
         },
         error: (err: any) => {
           this.toastService.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.warning, 'There is error in sending messages');

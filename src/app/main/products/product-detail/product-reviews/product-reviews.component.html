@@ -56,14 +56,14 @@
                     Please select rating.
                 </span>
             </div>
-            <ng-container *ngIf="userDetail.firstName; else loginRoute">
-                <div class="form-group mb-0">
+            <div class="form-group mb-0">
+                <ng-container *ngIf="userDetail.firstName; else loginRoute">
                     <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
-                </div>
-            </ng-container>
-            <ng-template #loginRoute>
-                <input type="button" value="Login" routerLink="/auth/login" class="btn btn-primary px-3">
-            </ng-template>
+                </ng-container>
+                <ng-template #loginRoute>
+                    <input type="button" value="Login" routerLink="/auth/login" class="btn btn-primary px-3">
+                </ng-template>
+            </div>
         </form>
     </div>
 </div>

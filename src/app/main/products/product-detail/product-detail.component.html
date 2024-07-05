@@ -2,7 +2,7 @@
     <div class="row px-xl-5">
         <div class="col-lg-5 mb-30">
             <div class="bg-light">
-                <ngb-carousel [showNavigationIndicators]="false" [showNavigationArrows]="products.images.length > 1"
+                <ngb-carousel [showNavigationIndicators]="false" [showNavigationArrows]="products.images?.length > 1"
                     class="carousel-container">
                     <ng-container *ngFor="let item of products.images">
                         <ng-template ngbSlide>
@@ -98,11 +98,12 @@
     <div class="row px-xl-5">
         <div class="col">
             <div class="bg-light p-30">
-                <div class="nav nav-tabs mb-4" ngbNav #nav="ngbNav" [activeId]="1">
-                    <ng-container [ngbNavItem]="1">
+                <div class="nav nav-tabs mb-4" ngbNav #nav="ngbNav" [activeId]="productDescription.long ? 1 : 2">
+                    <ng-container [ngbNavItem]="1" *ngIf="productDescription.long">
                         <button class="nav-item nav-link text-dark" ngbNavLink>Description</button>
                         <ng-template ngbNavContent class="tab-pane fade show">
-                            <app-product-description></app-product-description>
+                            <app-product-description
+                                [longProductDescription]="productDescription.long"></app-product-description>
                         </ng-template>
                     </ng-container>
                     <ng-container [ngbNavItem]="2">
@@ -125,4 +126,5 @@
         </div>
     </div>
 </div>
-<app-related-product [categoryId]="products.categoryId"></app-related-product>
+<app-related-product [listOfRelatedProduct]="listOfRelatedProduct"
+    *ngIf="listOfRelatedProduct.length"></app-related-product>
