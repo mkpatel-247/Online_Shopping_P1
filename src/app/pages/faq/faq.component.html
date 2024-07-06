@@ -9,87 +9,19 @@
   <div class="row">
     <div class="col-12">
       <div id="faqAccordion">
-        <div class="card">
-          <div class="card-header" id="headingOne" type="button" data-toggle="collapse" data-target="#collapseOne"
-            aria-expanded="true" aria-controls="collapseOne">
+        <div class="card" *ngFor="let faq of faqs; let i = index">
+          <div class="card-header" [id]="'heading' + i" type="button" data-toggle="collapse" [attr.data-target]="'#collapse' + i"
+            [attr.aria-expanded]="i === 0" [attr.aria-controls]="'collapse' + i">
             <p class="mb-0 d-flex flex-row justify-content-between align-items-center">
-              <button class="btn fs-5 text-dark">
-                What is your return policy?
+              <button class="btn fs-5 text-dark" [ngClass]="{'collapsed': i !== 0}">
+                {{ faq.question }}
               </button>
               <i class="fas fa fa-angle-down"></i>
             </p>
           </div>
-          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#faqAccordion">
+          <div [id]="'collapse' + i" class="collapse" [ngClass]="{'show': i === 0}" [attr.aria-labelledby]="'heading' + i" data-parent="#faqAccordion">
             <div class="card-body">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque luctus ipsum ac turpis cursus, vitae
-              aliquam sem pellentesque. Sed sit amet convallis lorem, nec interdum mauris.
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header" id="headingTwo">
-            <p class="mb-0  d-flex flex-row justify-content-between align-items-center" type="button"
-              data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              <button class="btn fs-5 text-dark collapsed">
-                How long does shipping take?
-              </button>
-              <i class="fas fa fa-angle-down"></i>
-            </p>
-          </div>
-          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
-            <div class="card-body">
-              Vivamus faucibus purus sit amet urna venenatis, a eleifend nunc pulvinar. Donec sagittis purus nec sapien
-              efficitur, in dignissim lacus condimentum.
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header" id="headingThree" type="button" data-toggle="collapse" data-target="#collapseThree"
-            aria-expanded="false" aria-controls="collapseThree">
-            <p class="mb-0  d-flex flex-row justify-content-between align-items-center">
-              <button class="btn fs-5 text-dark collapsed">
-                How can I track my order?
-              </button>
-              <i class="fas fa fa-angle-down"></i>
-            </p>
-          </div>
-          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
-            <div class="card-body">
-              Etiam vulputate, magna vel tempor condimentum, nisl tortor elementum risus, nec varius enim nisi ut
-              lectus. Proin non odio sed enim dictum bibendum.
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header" id="headingFour">
-            <p class="mb-0  d-flex flex-row justify-content-between align-items-center" type="button"
-              data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-              <button class="btn fs-5 text-dark collapsed">
-                What payment methods do you accept?
-              </button>
-              <i class="fas fa fa-angle-down"></i>
-            </p>
-          </div>
-          <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
-            <div class="card-body">
-              Integer pharetra arcu sed leo volutpat facilisis. Curabitur sed lectus nec magna consequat ullamcorper.
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header" id="headingFive">
-            <p class="mb-0  d-flex flex-row justify-content-between align-items-center" type="button"
-              data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-              <button class="btn fs-5 text-dark collapsed">
-                How do I contact customer service?
-              </button>
-              <i class="fas fa fa-angle-down"></i>
-            </p>
-          </div>
-          <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
-            <div class="card-body">
-              Praesent dapibus ligula nec neque feugiat, in aliquet felis lobortis. Nunc suscipit elit vel tellus
-              suscipit, ac malesuada nulla dictum.
+              {{ faq.answer }}
             </div>
           </div>
         </div>

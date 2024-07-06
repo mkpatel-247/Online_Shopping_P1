@@ -29,12 +29,21 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     //Add router's data into common service breadCrumb subject
-    this.commonService.breadCrumb.next(this.route.data);
+    const breadCrumbData = [
+      {
+        pageTitle: 'Product',
+        linkList: [
+          { label: 'Home', link: '/home' },
+          { label: 'Products', link: '/product' }
+        ]
+      }
+    ]
+    this.commonService.breadCrumb.next(breadCrumbData);
+    
     this.route.queryParams.subscribe({
       next: (param: any) => {
         this.catId = param['categoryId'];
         this.searchQuery = param['search'];
-        // console.log(param);
         this.getProducts();
         this.cdr.markForCheck();
       }

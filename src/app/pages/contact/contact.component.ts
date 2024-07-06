@@ -19,11 +19,20 @@ export class ContactComponent implements OnInit, OnDestroy {
 
   contactForm !: FormGroup;
   messageSent: boolean = true;
-  constructor(private route: ActivatedRoute, private commonService: CommonService, private fb: FormBuilder, private toastService: ToastMessageService) { }
+  constructor(private commonService: CommonService, private fb: FormBuilder, private toastService: ToastMessageService) { }
 
   ngOnInit(): void {
     //Add router's data into common service breadCrumb subject
-    this.commonService.breadCrumb.next(this.route.data);
+    const breadCrumbData = [
+      {
+        pageTitle: 'Contact',
+        linkList: [
+          { label: 'Home', link: '/home' },
+          { label: 'Contact', link: '/contact' }
+        ]
+      }
+    ]
+    this.commonService.breadCrumb.next(breadCrumbData);
     //Initialize contact Form control
     this.initializeForm();
   }
@@ -60,8 +69,7 @@ export class ContactComponent implements OnInit, OnDestroy {
         },
         error: (err: any) => {
           this.toastService.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.warning, 'There is error in sending messages');
-        },
-        complete: () => { }
+        }
       });
     } else {
       this.contactForm.markAllAsTouched();

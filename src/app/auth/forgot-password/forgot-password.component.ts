@@ -4,6 +4,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { Router, RouterModule } from '@angular/router';
 import { isEmailValid } from 'src/app/shared/validators/custom.validator';
 import { AuthService } from 'src/app/shared/service/auth.service';
+import { CommonService } from 'src/app/shared/service/common.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -14,12 +15,13 @@ import { AuthService } from 'src/app/shared/service/auth.service';
 })
 export class ForgotPasswordComponent {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private commonService: CommonService,private authService: AuthService, private router: Router) { }
   ngOnInit(): void {
     if (this.authService.getLoginTokenFromLocalStorage()) {
       this.router.navigate(['/home']);
       return;
     }
+    this.commonService.breadCrumb.next([]);
   }
   forgotPassForm = new FormGroup({
     email: new FormControl('', [Validators.required, isEmailValid()]),

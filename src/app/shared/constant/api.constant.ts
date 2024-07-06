@@ -26,7 +26,10 @@ export const CONTACT = {
 export const HOME = {
     BANNER: '/assets/dummyData/banner.json'
 }
-
+export const PAGES = {
+    FAQ : '/assets/dummyData/faq.json',
+    HELP : '/assets/dummyData/help.json'
+}
 export const CART = {
     CREATE_CART_ITEM: `${CART_PREFIX}/manage-cart`,
     GET_CART_ITEMS: `${CART_PREFIX}`,

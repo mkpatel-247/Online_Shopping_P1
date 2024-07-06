@@ -1,10 +1,10 @@
-<ng-container *ngIf="commonService.breadCrumb | async as data">
-    <div class="container-fluid">
+<ng-container *ngIf="commonService.breadCrumb && commonService.breadCrumb | async as data">
+    <div class="container-fluid" *ngIf="data.length">
         <div class="row px-xl-5">
             <div class="col-12">
                 <nav class="breadcrumb bg-light mb-30">
-                    <ng-container *ngFor="let item of data.value[0].linkList; last as isLast">
-                        <a class="breadcrumb-item text-dark text-decoration-none" [routerLink]="item.link"
+                    <ng-container *ngFor="let item of data[0]?.linkList; last as isLast">
+                        <a class="breadcrumb-item text-dark text-decoration-none" [routerLink]="item?.link"
                             routerLinkActive="not-allowed-link">
                             {{ item.label }}
                         </a>

@@ -13,6 +13,7 @@ import { ProductDescriptionComponent } from './product-description/product-descr
 import { ProductReviewsComponent } from './product-reviews/product-reviews.component';
 import { ProductAdditionalInfoComponent } from './product-additional-info/product-additional-info.component';
 import { SOCIAL_LINKS } from 'src/app/shared/data/shared.data';
+import { CommonService } from 'src/app/shared/service/common.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -32,13 +33,24 @@ export class ProductDetailComponent implements OnInit {
   proID: string = '';
   cartItems: any = [];
   listOfRelatedProduct: any = [];
-  constructor(private productService: ProductService, private route: ActivatedRoute, private toastService: ToastMessageService, private authService: AuthService, private cartService: CartService, private router: Router, private cd: ChangeDetectorRef) { }
+  constructor(private productService: ProductService, private route: ActivatedRoute, private toastService: ToastMessageService, private authService: AuthService, private cartService: CartService, private commonService : CommonService, private router: Router, private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
 
     this.getAllCartItems();
     this.getProductsData();
     this.colorSizeFormControls();
+    const breadCrumbData = [
+      {
+        pageTitle: 'Product',
+        linkList: [
+          { label: 'Home', link: '/home' },
+          { label: 'Products', link: '/product' },
+          { label: this.products?.name, link: '' },
+        ]
+      }
+    ]
+    this.commonService.breadCrumb.next(breadCrumbData);
     if (!this.authService.getLoginTokenFromLocalStorage()) {
       this.storedItem = JSON.parse(localStorage.getItem('cartItems') as string);
       if (!this.storedItem) {

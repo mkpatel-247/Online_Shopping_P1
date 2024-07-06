@@ -6,6 +6,7 @@ import { isEmailValid, isPasswordStrong } from 'src/app/shared/validators/custom
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { ToastMessageService } from 'src/app/shared/components/toast-message/toast-message.service';
 import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
+import { CommonService } from 'src/app/shared/service/common.service';
 
 @Component({
   selector: 'app-register',
@@ -25,7 +26,7 @@ export class RegisterComponent {
   });
   submitted: boolean = false;
   showPassword: boolean = false;
-  constructor(private router: Router, private authService: AuthService, private toastService: ToastMessageService,
+  constructor(private commonService : CommonService, private router: Router, private authService: AuthService, private toastService: ToastMessageService,
     private _location: Location) { }
 
   ngOnInit(): void {
@@ -33,6 +34,7 @@ export class RegisterComponent {
       this.router.navigate(['/home']);
       return;
     }
+    this.commonService.breadCrumb.next([]);
   }
   /**
    * getting form all controls

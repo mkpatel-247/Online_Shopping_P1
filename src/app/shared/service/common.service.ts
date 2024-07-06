@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ContactForm } from '../interface/contact-form';
-import { CONTACT } from '../constant/api.constant';
+import { CONTACT, PAGES } from '../constant/api.constant';
 import { HttpService } from './http.service';
 
 @Injectable({
@@ -11,7 +11,7 @@ import { HttpService } from './http.service';
 export class CommonService {
 
   // Store breadCrumb data
-  breadCrumb = new BehaviorSubject<any>('');
+  breadCrumb = new BehaviorSubject<any>([]);
 
   //Manage shop grid/list view
   shopView = new BehaviorSubject<boolean>(true);
@@ -25,5 +25,19 @@ export class CommonService {
    */
   sendMessage(data: ContactForm) {
     return this.http.post(CONTACT.ENQUIRY, data);
+  }
+
+  /**
+   * getting faq data from local json
+   */
+  getFaqData() : Observable<any>{
+    return this.http.get(PAGES.FAQ);
+  }
+
+  /**
+   * getting Help Center data from local json
+   */
+  getHelpCenterData() : Observable<any>{
+    return this.http.get(PAGES.HELP);
   }
 }

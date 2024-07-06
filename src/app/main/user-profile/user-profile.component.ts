@@ -8,6 +8,7 @@ import { ToastMessageService } from 'src/app/shared/components/toast-message/toa
 import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
 import { ContainSpaceDirective } from 'src/app/shared/directive/contain-space.directive';
 import { OrdersComponent } from '../orders/orders.component';
+import { CommonService } from 'src/app/shared/service/common.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -35,9 +36,19 @@ export class UserProfileComponent implements OnInit {
   userEmail: string = '';
 
 
-  constructor(private cd: ChangeDetectorRef, private authService: AuthService, private userService: UserService, private toastService: ToastMessageService) { }
+  constructor(private commonService : CommonService,  private cd: ChangeDetectorRef, private authService: AuthService, private userService: UserService, private toastService: ToastMessageService) { }
 
   ngOnInit(): void {
+    const breadCrumbData = [
+      {
+        pageTitle: 'Profile',
+        linkList: [
+          { label: 'Home', link: '/home' },
+          { label: 'Profile', link: '/profile' }
+        ]
+      }
+    ]
+    this.commonService.breadCrumb.next(breadCrumbData);
     this.getUserDetails()
   }
   /**

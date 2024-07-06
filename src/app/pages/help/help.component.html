@@ -7,69 +7,12 @@
   </div>
 
   <div class="row">
-    <!-- Account Help -->
-    <div class="col-lg-4 mb-4">
+    <div class="col-lg-4 mb-4" *ngFor="let section of helpSection">
       <div class="card h-100 shadow-sm">
         <div class="card-body">
-          <h4 class="card-title">Account Help</h4>
-          <p class="card-text">Find answers to questions about creating, managing, and securing your account.</p>
-          <a routerLink="#" class="btn btn-primary stretched-link">Learn More</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Orders Help -->
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100 shadow-sm">
-        <div class="card-body">
-          <h4 class="card-title">Orders</h4>
-          <p class="card-text">Learn how to place orders, track shipments, and manage your orders.</p>
-          <a routerLink="#" class="btn btn-primary stretched-link">Learn More</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Shipping Help -->
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100 shadow-sm">
-        <div class="card-body">
-          <h4 class="card-title">Shipping</h4>
-          <p class="card-text">Information about shipping options, delivery times, and international shipping.</p>
-          <a routerLink="#" class="btn btn-primary stretched-link">Learn More</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Returns Help -->
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100 shadow-sm">
-        <div class="card-body">
-          <h4 class="card-title">Returns & Refunds</h4>
-          <p class="card-text">Details about our return policy, how to initiate returns, and refund processes.</p>
-          <a routerLink="#" class="btn btn-primary stretched-link">Learn More</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Products Help -->
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100 shadow-sm">
-        <div class="card-body">
-          <h4 class="card-title">Products</h4>
-          <p class="card-text">Find information about our products, including sizing, materials, and care instructions.
-          </p>
-          <a routerLink="#" class="btn btn-primary stretched-link">Learn More</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Payments Help -->
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100 shadow-sm">
-        <div class="card-body">
-          <h4 class="card-title">Payments</h4>
-          <p class="card-text">Accepted payment methods, security measures, and payment-related FAQs.</p>
-          <a routerLink="#" class="btn btn-primary stretched-link">Learn More</a>
+          <h4 class="card-title">{{ section.title }}</h4>
+          <p class="card-text">{{ section.description }}</p>
+          <a [routerLink]="section.routerLink" class="btn btn-primary stretched-link">Learn More</a>
         </div>
       </div>
     </div>

@@ -5,6 +5,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { ToastMessageService } from 'src/app/shared/components/toast-message/toast-message.service';
 import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
+import { CommonService } from 'src/app/shared/service/common.service';
 
 @Component({
   selector: 'app-login',
@@ -23,13 +24,14 @@ export class LoginComponent {
   submitted: boolean = false;
   showPassword: boolean = false;
 
-  constructor(private router: Router, private _location: Location, private authService: AuthService, private toastService: ToastMessageService) { }
+  constructor(private commonService : CommonService, private router: Router, private _location: Location, private authService: AuthService, private toastService: ToastMessageService) { }
 
   ngOnInit(): void {
     if (this.authService.getLoginTokenFromLocalStorage()) {
       this.router.navigate(['/home']);
       return;
     }
+    this.commonService.breadCrumb.next([]);
   }
   /**
    * getting form all controls

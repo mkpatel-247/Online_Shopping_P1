@@ -1,0 +1,22 @@
+[
+  {
+    "question": "What is your return policy?",
+    "answer": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque luctus ipsum ac turpis cursus, vitae aliquam sem pellentesque. Sed sit amet convallis lorem, nec interdum mauris."
+  },
+  {
+    "question": "How long does shipping take?",
+    "answer": "Vivamus faucibus purus sit amet urna venenatis, a eleifend nunc pulvinar. Donec sagittis purus nec sapien efficitur, in dignissim lacus condimentum."
+  },
+  {
+    "question": "How can I track my order?",
+    "answer": "Etiam vulputate, magna vel tempor condimentum, nisl tortor elementum risus, nec varius enim nisi ut lectus. Proin non odio sed enim dictum bibendum."
+  },
+  {
+    "question": "What payment methods do you accept?",
+    "answer": "Integer pharetra arcu sed leo volutpat facilisis. Curabitur sed lectus nec magna consequat ullamcorper."
+  },
+  {
+    "question": "How do I contact customer service?",
+    "answer": "Praesent dapibus ligula nec neque feugiat, in aliquet felis lobortis. Nunc suscipit elit vel tellus suscipit, ac malesuada nulla dictum."
+  }
+]

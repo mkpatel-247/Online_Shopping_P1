@@ -1,0 +1,32 @@
+[
+    {
+        "title": "Account Help",
+        "description": "Find answers to questions about creating, managing, and securing your account.",
+        "routerLink": ""
+    },
+    {
+        "title": "Orders",
+        "description": "Learn how to place orders, track shipments, and manage your orders.",
+        "routerLink": ""
+    },
+    {
+        "title": "Shipping",
+        "description": "Information about shipping options, delivery times, and international shipping.",
+        "routerLink": ""
+    },
+    {
+        "title": "Returns & Refunds",
+        "description": "Details about our return policy, how to initiate returns, and refund processes.",
+        "routerLink": ""
+    },
+    {
+        "title": "Products",
+        "description": "Find information about our products, including sizing, materials, and care instructions.",
+        "routerLink": ""
+    },
+    {
+        "title": "Payments",
+        "description": "Accepted payment methods, security measures, and payment-related FAQs.",
+        "routerLink": ""
+    }
+]

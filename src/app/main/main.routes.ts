@@ -51,15 +51,6 @@ export const mainRoutes: Routes = [
             {
                 path: 'contact',
                 loadComponent: () => import('../pages/contact/contact.component').then((c) => c.ContactComponent),
-                data: [
-                    {
-                        pageTitle: 'Contact',
-                        linkList: [
-                            { label: 'Home', link: '/home' },
-                            { label: 'Contact', link: '/contact' }
-                        ]
-                    }
-                ]
             },
             {
                 path: 'product',
