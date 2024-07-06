@@ -1,0 +1,14 @@
+<div class="container-fluid">
+    <p>Wishlist works</p>
+    <ng-container *ngIf="wishListProducts.length; else noProductInWishlist">
+        <ng-container *ngFor="let item of wishListProducts">
+            <app-product-list [products]="item"></app-product-list>
+        </ng-container>
+    </ng-container>
+    <ng-template #noProductInWishlist>
+        <div class="text-center fs-3">
+            You haven't added anything in Wishlist!<br>
+            <a class="btn btn-primary py-2 px-4 mt-3" routerLink="/product">Add product</a>
+        </div>
+    </ng-template>
+</div>

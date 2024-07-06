@@ -28,6 +28,10 @@ export const ACCOUNT_LINKS = [
     },
     {
         label: 'Wishlist',
-        link: '/'
+        link: '/wishlist'
+    },
+    {
+        label: 'Orders',
+        link: '/orders'
     }
 ]
