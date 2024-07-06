@@ -5,6 +5,8 @@ const PRODUCT_PREFIX = `${API_PREFIX}/product`
 const PRODUCT_REVIEW = `${PRODUCT_PREFIX}/review`
 export const CATEGORY = `${API_PREFIX}/category/get-all-categories`
 const CART_PREFIX = `${API_PREFIX}/cart`
+const CONFIG_PREFIX = `${API_PREFIX}/config`
+export const WISHLIST = `${API_PREFIX}/wishlist`
 
 export const AUTH = {
     LOGIN_API: `${AUTH_PREFIX}/login`,
@@ -38,4 +40,9 @@ export const ORDERS = {
     PLACE_ORDER: `${API_PREFIX}/checkout`,
     GET_ORDERS: `${AUTH_PREFIX}/orders`,
     GET_SINGLE_ORDER: `${AUTH_PREFIX}/orders/`
+}
+
+export const CONFIGURATION = {
+    SITE_CONFIG: `${CONFIG_PREFIX}/site-config`,
+    LANUGAGE_COUNTRY: `${CONFIG_PREFIX}/language-country-config`
 }

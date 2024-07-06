@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ContactForm } from '../interface/contact-form';
-import { CONTACT } from '../constant/api.constant';
+import { CONFIGURATION, CONTACT } from '../constant/api.constant';
 import { HttpService } from './http.service';
 
 @Injectable({
@@ -25,5 +25,19 @@ export class CommonService {
    */
   sendMessage(data: ContactForm) {
     return this.http.post(CONTACT.ENQUIRY, data);
+  }
+
+  /**
+   * Make a get request.
+   */
+  getLanguageOrContry(params: any) {
+    return this.http.get(CONFIGURATION.LANUGAGE_COUNTRY, params);
+  }
+
+  /**
+   * Get site configuration.
+   */
+  getSiteConfig() {
+    return this.http.get(CONFIGURATION.SITE_CONFIG);
   }
 }

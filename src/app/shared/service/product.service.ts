@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CATEGORY, PRODUCT } from '../constant/api.constant';
+import { CATEGORY, PRODUCT, WISHLIST } from '../constant/api.constant';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpService } from './http.service';
 import { HttpParams } from '@angular/common/http';
@@ -61,5 +61,31 @@ export class ProductService {
    */
   getProductReview(productId: string, params?: any): Observable<any> {
     return this.http.get(PRODUCT.GET_REVIEW + productId, params);
+  }
+
+  /**
+   * Get list of product added into wishlist.
+   * @returns response from api.
+   */
+  getWishlistProduct(): Observable<any> {
+    return this.http.get(WISHLIST);
+  }
+
+  /**
+   * Delete request to remove product from wishlist.
+   * @param body product id which need to delete. {product: '12323'}
+   * @returns delete api response
+   */
+  deleteProductFromWishlist(body: any): Observable<any> {
+    return this.http.delete(WISHLIST, body);
+  }
+
+  /**
+   * Add a product into wishlist
+   * @param body product id which need to add. {product: '12323'}
+   * @returns post api response.
+   */
+  addProductIntoWishlist(body: any): Observable<any> {
+    return this.http.post(WISHLIST, body);
   }
 }

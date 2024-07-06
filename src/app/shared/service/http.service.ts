@@ -63,12 +63,8 @@ export class HttpService {
   }
 
   /**
-   * 
    * Custom delete service that handle error.
    * @param url api url in string.
-   * @param data data that need to send.
-   * @param params parameter if exist.
-   * @param headers headers if exist. eg. headers = {key, value}
    * @returns response.
    */
   delete<T>(url: string, body?: any): Observable<T | any> {

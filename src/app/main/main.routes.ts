@@ -62,6 +62,10 @@ export const mainRoutes: Routes = [
                 ]
             },
             {
+                path: 'wishlist',
+                loadComponent: () => import('../main/wishlist/wishlist.component').then((c) => c.WishlistComponent)
+            },
+            {
                 path: 'product',
                 loadChildren: () => import('./products/products.routes').then((c) => c.productsRoutes)
             },

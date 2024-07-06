@@ -28,34 +28,35 @@
                             </ng-template>
                         </ngb-rating>
                     </div>
-                    <small class="pt-1">({{products?.totalReview}} Reviews)</small>
+                    <small class="pt-1 px-sm-1">({{products?.totalReview}} Reviews)</small>
                 </div>
                 <h3 class="font-weight-semi-bold mb-4">{{ products?.price | currency : '$ ' }}</h3>
                 <p class="mb-4">{{ productDescription?.short }}</p>
                 <form [formGroup]="colorSizeForm" (ngSubmit)="addToCart()">
-                    <div class="d-flex mb-3">
-                        <strong class="text-dark mr-3">Sizes:</strong>
-                        <div class="custom-control custom-radio custom-control-inline"
-                            *ngFor="let item of products?.sizes">
+                    <div class="d-flex flex-wrap mb-4">
+                        <strong class="text-dark mr-3 mb-2 mb-md-0">Sizes:</strong>
+                        <div class="d-flex flex-wrap">
+                            <div class="custom-control custom-radio custom-control-inline mr-2 mb-2"
+                                *ngFor="let item of products?.sizes">
 
-                            <input type="radio" class="custom-control-input" [id]="item" [value]="item" name="size"
-                                formControlName="size">
+                                <input type="radio" class="custom-control-input" [id]="item" [value]="item" name="size"
+                                    formControlName="size">
 
-                            <label class="custom-control-label" [for]="item">
-                                {{ item }}
-                            </label>
-
+                                <label class="custom-control-label" [for]="item">
+                                    {{ item }}
+                                </label>
+                            </div>
                         </div>
                     </div>
-                    <div class="d-flex mb-4">
-                        <strong class="text-dark mr-3">Colors:</strong>
-                        <div class="custom-control custom-radio custom-control-inline"
-                            *ngFor="let item of products?.colors; index as i">
-                            <input type="radio" class="custom-control-input" [id]="item" [value]="item" name="color"
-                                formControlName="color">
-                            <label class="custom-control-label" [for]="item">
-                                {{item}}
-                            </label>
+                    <div class="d-flex flex-wrap mb-4">
+                        <strong class="text-dark mr-3 mb-2 mb-md-0">Colors:</strong>
+                        <div class="d-flex flex-wrap">
+                            <div class="custom-control custom-radio custom-control-inline mr-2 mb-2"
+                                *ngFor="let item of products?.colors; index as i">
+                                <input type="radio" class="custom-control-input" [id]="item" [value]="item" name="color"
+                                    formControlName="color">
+                                <label class="custom-control-label" [for]="item">{{ item }}</label>
+                            </div>
                         </div>
                     </div>
                     <div class="d-flex align-items-center mb-4 pt-2">
@@ -80,14 +81,16 @@
                         <button type="submit" class="btn btn-primary px-3" *ngIf="!isItemInCart()"
                             [disabled]="!(colorSizeForm.get('size')?.value && colorSizeForm.get('color')?.value)"><i
                                 class="fa fa-shopping-cart mr-1"></i>
-                            Add To Cart
+                            <span class="add-to-cart-text">
+                                Add To Cart
+                            </span>
                         </button>
                     </div>
                 </form>
                 <div class="d-flex pt-2">
                     <strong class="text-dark mr-2">Share on:</strong>
                     <div class="d-inline-flex">
-                        <a class="text-dark px-2" routerLink="{{item.link}}" *ngFor="let item of socialMediaLinks">
+                        <a class="text-dark px-2" routerLink="/ {{item.link}}" *ngFor="let item of socialMediaLinks">
                             <i class="fab fa-{{item.icon}}"></i>
                         </a>
                     </div>
@@ -106,15 +109,15 @@
                                 [longProductDescription]="productDescription.long"></app-product-description>
                         </ng-template>
                     </ng-container>
-                    <ng-container [ngbNavItem]="2">
+                    <ng-container [ngbNavItem]="2" *ngIf="products.additionalInfo">
                         <button class="nav-item nav-link text-dark" ngbNavLink>Information</button>
                         <ng-template ngbNavContent>
-                            <app-product-additional-info></app-product-additional-info>
+                            <app-product-additional-info
+                                [information]="products.additionalInfo"></app-product-additional-info>
                         </ng-template>
                     </ng-container>
                     <ng-container [ngbNavItem]="3">
-                        <button class="nav-item nav-link text-dark" ngbNavLink>Reviews
-                            ({{products.totalReview}})</button>
+                        <button class="nav-item nav-link text-dark" ngbNavLink>Reviews</button>
                         <ng-template ngbNavContent>
                             <app-product-reviews [productId]="proID"
                                 [productName]="products.name"></app-product-reviews>

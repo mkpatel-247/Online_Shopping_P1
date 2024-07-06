@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ProductListComponent } from '../products/product-list/product-list.component';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { UserService } from 'src/app/shared/service/user.service';
 import { ToastMessageService } from 'src/app/shared/components/toast-message/toast-message.service';
@@ -12,7 +11,7 @@ import { OrdersComponent } from '../orders/orders.component';
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, ProductListComponent, ContainSpaceDirective, OrdersComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, ContainSpaceDirective, OrdersComponent],
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
