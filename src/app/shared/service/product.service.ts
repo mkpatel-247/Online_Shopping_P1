@@ -9,7 +9,9 @@ import { HttpParams } from '@angular/common/http';
 })
 export class ProductService {
 
-  cartItems = new BehaviorSubject<number>(0)
+  cartItems = new BehaviorSubject<number>(0);
+  wishlistItems = new BehaviorSubject<number>(0);
+
   constructor(private http: HttpService) { }
 
   /**
@@ -77,6 +79,7 @@ export class ProductService {
    * @returns delete api response
    */
   deleteProductFromWishlist(body: any): Observable<any> {
+    this.wishlistItems.next(this.wishlistItems.value - 1);
     return this.http.delete(WISHLIST, body);
   }
 
@@ -86,6 +89,7 @@ export class ProductService {
    * @returns post api response.
    */
   addProductIntoWishlist(body: any): Observable<any> {
+    this.wishlistItems.next(this.wishlistItems.value + 1);
     return this.http.post(WISHLIST, body);
   }
 }

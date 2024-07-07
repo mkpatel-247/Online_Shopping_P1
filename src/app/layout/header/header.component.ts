@@ -27,6 +27,7 @@ export class HeaderComponent implements OnInit {
   language = LANGUAGE;
   pagesLink = PAGES_LINK;
   numberOfCartItem: number = 0;
+  wishlistItem: number = 0;
   constructor(private modalService: NgbModal, public authService: AuthService, private toastService: ToastMessageService, private router: Router, private cdr: ChangeDetectorRef, private productService: ProductService, private location: Location) { }
 
   ngOnInit(): void {
@@ -35,6 +36,7 @@ export class HeaderComponent implements OnInit {
     if (storedItem) {
       this.numberOfCartItem = storedItem.length;
     }
+    this.getWishlistItemNumber();
   }
   /**
    * open a modal to change the password
@@ -93,6 +95,9 @@ export class HeaderComponent implements OnInit {
     this.cdr.markForCheck();
   }
 
+  /**
+   * If user want to erase the search input.
+   */
   eraseSearchRecords() {
     if (this.searchQuery && this.router.url.includes('/product')) {
       this.searchQuery = '';
@@ -100,5 +105,17 @@ export class HeaderComponent implements OnInit {
     } else {
       this.searchQuery = '';
     }
+  }
+
+  /**
+   * Get the number of items in wishlist.
+   */
+  getWishlistItemNumber() {
+    this.productService.wishlistItems.subscribe({
+      next: (res: any) => {
+        this.wishlistItem = res;
+        this.cdr.markForCheck();
+      }
+    });
   }
 }

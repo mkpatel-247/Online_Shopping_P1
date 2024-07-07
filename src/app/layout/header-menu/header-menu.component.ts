@@ -16,6 +16,7 @@ import { HEADER_MENU_LINKS } from './header-menu.data';
 export class HeaderMenuComponent implements OnInit {
   categories: any = '';
   numberOfCartItem: number = 0;
+  wishlistItem: number = 0;
   pageLink = HEADER_MENU_LINKS;
   constructor(public productService: ProductService, private cdr: ChangeDetectorRef) { }
 
@@ -30,7 +31,7 @@ export class HeaderMenuComponent implements OnInit {
         this.cdr.markForCheck();
       })
     }
-
+    this.getWishlistItemNumber();
 
   }
 
@@ -41,6 +42,18 @@ export class HeaderMenuComponent implements OnInit {
     this.productService.getAllCategories().subscribe({
       next: (response: any) => {
         this.categories = response.data;
+        this.cdr.markForCheck();
+      }
+    })
+  }
+
+  /**
+   * Get the number of wishlist item.
+   */
+  getWishlistItemNumber() {
+    this.productService.wishlistItems.subscribe({
+      next: (res: any) => {
+        this.wishlistItem = res;
         this.cdr.markForCheck();
       }
     })

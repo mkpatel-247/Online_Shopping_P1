@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../layout/header/header.component';
 import { HeaderMenuComponent } from '../layout/header-menu/header-menu.component';
@@ -14,10 +14,11 @@ import { AuthService } from '../shared/service/auth.service';
   standalone: true,
   imports: [CommonModule, RouterModule, HeaderComponent, HeaderMenuComponent, FooterComponent],
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+  styleUrls: ['./main.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainComponent implements OnInit {
-  constructor(private authService: AuthService, private productService: ProductService, private cartService: CartService, private toastService: ToastMessageService) { }
+  constructor(private authService: AuthService, private productService: ProductService, private cartService: CartService, private toastService: ToastMessageService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     if (this.authService.getLoginTokenFromLocalStorage()) {
@@ -29,7 +30,23 @@ export class MainComponent implements OnInit {
           this.productService.cartItems.next(0);
         }
       })
+      this.getWishlistProducts();
     }
+  }
+
+  /**
+   * Get a list of wishlist product.
+   */
+  getWishlistProducts() {
+    this.productService.getWishlistProduct().subscribe({
+      next: (res: any) => {
+        if (res.success && res.data) {
+          const product = res.data.products;
+          this.productService.wishlistItems.next(product.length);
+        }
+        this.cdr.markForCheck();
+      }
+    })
   }
 
 }
