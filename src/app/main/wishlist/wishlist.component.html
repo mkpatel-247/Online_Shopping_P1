@@ -1,8 +1,12 @@
 <div class="container-fluid">
-    <p>Wishlist works</p>
+    <h1 class="position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">
+            Your Wishlist
+        </span>
+    </h1>
+    <hr>
     <ng-container *ngIf="wishListProducts.length; else noProductInWishlist">
         <ng-container *ngFor="let item of wishListProducts">
-            <app-product-list [products]="item"></app-product-list>
+            <app-product-list [products]="item" (wishlist)="deleteProductFromWishlist($event)"></app-product-list>
         </ng-container>
     </ng-container>
     <ng-template #noProductInWishlist>

@@ -8,6 +8,8 @@ import { ProductService } from 'src/app/shared/service/product.service';
 import { ProductGridComponent } from './product-grid/product-grid.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
+import { ToastMessageService } from 'src/app/shared/components/toast-message/toast-message.service';
 
 @Component({
   selector: 'app-products',
@@ -25,7 +27,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   page = 1;
   totalPage = 1;
 
-  constructor(private route: ActivatedRoute, public commonService: CommonService, private productService: ProductService, private cdr: ChangeDetectorRef) { }
+  constructor(private route: ActivatedRoute, public commonService: CommonService, private productService: ProductService, private cdr: ChangeDetectorRef, private toastService: ToastMessageService) { }
 
   ngOnInit(): void {
     //Add router's data into common service breadCrumb subject
@@ -39,7 +41,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       }
     ]
     this.commonService.breadCrumb.next(breadCrumbData);
-    
+
     this.route.queryParams.subscribe({
       next: (param: any) => {
         this.catId = param['categoryId'];
@@ -85,5 +87,38 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   refreshItems(page: number) {
     this.getProducts(page);
+  }
+
+  /**
+   * Add/Delete from wishlist.
+   * @param event value of wishlist.
+   */
+  wishlistOperation(event: any) {
+    event.isWishlist ? this.deleteProductFromWishlist(event.id) : this.addProductIntoWishlist(event.id);
+    this.getProducts();
+  }
+
+  /**
+   * Add product into wishlist.
+   */
+  addProductIntoWishlist(id: string) {
+    this.productService.addProductIntoWishlist({ 'product': id }).subscribe({
+      next: (res: any) => {
+        this.toastService.showToast(TOAST_ICON.successIcon, TOAST_STATE.success, res.message);
+        this.cdr.markForCheck();
+      }
+    })
+  }
+
+  /**
+   * Delete product from wishlist.
+   */
+  deleteProductFromWishlist(id: string) {
+    this.productService.deleteProductFromWishlist({ 'product': id }).subscribe({
+      next: (res: any) => {
+        this.toastService.showToast(TOAST_ICON.successIcon, TOAST_STATE.success, res.message);
+        this.cdr.markForCheck();
+      }
+    })
   }
 }

@@ -7,7 +7,9 @@
             <img src="/assets/img/no-image.webp" alt="item" appProductGridImage>
         </ng-template>
         <div class="product-action">
-            <a class="btn btn-outline-dark btn-square" routerLink=""><i class="far fa-heart"></i></a>
+            <a class="btn btn-outline-dark btn-square"
+                (click)="wishlist.emit({isWishlist: products.isWishList, id: products._id})"><i
+                    class="fa-heart {{ products.isWishList ? 'fas' : 'far'}}"></i></a>
             <a class="btn btn-outline-dark btn-square" routerLink="/product/details/{{products._id}}"><i
                     class="fa fa-search"></i></a>
         </div>

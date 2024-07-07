@@ -68,13 +68,7 @@ export class HttpService {
    * @returns response.
    */
   delete<T>(url: string, body?: any): Observable<T | any> {
-    return this.http.request<T>("delete", url, { body, observe: "response" })
-      .pipe(
-        map((res: HttpResponse<T>) => {
-          return this.handleError.bind(res.body);
-        })
-      );
-    // return this.http.delete<T>(url, headers).pipe(catchError(this.handleError.bind(this)));
+    return this.http.delete<T>(url, { body }).pipe(catchError(this.handleError.bind(this)));
   }
 
   /**
