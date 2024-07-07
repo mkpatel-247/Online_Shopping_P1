@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ContactForm } from '../interface/contact-form';
 import { CONTACT, PAGES } from '../constant/api.constant';
+import { CONFIGURATION } from '../constant/api.constant';
 import { HttpService } from './http.service';
 
 @Injectable({
@@ -30,14 +30,27 @@ export class CommonService {
   /**
    * getting faq data from local json
    */
-  getFaqData() : Observable<any>{
+  getFaqData(): Observable<any> {
     return this.http.get(PAGES.FAQ);
   }
 
   /**
    * getting Help Center data from local json
    */
-  getHelpCenterData() : Observable<any>{
+  getHelpCenterData(): Observable<any> {
     return this.http.get(PAGES.HELP);
+  }
+  /*
+     * Make a get request.
+     */
+  getLanguageOrContry(params: any) {
+    return this.http.get(CONFIGURATION.LANUGAGE_COUNTRY, params);
+  }
+
+  /**
+   * Get site configuration.
+   */
+  getSiteConfig() {
+    return this.http.get(CONFIGURATION.SITE_CONFIG);
   }
 }

@@ -23,11 +23,11 @@
                             </small>
                         </ng-template>
                     </ngb-rating>
-                    <small>({{ products.totalReview }})</small>
+                    <small>({{ products.totalReview || 0}})</small>
                 </div>
                 <div class="mt-auto text-end">
-                    <button type="button" class="btn btn-outline-primary">
-                        Add to Wishlist
+                    <button type="button" class="btn btn-{{ products.isWishList ? 'primary' : 'outline-primary'}}">
+                        <i class="far fa-heart" [ngClass]="{'text-dark': products.isWishList}"></i>
                     </button>
                 </div>
             </div>

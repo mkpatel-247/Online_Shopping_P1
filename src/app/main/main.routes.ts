@@ -53,6 +53,10 @@ export const mainRoutes: Routes = [
                 loadComponent: () => import('../pages/contact/contact.component').then((c) => c.ContactComponent),
             },
             {
+                path: 'wishlist',
+                loadComponent: () => import('../main/wishlist/wishlist.component').then((c) => c.WishlistComponent)
+            },
+            {
                 path: 'product',
                 loadChildren: () => import('./products/products.routes').then((c) => c.productsRoutes)
             },

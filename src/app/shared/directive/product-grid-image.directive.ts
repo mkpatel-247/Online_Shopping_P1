@@ -4,6 +4,9 @@ import { Directive, ElementRef, HostListener, OnInit, Renderer2 } from '@angular
   selector: '[appProductGridImage]',
   standalone: true
 })
+/**
+ * Set the default image and set the grid-image class with set specific heigt width.
+ */
 export class ProductGridImageDirective implements OnInit {
 
   originalImage: string = '';
