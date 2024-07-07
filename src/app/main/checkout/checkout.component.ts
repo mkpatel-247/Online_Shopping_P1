@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
 import { OrderData } from 'src/app/shared/interface/order-data.interface';
 import { CommonService } from 'src/app/shared/service/common.service';
+import { ProductService } from 'src/app/shared/service/product.service';
 
 @Component({
   selector: 'app-checkout',
@@ -27,7 +28,7 @@ export class CheckoutComponent implements OnInit {
   paymentMethod: string = '';
   isPaymentMethodSelected: boolean = false;
   shippingDetails: any;
-  constructor(private commonService : CommonService, private router: Router, private cd: ChangeDetectorRef, private cartService: CartService, private toastService: ToastMessageService) { }
+  constructor(private productService: ProductService, private commonService: CommonService, private router: Router, private cd: ChangeDetectorRef, private cartService: CartService, private toastService: ToastMessageService) { }
 
   ngOnInit(): void {
     const breadCrumbData = [
@@ -35,7 +36,7 @@ export class CheckoutComponent implements OnInit {
         pageTitle: 'Checkout',
         linkList: [
           { label: 'Home', link: '/home' },
-          { label : 'Cart', link: '/cart' },
+          { label: 'Cart', link: '/cart' },
           { label: 'Checkout', link: '/checkout' },
         ]
       }
@@ -114,6 +115,7 @@ export class CheckoutComponent implements OnInit {
       this.cartService.addOrder(orderDetails).subscribe({
         next: (res: any) => {
           if (res.success) {
+            this.productService.cartItems.next(0)
             this.toastService.showToast(TOAST_ICON.successIcon, TOAST_STATE.success, "Order Placed.");
             this.router.navigate(['/orders'])
           }

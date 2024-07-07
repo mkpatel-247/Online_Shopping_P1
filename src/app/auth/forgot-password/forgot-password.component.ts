@@ -5,6 +5,8 @@ import { Router, RouterModule } from '@angular/router';
 import { isEmailValid } from 'src/app/shared/validators/custom.validator';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { CommonService } from 'src/app/shared/service/common.service';
+import { ToastMessageService } from 'src/app/shared/components/toast-message/toast-message.service';
+import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
 
 @Component({
   selector: 'app-forgot-password',
@@ -15,7 +17,7 @@ import { CommonService } from 'src/app/shared/service/common.service';
 })
 export class ForgotPasswordComponent {
 
-  constructor(private commonService: CommonService,private authService: AuthService, private router: Router) { }
+  constructor(private commonService: CommonService, private toastService: ToastMessageService, private authService: AuthService, private router: Router) { }
   ngOnInit(): void {
     if (this.authService.getLoginTokenFromLocalStorage()) {
       this.router.navigate(['/home']);
@@ -29,9 +31,23 @@ export class ForgotPasswordComponent {
   submitted: boolean = false;
 
   /**
-   * 
+   * redirect to change the password with token
    */
   handleSubmit() {
     this.submitted = true;
+
+    if (this.forgotPassForm.valid) {
+
+      this.authService.forgotPassword(this.forgotPassForm.value).subscribe({
+        next: (res: any) => {
+          if (res.success) {
+            this.router.navigate([`/auth/reset-password/${res.token}`]);
+          }
+        },
+        error: (err: any) => {
+          this.toastService.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.danger, err.error.message);
+        }
+      })
+    }
   }
 }

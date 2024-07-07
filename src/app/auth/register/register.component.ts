@@ -26,7 +26,7 @@ export class RegisterComponent {
   });
   submitted: boolean = false;
   showPassword: boolean = false;
-  constructor(private commonService : CommonService, private router: Router, private authService: AuthService, private toastService: ToastMessageService,
+  constructor(private commonService: CommonService, private router: Router, private authService: AuthService, private toastService: ToastMessageService,
     private _location: Location) { }
 
   ngOnInit(): void {
@@ -53,7 +53,6 @@ export class RegisterComponent {
             this.toastService.showToast(TOAST_ICON.successIcon, TOAST_STATE.success, "Registration successful")
             localStorage.setItem('loginToken', res.token);
             localStorage.setItem('userDetail', JSON.stringify(this.registrationForm.value));
-
             this._location.back();
           }
         },

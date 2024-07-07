@@ -9,6 +9,9 @@ const CART_PREFIX = `${API_PREFIX}/cart`
 export const AUTH = {
     LOGIN_API: `${AUTH_PREFIX}/login`,
     REGISTER_API: `${AUTH_PREFIX}/register`,
+    FORGOT_PASSWORD : `${AUTH_PREFIX}/forgot-password`,
+    CHANGE_PASSWORD : `${AUTH_PREFIX}/password/change`,
+    RESET_PASSWORD : `${AUTH_PREFIX}/verify-and-change-password/`
 }
 
 export const PRODUCT = {

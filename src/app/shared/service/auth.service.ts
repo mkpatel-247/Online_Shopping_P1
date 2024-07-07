@@ -48,4 +48,30 @@ export class AuthService {
   getSingleUser(): Observable<any> {
     return this.http.get(AUTH_PREFIX)
   }
+
+  /**
+   * @param userEmail 
+   * @returns token to reset the password
+   */
+  forgotPassword(userEmail: any): Observable<any> {
+    return this.http.post(AUTH.FORGOT_PASSWORD, userEmail);
+  }
+
+  /**
+   * resets the user password details
+   * @param userToken generated token from forgot password process
+   * @param userPasswords password and confirm password
+   */
+  resetPassword(userToken:any,userPasswords:any)  : Observable<any> {
+    return this.http.patch(AUTH.RESET_PASSWORD +  userToken, userPasswords);
+  }
+
+  /**
+   * change the user password
+   * @param userPasswords old password, new password and confirm password
+   */
+  changePassword(userPasswords:any) : Observable<any> {
+    return this.http.put(AUTH.CHANGE_PASSWORD, userPasswords);
+  }
+
 }
