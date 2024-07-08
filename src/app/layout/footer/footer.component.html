@@ -5,9 +5,7 @@
             <h5 class="text-secondary text-uppercase mb-4">Get In Touch</h5>
             <p class="mb-4">No dolore ipsum accusam no lorem. Invidunt sed clita kasd clita et et dolor sed dolor. Rebum
                 tempor no vero est magna amet no</p>
-            <ng-container *ngFor="let item of address; last as isLast">
-                <p [ngClass]="{'mb-2': !isLast}"><i class="fa fa-{{item.icon}} text-primary mr-3"></i>{{item.text}}</p>
-            </ng-container>
+            <app-address></app-address>
         </div>
         <div class="col-lg-8 col-md-12">
             <div class="row">

@@ -7,11 +7,12 @@ import { ToastMessageService } from 'src/app/shared/components/toast-message/toa
 import { isEmailValid, isOnlySpaceExist } from 'src/app/shared/validators/custom.validator';
 import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
 import { ContainSpaceDirective } from 'src/app/shared/directive/contain-space.directive';
+import { AddressComponent } from 'src/app/shared/components/address/address.component';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ContainSpaceDirective],
+  imports: [CommonModule, ReactiveFormsModule, ContainSpaceDirective, AddressComponent],
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss']
 })

@@ -11,7 +11,7 @@
                                 alt="">
                         </div>
                         <div class="flex-fill pl-3">
-                            <h6>{{ item.name | titlecase }}</h6>
+                            <h6>{{ item.name | titlecase | slice : -25 }}</h6>
                             <small class="text-body">{{item.productsCount}} Products</small>
                         </div>
                     </div>

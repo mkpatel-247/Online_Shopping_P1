@@ -186,8 +186,11 @@ export class ProductDetailComponent implements OnInit {
     localStorage.setItem('cartItems', JSON.stringify(this.storedItem));
   }
 
+  /**
+   * Get the product belong to same category.
+   * @param catId category id
+   */
   private getRelatedProducts(catId: string) {
-
     this.productService.getCategoryProducts(catId).subscribe({
       next: (res: any) => {
         const isDataExist = res.data;

@@ -23,6 +23,7 @@ declare var google: any;
 })
 export class HeaderComponent implements OnInit {
 
+  siteConfig: any = '';
   searchQuery: string = '';
   firstName: string = '';
   language: any = '';
@@ -41,6 +42,7 @@ export class HeaderComponent implements OnInit {
     }
     this.getWishlistItemNumber();
     this.getLanguages();
+    this.siteConfig = JSON.parse(localStorage.getItem('siteConfig') || "null");
   }
   /**
    * open a modal to change the password
