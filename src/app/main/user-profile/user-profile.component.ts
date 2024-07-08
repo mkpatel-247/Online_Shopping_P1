@@ -35,7 +35,7 @@ export class UserProfileComponent implements OnInit {
   userEmail: string = '';
 
 
-  constructor(private commonService : CommonService,  private cd: ChangeDetectorRef, private authService: AuthService, private userService: UserService, private toastService: ToastMessageService) { }
+  constructor(private commonService: CommonService, private cd: ChangeDetectorRef, private authService: AuthService, private userService: UserService, private toastService: ToastMessageService) { }
 
   ngOnInit(): void {
     const breadCrumbData = [
