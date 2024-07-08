@@ -41,7 +41,7 @@
                     <div class="dropdown-menu dropdown-menu-right list-message">
                         <ng-container *ngFor="let item of language">
                             <button class="dropdown-item custom-scrollbar" type="button"
-                                (click)="changeLanguage(item.code)">{{item.name}} </button>
+                                (click)="changeLanguage(item.code)">{{item.name | titlecase}} </button>
                         </ng-container>
                     </div>
                 </div>

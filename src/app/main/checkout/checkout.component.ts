@@ -59,12 +59,13 @@ export class CheckoutComponent implements OnInit {
     this.cartService.getAllCartItems().subscribe({
       next: (res: any) => {
         this.cartItems = res?.data?.products;
-        this.countSubTotal()
+        if (!this.cartItems) {
+          this.router.navigate(['/product'])
+        } +
+          this.countSubTotal()
         this.cd.markForCheck()
       },
       error: (err: any) => {
-        this.router.navigate(['/product'])
-        this.cd.markForCheck()
       }
     })
   }
