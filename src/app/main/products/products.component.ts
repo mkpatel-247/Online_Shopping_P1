@@ -120,6 +120,23 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Get a list of wishlist product.
+   */
+  getWishlistProducts() {
+    this.productService.getWishlistProduct().subscribe({
+      next: (res: any) => {
+        if (res.success && res.data) {
+          this.productService.wishlistItems.next(res.data.products?.length);
+        }
+        this.cdr.markForCheck();
+      },
+      error: (err: any) => {
+        this.productService.wishlistItems.next(0);
+      }
+    })
+  }
+
+  /**
    * Add/Delete from wishlist.
    * @param event value of wishlist.
    */
@@ -134,8 +151,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
   addProductIntoWishlist(id: string) {
     this.productService.addProductIntoWishlist({ 'product': id }).subscribe({
       next: (res: any) => {
-        this.toastService.showToast(TOAST_ICON.successIcon, TOAST_STATE.success, res.message);
         this.cdr.markForCheck();
+      },
+      complete: () => {
+        this.getWishlistProducts()
       }
     })
   }
@@ -146,8 +165,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
   deleteProductFromWishlist(id: string) {
     this.productService.deleteProductFromWishlist({ 'product': id }).subscribe({
       next: (res: any) => {
-        this.toastService.showToast(TOAST_ICON.successIcon, TOAST_STATE.success, res.message);
         this.cdr.markForCheck();
+      },
+      complete: () => {
+        this.getWishlistProducts()
       }
     })
   }
