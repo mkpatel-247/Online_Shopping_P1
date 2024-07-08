@@ -52,6 +52,7 @@ export class ResetPasswordComponent implements OnInit {
           next: (res: any) => {
             if (res.success) {
               this.toastService.showToast(TOAST_ICON.successIcon, TOAST_STATE.success, res.message);
+              this.router.navigate(['/auth/login']);
             }
           },
           error: (err: any) => {

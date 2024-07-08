@@ -10,11 +10,12 @@ import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
 import { ToastMessageService } from '../components/toast-message/toast-message.service';
 import { TOAST_ICON, TOAST_STATE } from '../constant/app.constant';
+import { ProductService } from '../service/product.service';
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
 
-  constructor(private router: Router, private authService: AuthService, private toast: ToastMessageService) { }
+  constructor(private router: Router, private authService: AuthService, private toast: ToastMessageService, private productService: ProductService) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const authToken = this.authService.getLoginTokenFromLocalStorage();
@@ -28,6 +29,8 @@ export class ApiInterceptor implements HttpInterceptor {
         if (error.status === 401) {
           localStorage.removeItem('loginToken');
           localStorage.removeItem('userDetail');
+          this.authService.userDetail.next([]);
+          this.productService.cartItems.next(0);
           this.router.navigate(['/auth/login']);
           return throwError(() => "Logout");
         }
