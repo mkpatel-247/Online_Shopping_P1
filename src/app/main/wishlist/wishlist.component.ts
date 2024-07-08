@@ -59,7 +59,6 @@ export class WishlistComponent implements OnInit {
   deleteProductFromWishlist(data: any) {
     this.productService.deleteProductFromWishlist({ 'product': data.id }).subscribe({
       next: (res: any) => {
-        this.toastService.showToast(TOAST_ICON.successIcon, TOAST_STATE.success, res.message);
         this.getWishlistProducts();
         this.cdr.markForCheck();
       }
