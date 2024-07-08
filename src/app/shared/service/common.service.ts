@@ -38,10 +38,10 @@ export class CommonService {
     return this.http.get(PAGES.HELP);
   }
   /*
-     * Make a get request.
-     */
-  getLanguageOrContry(params: any) {
-    return this.http.get(CONFIGURATION.LANUGAGE_COUNTRY, params);
+   * Make a get request.
+   */
+  getLanguageOrCountry(params?: any) {
+    return this.http.get(CONFIGURATION.LANGUAGE_COUNTRY, params);
   }
 
   /**

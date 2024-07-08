@@ -35,12 +35,13 @@
                     </div>
                 </ng-template>
                 <div class="btn-group language-menu">
-                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Change
-                        Language</button>
+                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">
+                        Change Language
+                    </button>
                     <div class="dropdown-menu dropdown-menu-right">
                         <ng-container *ngFor="let item of language">
                             <button class="dropdown-item custom-scrollbar" type="button"
-                                (click)="changeLanguage(item.code)">{{item.language}} </button>
+                                (click)="changeLanguage(item.code)">{{item.name}} </button>
                         </ng-container>
                     </div>
                 </div>

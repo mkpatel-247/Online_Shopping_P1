@@ -11,9 +11,9 @@ export const WISHLIST = `${API_PREFIX}/wishlist`
 export const AUTH = {
     LOGIN_API: `${AUTH_PREFIX}/login`,
     REGISTER_API: `${AUTH_PREFIX}/register`,
-    FORGOT_PASSWORD : `${AUTH_PREFIX}/forgot-password`,
-    CHANGE_PASSWORD : `${AUTH_PREFIX}/password/change`,
-    RESET_PASSWORD : `${AUTH_PREFIX}/verify-and-change-password/`
+    FORGOT_PASSWORD: `${AUTH_PREFIX}/forgot-password`,
+    CHANGE_PASSWORD: `${AUTH_PREFIX}/password/change`,
+    RESET_PASSWORD: `${AUTH_PREFIX}/verify-and-change-password/`
 }
 
 export const PRODUCT = {
@@ -32,8 +32,8 @@ export const HOME = {
     BANNER: '/assets/dummyData/banner.json'
 }
 export const PAGES = {
-    FAQ : '/assets/dummyData/faq.json',
-    HELP : '/assets/dummyData/help.json'
+    FAQ: '/assets/dummyData/faq.json',
+    HELP: '/assets/dummyData/help.json'
 }
 export const CART = {
     CREATE_CART_ITEM: `${CART_PREFIX}/manage-cart`,
@@ -50,5 +50,5 @@ export const ORDERS = {
 
 export const CONFIGURATION = {
     SITE_CONFIG: `${CONFIG_PREFIX}/site-config`,
-    LANUGAGE_COUNTRY: `${CONFIG_PREFIX}/language-country-config`
+    LANGUAGE_COUNTRY: `${CONFIG_PREFIX}/language-country-config`
 }

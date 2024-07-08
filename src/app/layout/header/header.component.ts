@@ -10,6 +10,7 @@ import { LANGUAGE, PAGES_LINK } from './header.data';
 import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
 import { ContainSpaceDirective } from 'src/app/shared/directive/contain-space.directive';
 import { ProductService } from 'src/app/shared/service/product.service';
+import { CommonService } from 'src/app/shared/service/common.service';
 
 declare var google: any;
 @Component({
@@ -24,11 +25,11 @@ export class HeaderComponent implements OnInit {
 
   searchQuery: string = '';
   firstName: string = '';
-  language = LANGUAGE;
+  language: any = '';
   pagesLink = PAGES_LINK;
   numberOfCartItem: number = 0;
   wishlistItem: number = 0;
-  constructor(private modalService: NgbModal, public authService: AuthService, private router: Router, private cdr: ChangeDetectorRef, private productService: ProductService, private location: Location) { }
+  constructor(private modalService: NgbModal, public authService: AuthService, private router: Router, private cdr: ChangeDetectorRef, private productService: ProductService, private commonService: CommonService) { }
 
   ngOnInit(): void {
     this.getUserDetails();
@@ -37,6 +38,7 @@ export class HeaderComponent implements OnInit {
       this.numberOfCartItem = storedItem.length;
     }
     this.getWishlistItemNumber();
+    this.getLanguages();
   }
   /**
    * open a modal to change the password
@@ -78,7 +80,7 @@ export class HeaderComponent implements OnInit {
    * @param languageCode code of language
    */
   changeLanguage(languageCode: string) {
-    document.cookie = 'googtrans=' + `/en/${languageCode}`
+    document.cookie = 'googtrans=' + `/en/${languageCode.toLowerCase()}`
     location.reload();
   }
 
@@ -115,6 +117,20 @@ export class HeaderComponent implements OnInit {
       next: (res: any) => {
         this.wishlistItem = res;
         this.cdr.markForCheck();
+      }
+    });
+  }
+
+  /**
+   * Get lanuage/
+   */
+  getLanguages() {
+    this.commonService.getLanguageOrCountry({ type: 'language' }).subscribe({
+      next: (res: any) => {
+        this.language = res.data;
+      },
+      error: (err: any) => {
+        this.language = [];
       }
     });
   }
