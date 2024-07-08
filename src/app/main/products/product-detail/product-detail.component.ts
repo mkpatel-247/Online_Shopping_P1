@@ -40,17 +40,6 @@ export class ProductDetailComponent implements OnInit {
     this.getAllCartItems();
     this.getProductsData();
     this.colorSizeFormControls();
-    const breadCrumbData = [
-      {
-        pageTitle: 'Product',
-        linkList: [
-          { label: 'Home', link: '/home' },
-          { label: 'Products', link: '/product' },
-          { label: this.products?.name, link: '' },
-        ]
-      }
-    ]
-    this.commonService.breadCrumb.next(breadCrumbData);
     if (!this.authService.getLoginTokenFromLocalStorage()) {
       this.storedItem = JSON.parse(localStorage.getItem('cartItems') as string);
       if (!this.storedItem) {
@@ -109,6 +98,20 @@ export class ProductDetailComponent implements OnInit {
       error: (err: any) => {
         this.router.navigateByUrl('/product');
       },
+      complete: () => {
+
+        const breadCrumbData = [
+          {
+            pageTitle: 'Product',
+            linkList: [
+              { label: 'Home', link: '/home' },
+              { label: 'Products', link: '/product' },
+              { label: this.products?.name, link: '' },
+            ]
+          }
+        ]
+        this.commonService.breadCrumb.next(breadCrumbData);
+      }
     })
   }
 

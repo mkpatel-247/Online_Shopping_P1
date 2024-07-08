@@ -35,10 +35,15 @@ export class ProductsComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, public commonService: CommonService, private productService: ProductService, private cdr: ChangeDetectorRef, private toastService: ToastMessageService, private router: Router) { }
 
   ngOnInit(): void {
-    this.checkParams();    
+    this.checkParams();
     this.setBreadCrumb()
   }
-  
+
+
+  ngOnDestroy(): void {
+    //Add empty string so that data get empty when this component destroy.
+    this.commonService.breadCrumb.next([]);
+  }
   private checkParams() {
     this.route.queryParams.subscribe({
       next: (param: any) => {
@@ -50,11 +55,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
         this.cdr.markForCheck();
       }
     })
-  }
-
-  ngOnDestroy(): void {
-    //Add empty string so that data get empty when this component destroy.
-    this.commonService.breadCrumb.next([]);
   }
 
   /**

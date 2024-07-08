@@ -43,7 +43,7 @@ export class WishlistComponent implements OnInit {
       next: (res: any) => {
         if (res.success && res.data) {
           this.wishListProducts = res.data.products;
-          this.productService.wishlistItems.next(this.wishListProducts.length);
+          this.productService.wishlistItems.next(this.wishListProducts?.length);
         }
         this.cdr.markForCheck();
       },
