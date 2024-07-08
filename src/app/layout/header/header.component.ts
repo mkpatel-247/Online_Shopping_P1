@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
   pagesLink = PAGES_LINK;
   numberOfCartItem: number = 0;
   wishlistItem: number = 0;
-  constructor(private modalService: NgbModal, public authService: AuthService, private toastService: ToastMessageService, private router: Router, private cdr: ChangeDetectorRef, private productService: ProductService, private location: Location) { }
+  constructor(private modalService: NgbModal, public authService: AuthService, private router: Router, private cdr: ChangeDetectorRef, private productService: ProductService, private location: Location) { }
 
   ngOnInit(): void {
     this.getUserDetails();
@@ -92,7 +92,6 @@ export class HeaderComponent implements OnInit {
     this.productService.cartItems.next(0);
     this.productService.wishlistItems.next(0);
     this.router.navigate(['/home']);
-    this.toastService.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.danger, "Logout Successfully");
     this.cdr.markForCheck();
   }
 
