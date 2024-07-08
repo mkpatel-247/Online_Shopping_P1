@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FeaturedProduct } from 'src/app/shared/interface/product.interface';
 import { ProductService } from 'src/app/shared/service/product.service';
@@ -9,13 +9,14 @@ import { ProductGridComponent } from '../../products/product-grid/product-grid.c
   standalone: true,
   imports: [CommonModule, ProductGridComponent],
   templateUrl: './featured-products.component.html',
-  styleUrls: ['./featured-products.component.scss']
+  styleUrls: ['./featured-products.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FeaturedProductsComponent implements OnInit {
 
   featuredProduct: FeaturedProduct[] = [];
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.getFeaturedProducts();
@@ -28,6 +29,7 @@ export class FeaturedProductsComponent implements OnInit {
     this.productService.getProducts({ 'isFeatured': true }).subscribe({
       next: (res: any) => {
         this.featuredProduct = res.data.data;
+        this.cdr.markForCheck();
       },
       error: (err: any) => {
         this.featuredProduct = [];

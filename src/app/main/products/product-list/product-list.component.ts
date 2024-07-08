@@ -15,6 +15,7 @@ export class ProductListComponent implements OnInit {
   @Output() wishlist = new EventEmitter<any>();
   router = inject(Router);
   wishlistObject: Object = {};
+
   ngOnInit(): void {
     if (this.router.url == '/wishlist') {
       this.wishlistObject = { isWishlist: true, id: this.products.productId }

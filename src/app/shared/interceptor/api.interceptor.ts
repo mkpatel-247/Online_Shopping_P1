@@ -31,6 +31,7 @@ export class ApiInterceptor implements HttpInterceptor {
           localStorage.removeItem('userDetail');
           this.authService.userDetail.next([]);
           this.productService.cartItems.next(0);
+          this.productService.wishlistItems.next(0);
           this.router.navigate(['/auth/login']);
           return throwError(() => "Logout");
         }

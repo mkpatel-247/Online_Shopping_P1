@@ -1,22 +1,22 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CommonService } from 'src/app/shared/service/common.service';
-import { ActivatedRoute, RouterModule } from '@angular/router';
-import { FilterByComponent } from './filter-by/filter-by.component';
-import { ViewTypeComponent } from './view-type/view-type.component';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProductService } from 'src/app/shared/service/product.service';
 import { ProductGridComponent } from './product-grid/product-grid.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
 import { ToastMessageService } from 'src/app/shared/components/toast-message/toast-message.service';
+import { LabelType, NgxSliderModule, Options } from '@angular-slider/ngx-slider';
+import { SORTING } from './products.data';
 
 @Component({
   selector: 'app-products',
   standalone: true,
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
-  imports: [CommonModule, FilterByComponent, ViewTypeComponent, RouterModule, ProductListComponent, ProductGridComponent, NgbPaginationModule],
+  imports: [CommonModule, RouterModule, ProductListComponent, ProductGridComponent, NgbPaginationModule, NgxSliderModule],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductsComponent implements OnInit, OnDestroy {
@@ -26,8 +26,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
   searchQuery: string = '';
   page = 1;
   totalPage = 1;
-
-  constructor(private route: ActivatedRoute, public commonService: CommonService, private productService: ProductService, private cdr: ChangeDetectorRef, private toastService: ToastMessageService) { }
+  viewType: boolean = true;
+  minValue: number = 0;
+  maxValue: number = 600;
+  price = [];
+  sortParams: string = 'popularity'
+  sortingValue = SORTING;
+  constructor(private route: ActivatedRoute, public commonService: CommonService, private productService: ProductService, private cdr: ChangeDetectorRef, private toastService: ToastMessageService, private router: Router) { }
 
   ngOnInit(): void {
     //Add router's data into common service breadCrumb subject
@@ -41,20 +46,25 @@ export class ProductsComponent implements OnInit, OnDestroy {
       }
     ]
     this.commonService.breadCrumb.next(breadCrumbData);
-
-    this.route.queryParams.subscribe({
-      next: (param: any) => {
-        this.catId = param['categoryId'];
-        this.searchQuery = param['search'];
-        this.getProducts();
-        this.cdr.markForCheck();
-      }
-    })
+    this.checkParams();
   }
 
   ngOnDestroy(): void {
     //Add empty string so that data get empty when this component destroy.
     this.commonService.breadCrumb.next('');
+  }
+
+  private checkParams() {
+    this.route.queryParams.subscribe({
+      next: (param: any) => {
+        this.catId = param['categoryId'];
+        this.searchQuery = param['search'];
+        this.price = param['price'];
+        this.sortParams = param['sort'];
+        this.getProducts();
+        this.cdr.markForCheck();
+      }
+    })
   }
 
   /**
@@ -72,9 +82,18 @@ export class ProductsComponent implements OnInit, OnDestroy {
         }
       })
     } else {
-      const search = { 'search': this.searchQuery || '', productPerPage: 6, currentPage: page || 1 }
-      this.productService.getProducts(search).subscribe({
+      let params: any = { 'search': this.searchQuery || '', productPerPage: 6, currentPage: page || 1 };
+      if (this.price) {
+        params['price'] = this.price;
+      }
+      if (this.sortParams) {
+        params['sort'] = this.sortParams;
+      }
+      this.productService.getProducts(params).subscribe({
         next: (res: any) => {
+          this.options.floor = res.data.minPriceValue;
+          this.options.ceil = res.data.maxPriceValue;
+
           this.productDetails = res.data;
           this.cdr.markForCheck();
         },
@@ -85,8 +104,25 @@ export class ProductsComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Pagination
+   * @param page page number
+   */
   refreshItems(page: number) {
+    // this.router.navigate(['/product'], { relativeTo: this.route, queryParams: { productPerPage: 6, currentPage: page } });
     this.getProducts(page);
+  }
+
+  /**
+   * Handle price range slider.
+   * @param data 
+   */
+  priceRangeItems(data: any) {
+    this.router.navigate(['/product'], { relativeTo: this.route, queryParams: { price: [this.minValue, this.maxValue] } })
+  }
+
+  sorting(value: string) {
+    this.router.navigate(['/product'], { relativeTo: this.route, queryParams: { sort: value } })
   }
 
   /**
@@ -121,4 +157,28 @@ export class ProductsComponent implements OnInit, OnDestroy {
       }
     })
   }
+
+  /**
+   * Slider options.
+   */
+  options: Options = {
+    floor: this.minValue,
+    ceil: this.maxValue,
+    translate: (value: number, label: LabelType): string => {
+      switch (label) {
+        case LabelType.Low:
+          return '<b>Min price:</b> $' + value;
+        case LabelType.High:
+          return '<b>Max price:</b> $' + value;
+        default:
+          return '$' + value;
+      }
+    },
+    getSelectionBarColor: (value: number): string => {
+      return "#ffd333";
+    },
+    getPointerColor: (): string => {
+      return "#ffd333";
+    }
+  };
 }

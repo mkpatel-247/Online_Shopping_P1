@@ -7,7 +7,8 @@
         <div class="col-md-8">
             <div class="card-body d-flex flex-column h-100">
                 <h5 class="card-title">
-                    <a routerLink="/product/details/{{products._id}}" class="h6 text-decoration-none text-truncate">
+                    <a routerLink="/product/details/{{router.url == '/wishlist' ? products.productId : products._id}}"
+                        class="h6 text-decoration-none text-truncate">
                         {{ products.name }}
                     </a>
                 </h5>

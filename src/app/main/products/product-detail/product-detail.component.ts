@@ -33,7 +33,7 @@ export class ProductDetailComponent implements OnInit {
   proID: string = '';
   cartItems: any = [];
   listOfRelatedProduct: any = [];
-  constructor(private productService: ProductService, private route: ActivatedRoute, private toastService: ToastMessageService, private authService: AuthService, private cartService: CartService, private commonService : CommonService, private router: Router, private cd: ChangeDetectorRef) { }
+  constructor(private productService: ProductService, private route: ActivatedRoute, private toastService: ToastMessageService, private authService: AuthService, private cartService: CartService, private commonService: CommonService, private router: Router, private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
 
