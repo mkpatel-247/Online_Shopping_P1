@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -13,7 +13,8 @@ import { CommonService } from 'src/app/shared/service/common.service';
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegisterComponent {
 
@@ -27,7 +28,7 @@ export class RegisterComponent {
   submitted: boolean = false;
   showPassword: boolean = false;
   constructor(private commonService: CommonService, private router: Router, private authService: AuthService, private toastService: ToastMessageService,
-    private _location: Location) { }
+    private _location: Location, private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     if (this.authService.getLoginTokenFromLocalStorage()) {

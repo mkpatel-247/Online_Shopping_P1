@@ -30,18 +30,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, public commonService: CommonService, private productService: ProductService, private cdr: ChangeDetectorRef, private toastService: ToastMessageService) { }
 
   ngOnInit(): void {
-    //Add router's data into common service breadCrumb subject
-    const breadCrumbData = [
-      {
-        pageTitle: 'Product',
-        linkList: [
-          { label: 'Home', link: '/home' },
-          { label: 'Products', link: '/product' }
-        ]
-      }
-    ]
-    this.commonService.breadCrumb.next(breadCrumbData);
-
     this.route.queryParams.subscribe({
       next: (param: any) => {
         this.catId = param['categoryId'];
@@ -50,11 +38,12 @@ export class ProductsComponent implements OnInit, OnDestroy {
         this.cdr.markForCheck();
       }
     })
+    this.setBreadCrumb()
   }
 
   ngOnDestroy(): void {
     //Add empty string so that data get empty when this component destroy.
-    this.commonService.breadCrumb.next('');
+    this.commonService.breadCrumb.next([]);
   }
 
   /**
@@ -65,9 +54,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
       this.productService.getCategoryProducts(this.catId).subscribe({
         next: (res: any) => {
           this.productDetails = res.data;
+          if (res.data?.data?.length) {
+            this.setBreadCrumb(res?.data.data[0].categoryName)
+          }
           this.cdr.markForCheck();
         },
         error: (err: any) => {
+          this.setBreadCrumb()
           this.productDetails = []
         }
       })
@@ -120,5 +113,36 @@ export class ProductsComponent implements OnInit, OnDestroy {
         this.cdr.markForCheck();
       }
     })
+  }
+
+  /**
+  * setting breadcrumb data as per the selected category
+  */
+  setBreadCrumb(categoryName?: string) {
+    let breadCrumbData;
+    if (categoryName) {
+      breadCrumbData = [
+        {
+          pageTitle: 'Product',
+          linkList: [
+            { label: 'Home', link: '/home' },
+            { label: 'Products', link: '/product' },
+            { label: categoryName, link: '' },
+          ]
+        }
+      ]
+    } else {
+      breadCrumbData = [
+        {
+          pageTitle: 'Product',
+          linkList: [
+            { label: 'Home', link: '/home' },
+            { label: 'Products', link: '/product' },
+          ]
+        }
+      ]
+    }
+    this.commonService.breadCrumb.next(breadCrumbData);
+    this.cdr.markForCheck()
   }
 }
