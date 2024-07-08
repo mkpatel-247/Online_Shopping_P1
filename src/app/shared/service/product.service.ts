@@ -34,8 +34,8 @@ export class ProductService {
    * Fetch all categories.
    * @returns response of category api.
    */
-  getAllCategories(): Observable<any> {
-    return this.http.get(CATEGORY);
+  getAllCategories(params?: any): Observable<any> {
+    return this.http.get(CATEGORY, params);
   }
 
   /**
