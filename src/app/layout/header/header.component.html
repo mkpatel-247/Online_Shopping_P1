@@ -61,8 +61,13 @@
     <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
         <div class="col-lg-4">
             <a routerLink="/home" class="text-decoration-none">
-                <span class="h1 text-uppercase text-primary bg-dark px-2">Multi</span>
-                <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Shop</span>
+                <ng-container *ngIf="siteConfig; else noSiteData">
+                    <img [src]="siteConfig.logo" class="img-fluid logo" alt="logo">
+                </ng-container>
+                <ng-template #noSiteData>
+                    <span class="h1 text-uppercase text-primary bg-dark px-2">Multi</span>
+                    <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Shop</span>
+                </ng-template>
             </a>
         </div>
         <div class="col-lg-4 col-6 text-left">

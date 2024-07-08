@@ -18,7 +18,7 @@ import { AuthService } from '../shared/service/auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainComponent implements OnInit {
-  constructor(private authService: AuthService, private productService: ProductService, private cartService: CartService, private toastService: ToastMessageService, private cdr: ChangeDetectorRef) { }
+  constructor(private authService: AuthService, private productService: ProductService, private cartService: CartService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     if (this.authService.getLoginTokenFromLocalStorage()) {
