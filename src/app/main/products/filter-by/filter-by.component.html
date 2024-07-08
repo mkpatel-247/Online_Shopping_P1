@@ -7,7 +7,7 @@
         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
             <input type="checkbox" class="custom-control-input" checked id="price-all">
             <label class="custom-control-label" for="price-all">All Price</label>
-            <span class="badge border rounded-0 font-weight-normal text-dark">1000</span>
+            <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ngx-slider>
         </div>
         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
             <input type="checkbox" class="custom-control-input" id="price-1">
