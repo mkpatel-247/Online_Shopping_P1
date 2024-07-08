@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CommonService } from 'src/app/shared/service/common.service';
 import { RouterModule } from '@angular/router';
@@ -6,14 +6,15 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-help',
   standalone: true,
-  imports: [CommonModule,RouterModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './help.component.html',
-  styleUrls: ['./help.component.scss']
+  styleUrls: ['./help.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HelpComponent {
 
-  helpSection : any;
-  constructor(private commonService : CommonService) {}
+  helpSection: any;
+  constructor(private commonService: CommonService, private cd: ChangeDetectorRef) { }
   ngOnInit(): void {
     const breadCrumbData = [
       {
@@ -31,11 +32,12 @@ export class HelpComponent {
 
   getHelpData() {
     this.commonService.getHelpCenterData().subscribe({
-      next : (res:any) => {
+      next: (res: any) => {
         this.helpSection = res;
+        this.cd.markForCheck()
       },
-      error : (err:any) => {
-        
+      error: (err: any) => {
+
       }
     })
   }

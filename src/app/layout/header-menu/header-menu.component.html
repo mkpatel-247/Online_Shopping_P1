@@ -11,8 +11,8 @@
                 class="collapse dropdown-menu position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light custom-dropdown-menu-width">
                 <div class="dropdown-menu min-height-dropdown navbar-nav w-100 m-0 p-0 rounded-0 custom-scrollbar">
                     <ng-container *ngFor="let item of categories">
-                        <a [routerLink]="['/product']" [queryParams]="{ categoryId: item._id}"
-                            class="nav-item nav-link">{{ item.name }}</a>
+                        <a [routerLink]="['/product']" [queryParams]="{ categoryId: item._id}" class="nav-item nav-link"
+                            routerLinkActive="active-cat">{{ item.name }}</a>
                     </ng-container>
                 </div>
             </nav>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { isPasswordStrong } from 'src/app/shared/validators/custom.validator';
@@ -13,7 +13,8 @@ import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.scss']
+  styleUrls: ['./reset-password.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResetPasswordComponent implements OnInit {
 
@@ -25,7 +26,7 @@ export class ResetPasswordComponent implements OnInit {
   });
   submitted: boolean = false;
 
-  constructor(private router: Router, private route: ActivatedRoute, private toastService: ToastMessageService, private commonService: CommonService, private authService: AuthService) { }
+  constructor(private cd: ChangeDetectorRef, private router: Router, private route: ActivatedRoute, private toastService: ToastMessageService, private commonService: CommonService, private authService: AuthService) { }
   showPassword: boolean = false;
 
   ngOnInit() {

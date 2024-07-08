@@ -33,7 +33,7 @@ export class ProductDetailComponent implements OnInit {
   proID: string = '';
   cartItems: any = [];
   listOfRelatedProduct: any = [];
-  constructor(private productService: ProductService, private route: ActivatedRoute, private toastService: ToastMessageService, private authService: AuthService, private cartService: CartService, private commonService : CommonService, private router: Router, private cd: ChangeDetectorRef) { }
+  constructor(private productService: ProductService, private route: ActivatedRoute, private toastService: ToastMessageService, private authService: AuthService, private cartService: CartService, private commonService: CommonService, private router: Router, private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
 
@@ -79,7 +79,7 @@ export class ProductDetailComponent implements OnInit {
       this.cartService.getAllCartItems().subscribe({
         next: (res: any) => {
           this.cartItems = res?.data?.products;
-          this.productService.cartItems.next(this.cartItems.length);
+          this.productService.cartItems.next(this.cartItems && this.cartItems.length);
           this.cd.markForCheck();
         },
         error: (err: any) => {
@@ -142,6 +142,7 @@ export class ProductDetailComponent implements OnInit {
           if (!this.isItemInCart()) {
 
             this.colorSizeForm.value.quantity = quantity + this.productService.cartItems.value;
+            this.cartItems = this.cartItems ? this.cartItems : []
             this.productService.cartItems.next(this.cartItems.length + 1);
             this.toastService.showToast(TOAST_ICON.successIcon, TOAST_STATE.success, 'Item added to cart');
             this.getAllCartItems();
@@ -159,7 +160,7 @@ export class ProductDetailComponent implements OnInit {
    * checks if the item already presents in cart or not
    */
   isItemInCart() {
-    return this.cartItems.find((item: any) => this.proID === item.productId);
+    return this.cartItems && this.cartItems.find((item: any) => this.proID === item.productId);
   }
   /**
    * if user is not logged in manage cart through local storage
