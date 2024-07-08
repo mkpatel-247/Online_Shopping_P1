@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CommonService } from 'src/app/shared/service/common.service';
 
@@ -7,12 +7,13 @@ import { CommonService } from 'src/app/shared/service/common.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './faq.component.html',
-  styleUrls: ['./faq.component.scss']
+  styleUrls: ['./faq.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FaqComponent {
 
-  faqs : any;
-  constructor(private commonService : CommonService) {}
+  faqs: any;
+  constructor(private commonService: CommonService, private cd: ChangeDetectorRef) { }
   ngOnInit(): void {
     const breadCrumbData = [
       {
@@ -29,11 +30,12 @@ export class FaqComponent {
 
   getFaqData() {
     this.commonService.getFaqData().subscribe({
-      next : (res:any) => {
+      next: (res: any) => {
         this.faqs = res;
+        this.cd.markForCheck()
       },
-      error : (err:any) => {
-        
+      error: (err: any) => {
+
       }
     })
   }

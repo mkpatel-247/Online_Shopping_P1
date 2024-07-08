@@ -19,22 +19,24 @@ import { CommonService } from 'src/app/shared/service/common.service';
 export class OrdersComponent implements OnInit {
 
   orderData: any;
-  constructor(private commonService : CommonService, private cd: ChangeDetectorRef, public router: Router, private cartService: CartService, private toastService: ToastMessageService) { }
+  constructor(private commonService: CommonService, private cd: ChangeDetectorRef, public router: Router, private cartService: CartService, private toastService: ToastMessageService) { }
 
   ngOnInit(): void {
-    const breadCrumbData = [
-      {
-        pageTitle: 'Checkout',
-        linkList: [
-          { label: 'Home', link: '/home' },
-          { label : 'Cart', link: '/cart' },
-          { label: 'Checkout', link: '/checkout' },
-          { label: 'Orders', link: '/orders' }
-        ]
-      }
-    ]
-    this.commonService.breadCrumb.next(breadCrumbData);
-    
+    if (this.router.url !== '/profile') {
+      const breadCrumbData = [
+        {
+          pageTitle: 'Checkout',
+          linkList: [
+            { label: 'Home', link: '/home' },
+            { label: 'Cart', link: '/cart' },
+            { label: 'Checkout', link: '/checkout' },
+            { label: 'Orders', link: '/orders' }
+          ]
+        }
+      ]
+      this.commonService.breadCrumb.next(breadCrumbData);
+    }
+
     this.getAllUserOrders();
   }
   getAllUserOrders() {

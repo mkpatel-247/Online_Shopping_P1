@@ -39,7 +39,7 @@ export class ContactComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     //Add empty string so that data get empty when this component destroy.
-    this.commonService.breadCrumb.next('');
+    this.commonService.breadCrumb.next([]);
   }
 
   /**

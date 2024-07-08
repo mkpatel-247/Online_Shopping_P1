@@ -4,6 +4,7 @@ import { BreadCrumbComponent } from '../bread-crumb/bread-crumb.component';
 import { RouterModule } from '@angular/router';
 import { ProductService } from 'src/app/shared/service/product.service';
 import { HEADER_MENU_LINKS } from './header-menu.data';
+import { CommonService } from 'src/app/shared/service/common.service';
 
 @Component({
   selector: 'app-header-menu',
@@ -32,7 +33,6 @@ export class HeaderMenuComponent implements OnInit {
       })
     }
     this.getWishlistItemNumber();
-
   }
 
   /**

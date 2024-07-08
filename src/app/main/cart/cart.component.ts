@@ -6,6 +6,7 @@ import { CartService } from 'src/app/shared/service/cart.service';
 import { ToastMessageService } from 'src/app/shared/components/toast-message/toast-message.service';
 import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
 import { ProductService } from 'src/app/shared/service/product.service';
+import { CommonService } from 'src/app/shared/service/common.service';
 
 @Component({
   selector: 'app-cart',
@@ -19,9 +20,19 @@ export class CartComponent implements OnInit {
 
   cartItems: any = [];
   cartTotal: number = 0;
-  constructor(private authService: AuthService, private cartService: CartService, private toastService: ToastMessageService, private productService: ProductService, private cd: ChangeDetectorRef) { }
+  constructor(private authService: AuthService, private commonService: CommonService, private cartService: CartService, private toastService: ToastMessageService, private productService: ProductService, private cd: ChangeDetectorRef) { }
   ngOnInit(): void {
 
+    const breadCrumbData = [
+      {
+        pageTitle: 'Checkout',
+        linkList: [
+          { label: 'Home', link: '/home' },
+          { label: 'Cart', link: '/cart' }
+        ]
+      }
+    ]
+    this.commonService.breadCrumb.next(breadCrumbData);
     if (this.authService.getLoginTokenFromLocalStorage()) {
       const storedCartItem = this.getDataFromLocalStorage();
 
@@ -43,14 +54,15 @@ export class CartComponent implements OnInit {
     this.cartService.getAllCartItems().subscribe({
       next: (res: any) => {
         this.cartItems = res?.data?.products;
-        this.productService.cartItems.next(this.cartItems.length);
+        const len = this.cartItems ? this.cartItems.length : 0;
+        this.productService.cartItems.next(len);
         this.setCartTotal();
         this.cd.markForCheck()
       },
       error: (err: any) => {
         this.cartItems = [];
         this.cartTotal = 0;
-        this.productService.cartItems.next(this.cartItems.length);
+        this.productService.cartItems.next(0);
         this.cd.markForCheck()
       }
     })
@@ -114,7 +126,7 @@ export class CartComponent implements OnInit {
    */
   setCartTotal() {
     this.cartTotal = 0;
-    if (this.cartItems.length > 0) {
+    if (this.cartItems && this.cartItems.length > 0) {
       this.cartItems.forEach((item: any) => {
         this.cartTotal += item.actualPrice * item.quantity;
       })

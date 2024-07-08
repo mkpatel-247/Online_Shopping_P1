@@ -42,7 +42,8 @@ export class MainComponent implements OnInit {
       next: (res: any) => {
         if (res.success && res.data) {
           const product = res.data.products;
-          this.productService.wishlistItems.next(product.length);
+          const len = product ? product.length : 0;
+          this.productService.wishlistItems.next(len);
         }
         this.cdr.markForCheck();
       }
