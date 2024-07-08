@@ -90,6 +90,7 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem('userDetail');
     this.authService.isLoggedIn.next(false);
     this.productService.cartItems.next(0);
+    this.productService.wishlistItems.next(0);
     this.router.navigate(['/home']);
     this.toastService.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.danger, "Logout Successfully");
     this.cdr.markForCheck();
