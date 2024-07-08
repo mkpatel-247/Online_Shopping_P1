@@ -45,7 +45,7 @@ export class HttpService {
    */
   patch<T>(url: string, data: any, params?: HttpParams, headers?: HttpHeaders): Observable<T> {
     const options = { params, headers };
-    return this.http.post<T>(url, data, options).pipe(catchError(this.handleError.bind(this)));
+    return this.http.patch<T>(url, data, options).pipe(catchError(this.handleError.bind(this)));
   }
 
   /**

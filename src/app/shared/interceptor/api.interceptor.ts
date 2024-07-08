@@ -28,6 +28,7 @@ export class ApiInterceptor implements HttpInterceptor {
         if (error.status === 401) {
           localStorage.removeItem('loginToken');
           localStorage.removeItem('userDetail');
+          this.authService.userDetail.next([]);
           this.router.navigate(['/auth/login']);
           return throwError(() => "Logout");
         }
