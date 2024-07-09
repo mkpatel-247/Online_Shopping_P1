@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ProductListComponent } from '../products/product-list/product-list.component';
 import { ProductService } from 'src/app/shared/service/product.service';
 import { RouterLink } from '@angular/router';
-import { ToastMessageService } from 'src/app/shared/components/toast-message/toast-message.service';
-import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
 import { CommonService } from 'src/app/shared/service/common.service';
 
 @Component({
@@ -19,7 +17,7 @@ export class WishlistComponent implements OnInit {
 
   wishListProducts: any = [];
 
-  constructor(private productService: ProductService, private commonService: CommonService, private cdr: ChangeDetectorRef, private toastService: ToastMessageService) { }
+  constructor(private productService: ProductService, private commonService: CommonService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     const breadCrumbData = [
