@@ -29,8 +29,6 @@ export class OrderListComponent implements OnInit {
         pageTitle: 'Checkout',
         linkList: [
           { label: 'Home', link: '/home' },
-          { label: 'Cart', link: '/cart' },
-          { label: 'Checkout', link: '/checkout' },
           { label: 'Orders', link: '/orders' },
           { label: this.orderId, link: '' }
         ]
@@ -56,6 +54,7 @@ export class OrderListComponent implements OnInit {
         }
       },
       error: (err: any) => {
+        this.router.navigate(['/orders'])
         this.toastService.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.danger, "Error occurred while fetching your orders.")
       }
     })

@@ -28,8 +28,6 @@ export class OrdersComponent implements OnInit {
           pageTitle: 'Checkout',
           linkList: [
             { label: 'Home', link: '/home' },
-            { label: 'Cart', link: '/cart' },
-            { label: 'Checkout', link: '/checkout' },
             { label: 'Orders', link: '/orders' }
           ]
         }
@@ -44,9 +42,6 @@ export class OrdersComponent implements OnInit {
       next: (res: any) => {
         if (res.success) {
           this.orderData = res.data.orderData;
-          if (!this.orderData.length) {
-            this.router.navigate(['/product']);
-          }
           this.cd.markForCheck()
         }
       },

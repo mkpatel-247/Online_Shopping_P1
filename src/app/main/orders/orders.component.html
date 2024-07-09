@@ -1,4 +1,4 @@
-<div class="container-fluid mb-3">
+<div class="container-fluid mb-3" *ngIf="orderData?.length">
     <div class="row" [ngClass]="{'px-xl-5':!(this.router.url == '/profile')}">
         <div class="col-md-12">
             <section class="h-100">
@@ -50,4 +50,7 @@
             </section>
         </div>
     </div>
+</div>
+<div *ngIf="!orderData?.length" class="text-center">
+    <h2>You haven't ordered anything yet!</h2>
 </div>
