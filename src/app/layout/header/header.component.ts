@@ -32,8 +32,6 @@ export class HeaderComponent implements OnInit {
   constructor(private modalService: NgbModal, public authService: AuthService, private router: Router, private cdr: ChangeDetectorRef, private productService: ProductService, private commonService: CommonService) { }
 
   ngOnInit(): void {
-    console.log(document.documentElement.lang);
-
     this.getUserDetails();
     const storedItem = JSON.parse(localStorage.getItem('cartItems') as string);
     if (storedItem) {
