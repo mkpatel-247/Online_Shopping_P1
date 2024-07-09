@@ -7,6 +7,7 @@ export const CATEGORY = `${API_PREFIX}/category/get-all-categories`
 const CART_PREFIX = `${API_PREFIX}/cart`
 const CONFIG_PREFIX = `${API_PREFIX}/config`
 export const WISHLIST = `${API_PREFIX}/wishlist`
+export const COUPON = `${API_PREFIX}/coupon/`;
 
 export const AUTH = {
     LOGIN_API: `${AUTH_PREFIX}/login`,

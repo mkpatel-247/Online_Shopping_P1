@@ -61,8 +61,8 @@ export class CheckoutComponent implements OnInit {
         this.cartItems = res?.data?.products;
         if (!this.cartItems) {
           this.router.navigate(['/product'])
-        } +
-          this.countSubTotal()
+        }
+        this.countSubTotal()
         this.cd.markForCheck()
       },
       error: (err: any) => {
@@ -112,12 +112,17 @@ export class CheckoutComponent implements OnInit {
           "zip": sd.zipCode
         }
       }
+      //If coupon exist.
+      const isCoupon = localStorage.getItem('couponCode');
+      if (isCoupon)
+        orderDetails['couponCode'] = isCoupon
 
       this.cartService.addOrder(orderDetails).subscribe({
         next: (res: any) => {
           if (res.success) {
             this.productService.cartItems.next(0)
-            this.toastService.showToast(TOAST_ICON.successIcon, TOAST_STATE.success, "Order Placed.");
+            this.toastService.showToast(TOAST_ICON.successIcon, TOAST_STATE.success, res.message);
+            localStorage.removeItem('couponCode');
             this.router.navigate(['/orders'])
           }
         }

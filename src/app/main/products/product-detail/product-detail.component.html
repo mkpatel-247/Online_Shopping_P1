@@ -78,13 +78,16 @@
                                 </button>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary px-3" *ngIf="!isItemInCart()"
+                        <button type="submit" class="btn btn-primary px-3" *ngIf="!isItemInCart(); else alreadyInCart"
                             [disabled]="!(colorSizeForm.get('size')?.value && colorSizeForm.get('color')?.value)"><i
                                 class="fa fa-shopping-cart mr-1"></i>
                             <span class="add-to-cart-text">
                                 Add To Cart
                             </span>
                         </button>
+                        <ng-template #alreadyInCart>
+                            <h6 class="text-success p-0 m-0">Already in cart</h6>
+                        </ng-template>
                     </div>
                 </form>
                 <div class="d-flex pt-2">

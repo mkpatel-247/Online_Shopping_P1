@@ -123,7 +123,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
    * @param page page number
    */
   refreshItems(page: number) {
-    // this.router.navigate(['/product'], { relativeTo: this.route, queryParams: { productPerPage: 6, currentPage: page } });
     this.getProducts(page);
   }
 

@@ -1,4 +1,5 @@
 export interface OrderData {
+    "couponCode"?: string,
     "paymentMethod": string,
     "pickUpPerson": {
         "firstName": string,

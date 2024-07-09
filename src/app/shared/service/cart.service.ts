@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CART, ORDERS } from '../constant/api.constant';
+import { CART, COUPON, ORDERS } from '../constant/api.constant';
 import { Observable } from 'rxjs';
 import { HttpService } from './http.service';
 
@@ -68,5 +68,14 @@ export class CartService {
   */
   cancelOrder(orderId: string): Observable<any> {
     return this.http.put(ORDERS.CANCEL_ORDER + orderId)
+  }
+
+  /**
+   * Get coupon code details.
+   * @param code coupon code.
+   * @returns api response.
+   */
+  getCoupon(code: string): Observable<any> {
+    return this.http.get(COUPON + code);
   }
 }
