@@ -2,11 +2,12 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 import { CommonModule } from '@angular/common';
 import { CommonService } from 'src/app/shared/service/common.service';
 import { ProductService } from 'src/app/shared/service/product.service';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-faq',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgbAccordionModule],
   templateUrl: './faq.component.html',
   styleUrls: ['./faq.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -32,6 +33,9 @@ export class FaqComponent {
     this.getCategories();
   }
 
+  /**
+   * Get data of faq's.
+   */
   getFaqData() {
     this.commonService.getFaqData().subscribe({
       next: (res: any) => {
