@@ -21,7 +21,8 @@
                     <form>
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3"
                             *ngFor="let item of categoryUnit">
-                            <input type="checkbox" class="custom-control-input" id="size-{{item}}">
+                            <input type="button" [value]="item" [routerLink]="['/product']" queryParamsHandling="merge"
+                                [queryParams]="{size: item}" class="custom-control-input" id="size-{{item}}">
                             <label class="custom-control-label" for="size-{{item}}">
                                 {{item}}
                             </label>
@@ -29,13 +30,11 @@
                     </form>
                 </div>
             </ng-container>
-
         </div>
-        <div class="col-lg-9 col-md-8  align-content-center">
-            <ng-container *ngIf="productDetails.data?.length; else noProduct">
+        <div class="col-lg-9 col-md-8 align-content-center">
+            <ng-container *ngIf="productDetails?.length; else noProduct">
                 <div class="row pb-3">
                     <div class="col-12 pb-1">
-                        <!-- Sorting and View type -->
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <div class="col-xl-6 d-none d-xl-block">
                                 <button class="btn btn-sm btn-light" (click)="viewType = true"><i
@@ -55,7 +54,7 @@
                             </div>
                         </div>
                     </div>
-                    <ng-container *ngFor="let item of productDetails.data">
+                    <ng-container *ngFor="let item of productDetails">
                         <div class="col-lg-4 col-md-6 col-sm-6" *ngIf="viewType; else listView">
                             <app-product-grid [products]="item"
                                 (wishlist)="wishlistOperation($event)"></app-product-grid>
