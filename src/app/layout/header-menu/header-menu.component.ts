@@ -19,6 +19,7 @@ export class HeaderMenuComponent implements OnInit {
   numberOfCartItem: number = 0;
   wishlistItem: number = 0;
   pageLink = HEADER_MENU_LINKS;
+  siteConfig: any = '';
   constructor(public productService: ProductService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
@@ -33,6 +34,7 @@ export class HeaderMenuComponent implements OnInit {
       })
     }
     this.getWishlistItemNumber();
+    this.siteConfig = JSON.parse(localStorage.getItem('siteConfig') || "null");
   }
 
   /**

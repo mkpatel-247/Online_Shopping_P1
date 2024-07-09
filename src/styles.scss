@@ -10278,7 +10278,7 @@ h6 {
 }
 
 .list-message {
-  height: 425px;
+  height: calc(80% - 50px);
   overflow-y: scroll;
 }
 
@@ -10375,4 +10375,8 @@ textarea {
 .VIpgJd-suEOdc,
 .VIpgJd-yAWNEb-L7lbkb {
   display: none !important;
+}
+
+.logo {
+  max-width: 35%;
 }

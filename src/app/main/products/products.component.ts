@@ -6,10 +6,10 @@ import { ProductService } from 'src/app/shared/service/product.service';
 import { ProductGridComponent } from './product-grid/product-grid.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
 import { ToastMessageService } from 'src/app/shared/components/toast-message/toast-message.service';
 import { LabelType, NgxSliderModule, Options } from '@angular-slider/ngx-slider';
 import { SORTING } from './products.data';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-products',
@@ -23,6 +23,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   productDetails: any = '';
   catId: string = '';
+  categoryUnit: any = [];
   searchQuery: string = '';
   page = 1;
   totalPage = 1;
@@ -32,7 +33,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   price = [];
   sortParams: string = 'popularity'
   sortingValue = SORTING;
-  constructor(private route: ActivatedRoute, public commonService: CommonService, private productService: ProductService, private cdr: ChangeDetectorRef, private toastService: ToastMessageService, private router: Router) { }
+  constructor(private route: ActivatedRoute, public commonService: CommonService, private productService: ProductService, private cdr: ChangeDetectorRef, private router: Router) { }
 
   ngOnInit(): void {
     this.checkParams();
@@ -52,6 +53,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
         this.price = param['price'];
         this.sortParams = param['sort'];
         this.getProducts();
+        if (this.catId)
+          this.categorySize(this.catId);
         this.cdr.markForCheck();
       }
     })
@@ -96,6 +99,23 @@ export class ProductsComponent implements OnInit, OnDestroy {
         }
       })
     }
+  }
+
+  /**
+   * Get the sizes of selected category.
+   * @param id category id
+   */
+  private categorySize(id: string) {
+    this.productService.getAllCategories(id).pipe(
+      map((x: any) => {
+        return x.data.filter((x: any) => x._id === id)
+      })
+    ).subscribe({
+      next: (res: any) => {
+        this.categoryUnit = res[0].unit;
+        this.cdr.markForCheck();
+      }
+    })
   }
 
   /**

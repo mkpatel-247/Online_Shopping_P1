@@ -6,6 +6,7 @@ import { LoaderComponent } from './shared/components/loader/loader.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { HeaderMenuComponent } from './layout/header-menu/header-menu.component';
 import { HeaderComponent } from './layout/header/header.component';
+import { CommonService } from './shared/service/common.service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,7 @@ export class AppComponent implements OnInit {
   title = 'Online-Shopping-p1';
   showLoading: boolean = false;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private commonService: CommonService) { }
 
   ngOnInit(): void {
     // Show loader when route changes.
@@ -30,5 +31,18 @@ export class AppComponent implements OnInit {
         this.showLoading = false;
       }
     })
+    this.getSiteConfig();
   }
+
+  /**
+   * Get site config data.
+   */
+  getSiteConfig() {
+    this.commonService.getSiteConfig().subscribe({
+      next: (res: any) => {
+        localStorage.setItem('siteConfig', JSON.stringify(res.data));
+      }
+    })
+  }
+
 }

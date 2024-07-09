@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CommonService } from 'src/app/shared/service/common.service';
+import { ProductService } from 'src/app/shared/service/product.service';
 
 @Component({
   selector: 'app-faq',
@@ -13,7 +14,9 @@ import { CommonService } from 'src/app/shared/service/common.service';
 export class FaqComponent {
 
   faqs: any;
-  constructor(private commonService: CommonService, private cd: ChangeDetectorRef) { }
+  categoryList: any = [];
+
+  constructor(private commonService: CommonService, private cd: ChangeDetectorRef, private productService: ProductService) { }
   ngOnInit(): void {
     const breadCrumbData = [
       {
@@ -26,6 +29,7 @@ export class FaqComponent {
     ]
     this.commonService.breadCrumb.next(breadCrumbData);
     this.getFaqData()
+    this.getCategories();
   }
 
   getFaqData() {
@@ -36,6 +40,21 @@ export class FaqComponent {
       },
       error: (err: any) => {
 
+      }
+    })
+  }
+
+  /**
+   * Get category list.
+   */
+  getCategories() {
+    this.productService.getAllCategories().subscribe({
+      next: (res: any) => {
+        this.categoryList = res.data;
+        this.cd.markForCheck();
+      },
+      error: (err: any) => {
+        this.categoryList = [];
       }
     })
   }
