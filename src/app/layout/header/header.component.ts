@@ -71,7 +71,7 @@ export class HeaderComponent implements OnInit {
    */
   searchRecords() {
     if (this.searchQuery.trim()) {
-      this.router.navigate(['/product'], { queryParams: { search: this.searchQuery.trim() } })
+      this.router.navigate(['/product'], { queryParams: { search: this.searchQuery.trim() }, queryParamsHandling: 'merge' })
     } else {
       this.searchQuery = this.searchQuery.trim();
     }
@@ -105,7 +105,7 @@ export class HeaderComponent implements OnInit {
   eraseSearchRecords() {
     if (this.searchQuery && this.router.url.includes('/product')) {
       this.searchQuery = '';
-      this.router.navigate(['/product'], { queryParams: { search: '' } })
+      this.router.navigate(['/product'], { queryParams: { search: '' }, queryParamsHandling: 'merge' })
     } else {
       this.searchQuery = '';
     }
