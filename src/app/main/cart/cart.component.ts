@@ -7,11 +7,13 @@ import { ToastMessageService } from 'src/app/shared/components/toast-message/toa
 import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
 import { ProductService } from 'src/app/shared/service/product.service';
 import { CommonService } from 'src/app/shared/service/common.service';
+import { DISCOUNT_TYPE } from './cart.data';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -20,7 +22,12 @@ export class CartComponent implements OnInit {
 
   cartItems: any = [];
   cartTotal: number = 0;
-  constructor(private authService: AuthService, private commonService: CommonService, private cartService: CartService, private toastService: ToastMessageService, private productService: ProductService, private cd: ChangeDetectorRef) { }
+  coupon: string = '';
+  discount: number = 0;
+  discountType = DISCOUNT_TYPE;
+  couponApplied: boolean = false;
+
+  constructor(public authService: AuthService, private commonService: CommonService, private cartService: CartService, private toastService: ToastMessageService, private productService: ProductService, private cd: ChangeDetectorRef) { }
   ngOnInit(): void {
 
     const breadCrumbData = [
@@ -223,5 +230,44 @@ export class CartComponent implements OnInit {
       error: (err: any) => {
       }
     });
+  }
+
+  /**
+   * Check the coupon is valid or not.
+   */
+  checkCoupon() {
+    if (!this.couponApplied && this.coupon) {
+      this.cartService.getCoupon(this.coupon).subscribe({
+        next: (res: any) => {
+          this.discount = res.data.value;
+          if (this.discount) {
+            let isAboveZero = 0;
+            if (res.data.type == this.discountType.percent) {
+              isAboveZero = (this.cartTotal / 100) * this.discount;
+            } else {
+              isAboveZero = (this.cartTotal - this.discount);
+            }
+            this.discount = isAboveZero ? isAboveZero : 0;
+          } else {
+            this.discount = -1;
+            this.toastService.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.danger, res.message);
+          }
+          this.setCartTotal();
+          this.couponApplied = true;
+          localStorage.setItem('couponCode', this.coupon);
+          this.cd.markForCheck();
+        }
+      });
+    }
+  }
+
+  /**
+   * Remove Coupon.
+   */
+  removeCoupon() {
+    this.coupon = '';
+    this.couponApplied = false;
+    this.discount = 0;
+    localStorage.removeItem('couponCode');
   }
 }
