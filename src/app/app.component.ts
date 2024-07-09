@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavigationEnd, NavigationStart, Router, RouterOutlet } from '@angular/router';
 import { ToastMessageComponent } from './shared/components/toast-message/toast-message.component';
@@ -13,13 +13,14 @@ import { CommonService } from './shared/service/common.service';
   standalone: true,
   imports: [CommonModule, RouterOutlet, ToastMessageComponent, LoaderComponent, HeaderComponent, HeaderMenuComponent, FooterComponent],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
   title = 'Online-Shopping-p1';
   showLoading: boolean = false;
 
-  constructor(private router: Router, private commonService: CommonService) { }
+  constructor(private router: Router, private commonService: CommonService, private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     // Show loader when route changes.
@@ -41,6 +42,7 @@ export class AppComponent implements OnInit {
     this.commonService.getSiteConfig().subscribe({
       next: (res: any) => {
         localStorage.setItem('siteConfig', JSON.stringify(res.data));
+        this.cd.markForCheck()
       }
     })
   }

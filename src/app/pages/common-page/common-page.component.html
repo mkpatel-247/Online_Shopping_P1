@@ -2,13 +2,13 @@
     <div class="d-flex flex-column px-xl-5 px-sm-3 text-center">
         <div class="mb-2">
             <h4 class="display-4">{{slugData?.title | titlecase}}</h4>
-            <p class="lead text-muted">{{slugData?.description.short | titlecase}}</p>
+            <p class="lead text-muted">{{slugData?.description?.short | titlecase}}</p>
         </div>
         <div class="mb-2" class="set-img">
             <img [src]="slugData?.image" alt="slug photo" class="rounded" onerror="'/assets/img/defaultPage.jpg'">
         </div>
         <div class="mt-4">
-            <p>{{ slugData?.description.long | titlecase }}</p>
+            <p>{{ slugData?.description?.long | titlecase }}</p>
         </div>
     </div>
 </div>
