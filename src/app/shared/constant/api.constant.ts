@@ -33,7 +33,7 @@ export const HOME = {
 }
 export const PAGES = {
     FAQ: '/assets/dummyData/faq.json',
-    HELP: '/assets/dummyData/help.json'
+    COMMON_PAGES: `${API_PREFIX}/pages/`
 }
 export const CART = {
     CREATE_CART_ITEM: `${CART_PREFIX}/manage-cart`,

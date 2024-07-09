@@ -10370,5 +10370,14 @@ textarea {
 
 .logo {
   max-width: 35%;
-  height: 48px;
+}
+
+.set-img img {
+  width: 46% !important;
+}
+
+@media (max-width: 767px) {
+  .set-img img {
+    width: 100% !important;
+  }
 }

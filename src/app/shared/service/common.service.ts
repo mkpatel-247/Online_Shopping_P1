@@ -32,10 +32,10 @@ export class CommonService {
   }
 
   /**
-   * getting Help Center data from local json
+   * getting Help Center or About us data as per the slug
    */
-  getHelpCenterData(): Observable<any> {
-    return this.http.get(PAGES.HELP);
+  getPageData(slug: string): Observable<any> {
+    return this.http.get(PAGES.COMMON_PAGES + slug);
   }
   /*
    * Make a get request.

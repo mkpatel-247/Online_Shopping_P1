@@ -6,7 +6,7 @@
                     <ng-container *ngFor="let item of data[0]?.linkList; last as isLast">
                         <a class="breadcrumb-item text-dark text-decoration-none" [routerLink]="item?.link"
                             routerLinkActive="not-allowed-link">
-                            {{ item.label }}
+                            {{ item.label | titlecase}}
                         </a>
                     </ng-container>
                 </nav>
