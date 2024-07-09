@@ -45,7 +45,8 @@ export const CART = {
 export const ORDERS = {
     PLACE_ORDER: `${API_PREFIX}/checkout`,
     GET_ORDERS: `${AUTH_PREFIX}/orders`,
-    GET_SINGLE_ORDER: `${AUTH_PREFIX}/orders/`
+    GET_SINGLE_ORDER: `${AUTH_PREFIX}/orders/`,
+    CANCEL_ORDER: `${AUTH_PREFIX}/orders/`
 }
 
 export const CONFIGURATION = {

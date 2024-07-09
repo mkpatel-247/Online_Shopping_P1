@@ -57,7 +57,7 @@ export class HttpService {
    * @param headers headers if exist. eg. headers = {key, value}
    * @returns response.
    */
-  put<T>(url: string, data: any, params?: HttpParams, headers?: HttpHeaders): Observable<T> {
+  put<T>(url: string, data?: any, params?: HttpParams, headers?: HttpHeaders): Observable<T> {
     const options = { params, headers };
     return this.http.put<T>(url, data, options).pipe(catchError(this.handleError.bind(this)));
   }

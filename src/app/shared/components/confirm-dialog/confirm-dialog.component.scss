@@ -1,0 +1,18 @@
+.modal-size {
+    width: 400px;
+}
+@media (max-width: 490px) {
+    .modal-size {
+        width: 300px;
+    }
+}
+@media (max-width: 250px) {
+    .modal-size {
+        width: 200px;
+    }
+}
+@media (max-width: 100px) {
+    .modal-size {
+        width: 100px;
+    }
+}
