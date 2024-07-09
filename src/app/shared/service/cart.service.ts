@@ -54,7 +54,19 @@ export class CartService {
     return this.http.get(ORDERS.GET_ORDERS);
   }
 
+  /**
+   * Getting single order details
+   * @param orderId 
+   */
   getSingleOrder(orderId: string): Observable<any> {
     return this.http.get(ORDERS.GET_SINGLE_ORDER + orderId)
+  }
+
+  /**
+   * Canceling the order
+   * @param orderId 
+  */
+  cancelOrder(orderId: string): Observable<any> {
+    return this.http.put(ORDERS.CANCEL_ORDER + orderId)
   }
 }
