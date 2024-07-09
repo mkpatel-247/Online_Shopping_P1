@@ -10277,8 +10277,9 @@ h6 {
   overflow-y: scroll;
 }
 
-.list-message {
-  height: calc(80% - 50px);
+.min-height-dropdown {
+  height: 250px;
+  scroll-behavior: smooth;
   overflow-y: scroll;
 }
 
@@ -10298,18 +10299,8 @@ h6 {
   border-radius: 10px;
 }
 
-.sent-message {
-  // display: none;
-  color: #fff;
-  background: #18d26e;
-  text-align: center;
-  padding: 15px;
-  font-weight: 600;
-}
-
 .gradient-bg {
   background-color: #F5F5F5 !important;
-
 }
 
 .btn-color {

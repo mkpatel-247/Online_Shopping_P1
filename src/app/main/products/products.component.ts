@@ -132,11 +132,11 @@ export class ProductsComponent implements OnInit, OnDestroy {
    * @param data 
    */
   priceRangeItems(data: any) {
-    this.router.navigate(['/product'], { relativeTo: this.route, queryParams: { price: [this.minValue, this.maxValue] } })
+    this.router.navigate(['/product'], { relativeTo: this.route, queryParams: { price: [this.minValue, this.maxValue] }, queryParamsHandling: 'merge' })
   }
 
   sorting(value: string) {
-    this.router.navigate(['/product'], { relativeTo: this.route, queryParams: { sort: value } })
+    this.router.navigate(['/product'], { relativeTo: this.route, queryParams: { sort: value }, queryParamsHandling: 'merge' })
   }
 
   /**

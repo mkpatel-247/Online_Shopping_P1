@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-6" *ngIf="reviews.totalReviews; else noReview">
         <h4 class="mb-4">{{reviews.totalReviews}} review for {{productName}}</h4>
-        <div class="list-message custom-scrollbar">
+        <div class="min-height-dropdown custom-scrollbar">
             <div class="media mb-4" *ngFor="let item of reviews.data">
                 <img [src]="item.profilePic" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
                 <div class="media-body">

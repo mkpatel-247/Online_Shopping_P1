@@ -1,45 +1,35 @@
-<div class="container my-5">
-  <div class="row">
+<div class="container-fluid">
+  <div class="row px-xl-5">
     <div class="col-12 text-center mb-4">
       <h1 class="display-4">Frequently Asked Questions</h1>
       <p class="lead text-muted">Find answers to common questions about our services.</p>
     </div>
   </div>
 
-  <div class="row">
+  <div class="row px-xl-5">
     <div class="col-md-4">
-      <div class="list-group mb-3 rounded list-message custom-scrollbar">
+      <div class="list-group mb-3 rounded custom-scrollbar">
         <ng-container *ngFor="let item of categoryList">
           <button type="button" class="list-group-item list-group-item-action">
-            <!-- [ngClass]="{'active': message.id == item.id}" (click)="openMessage(item.id,1)"> -->
-
-            <!-- <div class="d-inline"> -->
             <span class="fw-semibold" title="{{item.description}}">{{item.name | titlecase}}</span>
-            <!-- </div> -->
-            <!-- <p class="mb-0 float-end">
-                          <small>{{item.sendMessageAt | date : 'd/M/yy, h:mm'}}</small>
-                      </p> -->
-
           </button>
         </ng-container>
       </div>
     </div>
     <div class="col-md-8">
       <div id="faqAccordion">
-        <div class="card" *ngFor="let faq of faqs; let i = index">
-          <div class="card-header" [id]="'heading' + i" type="button" data-toggle="collapse"
-            [attr.data-target]="'#collapse' + i" [attr.aria-expanded]="i === 0" [attr.aria-controls]="'collapse' + i">
-            <p class="mb-0 d-flex flex-row justify-content-between align-items-center">
-              <button class="btn fs-5 text-dark" [ngClass]="{'collapsed': i !== 0}">
-                {{ faq.question }}
-              </button>
-              <i class="fas fa fa-angle-down"></i>
-            </p>
-          </div>
-          <div [id]="'collapse' + i" class="collapse" [ngClass]="{'show': i === 0}"
-            [attr.aria-labelledby]="'heading' + i" data-parent="#faqAccordion">
-            <div class="card-body">
-              {{ faq.answer }}
+        <div ngbAccordion [closeOthers]="true">
+          <div ngbAccordionItem [collapsed]="isFirst ? false : true" class="mb-2"
+            *ngFor="let faq of faqs; first as isFirst">
+            <h2 ngbAccordionHeader>
+              <button ngbAccordionButton>{{ faq.question }}</button>
+            </h2>
+            <div ngbAccordionCollapse>
+              <div ngbAccordionBody>
+                <ng-template>
+                  {{ faq.answer }}
+                </ng-template>
+              </div>
             </div>
           </div>
         </div>
