@@ -1,1 +1,1 @@
-export const API_PREFIX = 'http://192.168.1.214:3000';
+export const API_PREFIX = 'https://mycart-api.demoserver.biz';
