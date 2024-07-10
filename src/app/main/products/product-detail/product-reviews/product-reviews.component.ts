@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService } from 'src/app/shared/service/product.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -14,7 +14,8 @@ import { ContainSpaceDirective } from 'src/app/shared/directive/contain-space.di
   standalone: true,
   imports: [CommonModule, NgbModule, RouterLink, ReactiveFormsModule, ContainSpaceDirective],
   templateUrl: './product-reviews.component.html',
-  styleUrls: ['./product-reviews.component.scss']
+  styleUrls: ['./product-reviews.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductReviewsComponent implements OnInit {
 
@@ -25,7 +26,7 @@ export class ProductReviewsComponent implements OnInit {
   reviewForm!: FormGroup;
   userDetail: any = '';
 
-  constructor(private productService: ProductService, private authService: AuthService, private toastService: ToastMessageService, private route: ActivatedRoute) { }
+  constructor(private productService: ProductService, private authService: AuthService, private toastService: ToastMessageService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.getProductReview(this.productId);
@@ -48,7 +49,10 @@ export class ProductReviewsComponent implements OnInit {
    */
   getUserDetails() {
     this.authService.userDetail.subscribe({
-      next: (res: any) => { this.userDetail = res; }
+      next: (res: any) => {
+        this.userDetail = res;
+        this.cdr.markForCheck();
+      }
     })
   }
 
@@ -60,6 +64,7 @@ export class ProductReviewsComponent implements OnInit {
     this.productService.getProductReview(id).subscribe({
       next: (res: any) => {
         this.reviews = res.data;
+        this.cdr.markForCheck();
       }
     })
   }
@@ -87,6 +92,7 @@ export class ProductReviewsComponent implements OnInit {
         if (res.success) {
           this.getProductReview(id);
           this.toastService.showToast(TOAST_ICON.successIcon, TOAST_STATE.success, res.message);
+          this.cdr.markForCheck();
         }
       }
     })

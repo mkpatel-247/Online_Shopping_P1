@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -6,7 +6,8 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './product-additional-info.component.html',
-  styleUrls: ['./product-additional-info.component.scss']
+  styleUrls: ['./product-additional-info.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductAdditionalInfoComponent {
   @Input({ required: true }) information: string = '';

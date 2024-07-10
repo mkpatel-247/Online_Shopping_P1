@@ -33,10 +33,9 @@ export class ProductDetailComponent implements OnInit {
   proID: string = '';
   cartItems: any = [];
   listOfRelatedProduct: any = [];
-  constructor(private productService: ProductService, private route: ActivatedRoute, private toastService: ToastMessageService, private authService: AuthService, private cartService: CartService, private commonService: CommonService, private router: Router, private cd: ChangeDetectorRef) { }
+  constructor(private productService: ProductService, private route: ActivatedRoute, private toastService: ToastMessageService, private authService: AuthService, private cartService: CartService, private commonService: CommonService, public router: Router, private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-
     this.getAllCartItems();
     this.getProductsData();
     this.colorSizeFormControls();
@@ -204,5 +203,13 @@ export class ProductDetailComponent implements OnInit {
         this.cd.markForCheck();
       }
     })
+  }
+
+  /**
+   * Copy url
+   */
+  copyUrl(text: any) {
+    navigator.clipboard.writeText(text);
+    this.toastService.showToast(TOAST_ICON.successIcon, TOAST_STATE.success, "Copy to Clipboard");
   }
 }
