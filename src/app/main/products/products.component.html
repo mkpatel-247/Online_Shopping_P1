@@ -64,9 +64,9 @@
                                 (wishlist)="wishlistOperation($event)"></app-product-list>
                         </ng-template>
                     </ng-container>
-                    <div class="col-12" *ngIf="totalProducts > 3">
+                    <div class="col-12" *ngIf="totalProducts > 6">
                         <ngb-pagination class="d-flex justify-content-center" [collectionSize]="totalProducts"
-                            [(page)]="page" [pageSize]="3" (pageChange)="refreshItems(page)">
+                            [(page)]="page" [pageSize]="6" (pageChange)="refreshItems(page)">
                         </ngb-pagination>
                     </div>
                 </div>

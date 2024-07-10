@@ -74,7 +74,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
    */
   private getProducts(page?: number) {
     delete this.params.categoryId
-    this.params = { ...this.params, productPerPage: 3, currentPage: page || 1 }
+    this.params = { ...this.params, productPerPage: 6, currentPage: page || 1 }
     this.productService.getProducts(this.params).pipe(
       map((res: any) => {
         this.totalPage = res.data.totalPages;
