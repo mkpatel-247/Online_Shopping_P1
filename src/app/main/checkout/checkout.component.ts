@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { CheckoutFormComponent } from './checkout-form/checkout-form.component';
@@ -9,6 +9,7 @@ import { TOAST_ICON, TOAST_STATE } from 'src/app/shared/constant/app.constant';
 import { OrderData } from 'src/app/shared/interface/order-data.interface';
 import { CommonService } from 'src/app/shared/service/common.service';
 import { ProductService } from 'src/app/shared/service/product.service';
+import { AuthService } from 'src/app/shared/service/auth.service';
 
 @Component({
   selector: 'app-checkout',
@@ -18,7 +19,7 @@ import { ProductService } from 'src/app/shared/service/product.service';
   styleUrls: ['./checkout.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CheckoutComponent implements OnInit {
+export class CheckoutComponent implements OnInit, OnDestroy {
 
   showShippingForm: boolean = false;
   cartItems: any[] = [];
@@ -28,7 +29,12 @@ export class CheckoutComponent implements OnInit {
   paymentMethod: string = '';
   isPaymentMethodSelected: boolean = false;
   shippingDetails: any;
-  constructor(private productService: ProductService, private commonService: CommonService, private router: Router, private cd: ChangeDetectorRef, private cartService: CartService, private toastService: ToastMessageService) { }
+  coupon: string = '';
+  discount: number = 0;
+  discountType = { percent: 'percentage', amount: 'amount' };
+  couponApplied: boolean = false;
+
+  constructor(private productService: ProductService, private commonService: CommonService, private router: Router, private cd: ChangeDetectorRef, private cartService: CartService, private toastService: ToastMessageService, public authService: AuthService) { }
 
   ngOnInit(): void {
     const breadCrumbData = [
@@ -42,7 +48,10 @@ export class CheckoutComponent implements OnInit {
       }
     ]
     this.commonService.breadCrumb.next(breadCrumbData);
-    this.getCartItems()
+    this.getCartItems();
+  }
+  ngOnDestroy(): void {
+    localStorage.removeItem('couponCode');
   }
   /**
    * if user want to ship item to different address 
@@ -74,9 +83,15 @@ export class CheckoutComponent implements OnInit {
    * count the total amount customer need to pay
    */
   countSubTotal() {
+    this.subTotal = 0
     this.cartItems.forEach((item: any) => {
       this.subTotal += item.totalPrice;
     })
+    const isCoupon = localStorage.getItem('couponCode');
+    if (isCoupon) {
+      this.coupon = isCoupon;
+      this.checkCoupon();
+    }
   }
 
   /**
@@ -113,9 +128,8 @@ export class CheckoutComponent implements OnInit {
         }
       }
       //If coupon exist.
-      const isCoupon = localStorage.getItem('couponCode');
-      if (isCoupon)
-        orderDetails['couponCode'] = isCoupon
+      if (this.coupon)
+        orderDetails['couponCode'] = this.coupon
 
       this.cartService.addOrder(orderDetails).subscribe({
         next: (res: any) => {
@@ -128,6 +142,43 @@ export class CheckoutComponent implements OnInit {
         }
       })
     }
+  }
+  /**
+   * Check the coupon is valid or not.
+   */
+  checkCoupon() {
+    if (!this.couponApplied && this.coupon) {
+      this.cartService.getCoupon(this.coupon).subscribe({
+        next: (res: any) => {
+          this.discount = res.data.value;
+          if (this.discount) {
+            let isAboveZero = 0;
+            if (res.data.type == this.discountType.percent) {
+              isAboveZero = (this.subTotal / 100) * this.discount;
+            } else {
+              isAboveZero = (this.subTotal - this.discount);
+            }
+            this.discount = isAboveZero ? isAboveZero : 0;
+            this.countSubTotal();
+            this.couponApplied = true;
+            localStorage.setItem('couponCode', this.coupon);
+          } else {
+            this.removeCoupon();
+            this.toastService.showToast(TOAST_ICON.dangerIcon, TOAST_STATE.danger, res.message);
+          }
+          this.cd.markForCheck();
+        }
+      });
+    }
+  }
 
+  /**
+   * Remove Coupon.
+   */
+  removeCoupon() {
+    this.coupon = '';
+    this.couponApplied = false;
+    this.discount = 0;
+    localStorage.removeItem('couponCode');
   }
 }
