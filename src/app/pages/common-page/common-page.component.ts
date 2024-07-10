@@ -19,7 +19,6 @@ export class CommonPageComponent {
   constructor(private commonService: CommonService, private cd: ChangeDetectorRef, private activeRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-
     let breadCrumbData: { pageTitle: string; linkList: { label: string; link: string; }[]; }[];
     this.activeRoute.params.subscribe((res: any) => {
       this.slug = res.slug;
@@ -51,7 +50,7 @@ export class CommonPageComponent {
         }
       },
       error: (err: any) => {
-        this.router.navigate(['/product'])
+        this.router.navigate(['/home'])
       }
     })
   }

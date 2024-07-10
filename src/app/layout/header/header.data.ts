@@ -16,7 +16,7 @@ export const PAGES_LINK = [
     },
     {
         pageLabel: 'About',
-        link: '/about'
+        link: '/about-us'
     },
     {
         pageLabel: 'FAQs',
