@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ContactForm } from '../interface/contact-form';
-import { CONTACT, PAGES } from '../constant/api.constant';
+import { CONTACT, HOME, PAGES } from '../constant/api.constant';
 import { CONFIGURATION } from '../constant/api.constant';
 import { HttpService } from './http.service';
 
@@ -40,14 +40,21 @@ export class CommonService {
   /*
    * Make a get request.
    */
-  getLanguageOrCountry(params?: any) {
+  getLanguageOrCountry(params?: any): Observable<any> {
     return this.http.get(CONFIGURATION.LANGUAGE_COUNTRY, params);
   }
 
   /**
    * Get site configuration.
    */
-  getSiteConfig() {
+  getSiteConfig(): Observable<any> {
     return this.http.get(CONFIGURATION.SITE_CONFIG);
+  }
+
+  /**
+   * getting offer banner data
+   */
+  getOfferBanner(): Observable<any> {
+    return this.http.get(HOME.OFFER_BANNER);
   }
 }

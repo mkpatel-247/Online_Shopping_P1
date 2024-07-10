@@ -30,7 +30,7 @@ export const CONTACT = {
 }
 
 export const HOME = {
-    BANNER: '/assets/dummyData/banner.json'
+    OFFER_BANNER: `${API_PREFIX}/offer`
 }
 export const PAGES = {
     FAQ: '/assets/dummyData/faq.json',

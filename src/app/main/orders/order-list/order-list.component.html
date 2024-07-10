@@ -39,7 +39,7 @@
                                 <p class="p-0 mb-0"> Item(s) Subtotal :</p>
                             </div>
                             <div class="col-md-6 col-sm-6">
-                                <p class="p-0 mb-0">{{orderList?.amount | number : '1.2-2'}}</p>
+                                <p class="p-0 mb-0">{{orderList?.amount?.subtotal | number : '1.2-2'}}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -58,7 +58,7 @@
                             <div class="col-md-6 col-sm-6">
                                 <p class="p-0 mb-0">
                                     <small class="bg-primary rounded px-1">
-                                        ${{orderList?.amount + 10 | number : '1.2-2'}}
+                                        ${{orderList?.amount?.subtotal + 10 | number : '1.2-2'}}
                                     </small>
                                 </p>
                             </div>

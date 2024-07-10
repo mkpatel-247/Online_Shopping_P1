@@ -4,10 +4,11 @@ import { BannerComponent } from './banner/banner.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { FeaturedProductsComponent } from './featured-products/featured-products.component';
 import { CommonService } from 'src/app/shared/service/common.service';
+import { SpecialOfferComponent } from './special-offer/special-offer.component';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, BannerComponent, CategoriesComponent, FeaturedProductsComponent],
+  imports: [CommonModule, BannerComponent, CategoriesComponent, FeaturedProductsComponent, SpecialOfferComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
