@@ -6,7 +6,6 @@ import { ProductService } from 'src/app/shared/service/product.service';
 import { ProductGridComponent } from './product-grid/product-grid.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { ToastMessageService } from 'src/app/shared/components/toast-message/toast-message.service';
 import { LabelType, NgxSliderModule, Options } from '@angular-slider/ngx-slider';
 import { SORTING } from './products.data';
 import { map } from 'rxjs';
@@ -33,6 +32,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   price = [];
   sortParams: string = 'popularity'
   sortingValue = SORTING;
+  params: any = '';
   constructor(private route: ActivatedRoute, public commonService: CommonService, private productService: ProductService, private cdr: ChangeDetectorRef, private router: Router) { }
 
   ngOnInit(): void {
@@ -45,16 +45,22 @@ export class ProductsComponent implements OnInit, OnDestroy {
     //Add empty string so that data get empty when this component destroy.
     this.commonService.breadCrumb.next([]);
   }
+
+  /**
+   * Check params is exist and handle it.
+   */
   private checkParams() {
     this.route.queryParams.subscribe({
       next: (param: any) => {
-        this.catId = param['categoryId'];
-        this.searchQuery = param['search'];
-        this.price = param['price'];
-        this.sortParams = param['sort'];
+        const { categoryId, ...rest } = param;
+        this.catId = categoryId;
+        this.params = rest;
+
         this.getProducts();
-        if (this.catId)
+        if (this.catId) {
+
           this.categorySize(this.catId);
+        }
         this.cdr.markForCheck();
       }
     })
@@ -64,41 +70,26 @@ export class ProductsComponent implements OnInit, OnDestroy {
    * Fetch product details from API.
    */
   private getProducts(page?: number) {
-    if (this.catId) {
-      this.productService.getCategoryProducts(this.catId).subscribe({
-        next: (res: any) => {
-          this.productDetails = res.data;
-          if (res.data?.data?.length) {
-            this.setBreadCrumb(res?.data.data[0].categoryName)
-          }
-          this.cdr.markForCheck();
-        },
-        error: (err: any) => {
-          this.setBreadCrumb()
-          this.productDetails = []
+    delete this.params.categoryId
+    this.productService.getProducts(this.params).pipe(
+      map((res: any) => {
+        const products = res?.data?.data || [];
+        if (this.catId) {
+          return products.filter((ele: any) => ele.categoryId === this.catId);
         }
+        this.options.floor = res.data.minPriceValue;
+        this.options.ceil = res.data.maxPriceValue;
+        return products;
       })
-    } else {
-      let params: any = { 'search': this.searchQuery || '', productPerPage: 6, currentPage: page || 1 };
-      if (this.price) {
-        params['price'] = this.price;
+    ).subscribe({
+      next: (filteredProducts: any) => {
+        this.productDetails = filteredProducts;
+        this.cdr.markForCheck();
+      },
+      error: () => {
+        this.productDetails = [];
       }
-      if (this.sortParams) {
-        params['sort'] = this.sortParams;
-      }
-      this.productService.getProducts(params).subscribe({
-        next: (res: any) => {
-          this.options.floor = res.data.minPriceValue;
-          this.options.ceil = res.data.maxPriceValue;
-
-          this.productDetails = res.data;
-          this.cdr.markForCheck();
-        },
-        error: (error: any) => {
-          this.productDetails = []
-        }
-      })
-    }
+    });
   }
 
   /**
@@ -106,13 +97,20 @@ export class ProductsComponent implements OnInit, OnDestroy {
    * @param id category id
    */
   private categorySize(id: string) {
+    let categoryName = '';
     this.productService.getAllCategories(id).pipe(
       map((x: any) => {
         return x.data.filter((x: any) => x._id === id)
       })
     ).subscribe({
       next: (res: any) => {
+        categoryName = res[0].name;
         this.categoryUnit = res[0].unit;
+        this.cdr.markForCheck();
+      },
+      complete: () => {
+        console.log("asdfasd", categoryName);
+        this.setBreadCrumb(categoryName);
         this.cdr.markForCheck();
       }
     })

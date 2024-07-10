@@ -10,8 +10,9 @@
     <div class="col-md-4">
       <div class="list-group mb-3 rounded custom-scrollbar">
         <ng-container *ngFor="let item of categoryList">
-          <button type="button" class="list-group-item list-group-item-action">
-            <span class="fw-semibold" title="{{item.description}}">{{item.name | titlecase}}</span>
+          <button type="button" class="list-group-item list-group-item-action" (click)="getFaqData(item._id)"
+            [ngClass]="{'bg-primary text-secondary': item._id == selectedCategory}">
+            <span class="fw-semibold">{{item.name | titlecase}}</span>
           </button>
         </ng-container>
       </div>

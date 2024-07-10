@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CommonService } from 'src/app/shared/service/common.service';
 import { ProductService } from 'src/app/shared/service/product.service';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { PagesService } from 'src/app/shared/service/pages.service';
 
 @Component({
   selector: 'app-faq',
@@ -16,8 +17,9 @@ export class FaqComponent {
 
   faqs: any;
   categoryList: any = [];
+  selectedCategory: string = '';
 
-  constructor(private commonService: CommonService, private cd: ChangeDetectorRef, private productService: ProductService) { }
+  constructor(private commonService: CommonService, private cd: ChangeDetectorRef, private pagesService: PagesService) { }
   ngOnInit(): void {
     const breadCrumbData = [
       {
@@ -29,17 +31,17 @@ export class FaqComponent {
       }
     ]
     this.commonService.breadCrumb.next(breadCrumbData);
-    this.getFaqData()
-    this.getCategories();
+    this.getFaqCategories();
   }
 
   /**
    * Get data of faq's.
    */
-  getFaqData() {
-    this.commonService.getFaqData().subscribe({
+  getFaqData(categoryId: string) {
+    this.pagesService.getFaqData(categoryId).subscribe({
       next: (res: any) => {
-        this.faqs = res;
+        this.selectedCategory = categoryId;
+        this.faqs = res.data;
         this.cd.markForCheck()
       },
       error: (err: any) => {
@@ -51,10 +53,11 @@ export class FaqComponent {
   /**
    * Get category list.
    */
-  getCategories() {
-    this.productService.getAllCategories().subscribe({
+  getFaqCategories() {
+    this.pagesService.getFaqCategories().subscribe({
       next: (res: any) => {
         this.categoryList = res.data;
+        if (this.categoryList?.length) this.getFaqData(this.categoryList[0]._id);
         this.cd.markForCheck();
       },
       error: (err: any) => {
