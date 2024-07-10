@@ -29,8 +29,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   viewType: boolean = true;
   minValue: number = 0;
   maxValue: number = 600;
-  price = [];
-  sortParams: string = 'popularity'
+  totalProducts: number = 0;
   sortingValue = SORTING;
   params: any = '';
   constructor(private route: ActivatedRoute, public commonService: CommonService, private productService: ProductService, private cdr: ChangeDetectorRef, private router: Router) { }
@@ -58,8 +57,12 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
         this.getProducts();
         if (this.catId) {
-
           this.categorySize(this.catId);
+        }
+
+        if (this.params.price) {
+          this.minValue = this.params.price[0];
+          this.maxValue = this.params.price[1];
         }
         this.cdr.markForCheck();
       }
@@ -71,8 +74,11 @@ export class ProductsComponent implements OnInit, OnDestroy {
    */
   private getProducts(page?: number) {
     delete this.params.categoryId
+    this.params = { ...this.params, productPerPage: 3, currentPage: page || 1 }
     this.productService.getProducts(this.params).pipe(
       map((res: any) => {
+        this.totalPage = res.data.totalPages;
+        this.totalProducts = res.data.totalProducts;
         const products = res?.data?.data || [];
         if (this.catId) {
           return products.filter((ele: any) => ele.categoryId === this.catId);
@@ -88,6 +94,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       },
       error: () => {
         this.productDetails = [];
+        this.cdr.markForCheck();
       }
     });
   }
@@ -109,7 +116,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
         this.cdr.markForCheck();
       },
       complete: () => {
-        console.log("asdfasd", categoryName);
         this.setBreadCrumb(categoryName);
         this.cdr.markForCheck();
       }
@@ -121,6 +127,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
    * @param page page number
    */
   refreshItems(page: number) {
+    // this.router.navigate(['/product'], { relativeTo: this.route, queryParams: { productPerPage: 6, currentPage: page }, queryParamsHandling: 'merge' })
     this.getProducts(page);
   }
 

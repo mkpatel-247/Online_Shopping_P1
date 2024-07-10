@@ -91,12 +91,35 @@
                     </div>
                 </form>
                 <div class="d-flex pt-2">
-                    <strong class="text-dark mr-2">Share on:</strong>
-                    <div class="d-inline-flex">
-                        <a class="text-dark px-2" routerLink="/ {{item.link}}" *ngFor="let item of socialMediaLinks">
-                            <i class="fab fa-{{item.icon}}"></i>
-                        </a>
-                    </div>
+                    <button class="btn btn-primary px-3 " data-bs-toggle="dropdown" aria-expanded="false">
+                        <strong class="text-dark mr-2">
+                            Share <i class="bi bi-box-arrow-up-right"></i>
+                        </strong>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <div class="container">
+                            <div class="d-flex flex-row justify-content-between">
+                                <div *ngFor="let item of socialMediaLinks">
+                                    <a class="text-dark px-3" href="//{{item.link}}" target="_blank">
+                                        <i class="fab fa-{{item.icon}}"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [value]="'domain.com'+router.url"
+                                        name="link" id="link" [readOnly]="true">
+                                </div>
+                                <div class="col ps-0">
+                                    <button type="button" class="btn btn-block btn-primary"
+                                        (click)="copyUrl('domain.com'+router.url)">
+                                        Copy Url
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </ul>
                 </div>
             </div>
         </div>
