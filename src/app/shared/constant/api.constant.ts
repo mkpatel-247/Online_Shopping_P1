@@ -8,6 +8,7 @@ const CART_PREFIX = `${API_PREFIX}/cart`
 const CONFIG_PREFIX = `${API_PREFIX}/config`
 export const WISHLIST = `${API_PREFIX}/wishlist`
 export const COUPON = `${API_PREFIX}/coupon/`;
+const FAQs_PREFIX = `${API_PREFIX}/FAQ/`;
 
 export const AUTH = {
     LOGIN_API: `${AUTH_PREFIX}/login`,
@@ -33,7 +34,8 @@ export const HOME = {
     BANNER: '/assets/dummyData/banner.json'
 }
 export const PAGES = {
-    FAQ: '/assets/dummyData/faq.json',
+    FAQ_CATEGORY: `${FAQs_PREFIX}`,
+    CATEGORY_WISE_FAQ: `${FAQs_PREFIX}/`,
     COMMON_PAGES: `${API_PREFIX}/pages/`
 }
 export const CART = {

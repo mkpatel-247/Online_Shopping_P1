@@ -25,13 +25,6 @@ export class CommonService {
   }
 
   /**
-   * getting faq data from local json
-   */
-  getFaqData(): Observable<any> {
-    return this.http.get(PAGES.FAQ);
-  }
-
-  /**
    * getting Help Center or About us data as per the slug
    */
   getPageData(slug: string): Observable<any> {
