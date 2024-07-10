@@ -55,11 +55,12 @@ export class ProductsComponent implements OnInit, OnDestroy {
         const { categoryId, ...rest } = param;
         this.catId = categoryId;
         this.params = rest;
-        console.log(rest, param);
 
         this.getProducts();
-        if (this.catId)
+        if (this.catId) {
+
           this.categorySize(this.catId);
+        }
         this.cdr.markForCheck();
       }
     })
@@ -96,13 +97,20 @@ export class ProductsComponent implements OnInit, OnDestroy {
    * @param id category id
    */
   private categorySize(id: string) {
+    let categoryName = '';
     this.productService.getAllCategories(id).pipe(
       map((x: any) => {
         return x.data.filter((x: any) => x._id === id)
       })
     ).subscribe({
       next: (res: any) => {
+        categoryName = res[0].name;
         this.categoryUnit = res[0].unit;
+        this.cdr.markForCheck();
+      },
+      complete: () => {
+        console.log("asdfasd", categoryName);
+        this.setBreadCrumb(categoryName);
         this.cdr.markForCheck();
       }
     })
