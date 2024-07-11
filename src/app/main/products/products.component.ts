@@ -22,7 +22,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   productDetails: any = '';
   catId: string = '';
-  categoryUnit: any = [];
+  categoryUnit: string[] = ['8UK', '7UK', 'S', 'L', 'XL', 'M'];
   searchQuery: string = '';
   page = 1;
   totalPage = 1;
@@ -32,6 +32,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
   totalProducts: number = 0;
   sortingValue = SORTING;
   params: any = '';
+  sizesParam: any = [];
+
   constructor(private route: ActivatedRoute, public commonService: CommonService, private productService: ProductService, private cdr: ChangeDetectorRef, private router: Router) { }
 
   ngOnInit(): void {
@@ -58,6 +60,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
         this.getProducts();
         if (this.catId) {
           this.categorySize(this.catId);
+        } else {
+          this.setBreadCrumb();
         }
 
         if (this.params.price) {
@@ -111,12 +115,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
       })
     ).subscribe({
       next: (res: any) => {
-        categoryName = res[0].name;
-        this.categoryUnit = res[0].unit;
+        categoryName = res[0]?.name;
+        // this.categoryUnit = res[0]?.unit;
         this.cdr.markForCheck();
       },
       complete: () => {
-        this.setBreadCrumb(categoryName);
+        if (categoryName)
+          this.setBreadCrumb(categoryName);
         this.cdr.markForCheck();
       }
     })
@@ -249,5 +254,24 @@ export class ProductsComponent implements OnInit, OnDestroy {
     }
     this.commonService.breadCrumb.next(breadCrumbData);
     this.cdr.markForCheck()
+  }
+
+  /**
+   * Filter for sizes.
+   */
+  sizeParams(size: any) {
+    if (this.params.size) {
+      if (this.sizesParam.includes(size)) {
+        let index = this.sizesParam.findIndex((s: any) => size === s)
+        this.sizesParam.splice(index, 1);
+      } else {
+        this.sizesParam.push(size);
+      }
+    } else {
+      this.sizesParam.push(size)
+    }
+    console.log(size, this.sizesParam);
+    this.router.navigate(['/product'], { relativeTo: this.route, queryParams: { size: this.sizesParam }, queryParamsHandling: 'merge' })
+
   }
 }

@@ -13,20 +13,27 @@
                     </div>
                 </form>
             </div>
-            <ng-container *ngIf="catId">
+            <ng-container *ngIf="true">
                 <h5 class="section-title position-relative text-uppercase mb-3">
                     <span class="bg-secondary pr-3">Filter by size</span>
                 </h5>
                 <div class="bg-light p-4 mb-30">
                     <form>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3"
-                            *ngFor="let item of categoryUnit">
-                            <input type="button" [value]="item" [routerLink]="['/product']" queryParamsHandling="merge"
-                                [queryParams]="{size: item}" class="custom-control-input" id="size-{{item}}">
-                            <label class="custom-control-label" for="size-{{item}}">
+                        <div class="form-check mb-2" *ngFor="let item of categoryUnit">
+                            <input class="form-check-input" type="checkbox" [value]="item" (click)="sizeParams(item)"
+                                id="size-{{item}}">
+                            <label class="form-check-label" for="size-{{item}}">
                                 {{item}}
                             </label>
                         </div>
+                        <!-- <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3"
+                            *ngFor="let item of categoryUnit">
+                            <input type="button" (click)="sizeParams(item)" class="custom-control-input"
+                                id="size-{{item}}">
+                            <label class="custom-control-label" for="size-{{item}}">
+                                {{item}}
+                            </label>
+                        </div> -->
                     </form>
                 </div>
             </ng-container>
