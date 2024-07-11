@@ -19,21 +19,13 @@
                 </h5>
                 <div class="bg-light p-4 mb-30">
                     <form>
-                        <div class="form-check mb-2" *ngFor="let item of categoryUnit">
-                            <input class="form-check-input" type="checkbox" [value]="item" (click)="sizeParams(item)"
-                                id="size-{{item}}">
-                            <label class="form-check-label" for="size-{{item}}">
-                                {{item}}
-                            </label>
-                        </div>
-                        <!-- <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3"
-                            *ngFor="let item of categoryUnit">
-                            <input type="button" (click)="sizeParams(item)" class="custom-control-input"
-                                id="size-{{item}}">
+                        <div class="custom-control custom-checkbox form-check mb-2" *ngFor="let item of categoryUnit">
+                            <input class="form-check-input custom-control-input" type="checkbox" [value]="item"
+                                (click)="sizeParams(item)" id="size-{{item}}">
                             <label class="custom-control-label" for="size-{{item}}">
                                 {{item}}
                             </label>
-                        </div> -->
+                        </div>
                     </form>
                 </div>
             </ng-container>
@@ -79,9 +71,7 @@
                 </div>
             </ng-container>
             <ng-template #noProduct>
-                <!-- <div class="col-12"> -->
                 <h3 class="text-center">No product exist...</h3>
-                <!-- </div> -->
             </ng-template>
         </div>
     </div>

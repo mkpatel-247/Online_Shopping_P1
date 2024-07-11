@@ -260,7 +260,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
    * Filter for sizes.
    */
   sizeParams(size: any) {
-    if (this.params.size) {
+    if (this.params.sizes) {
       if (this.sizesParam.includes(size)) {
         let index = this.sizesParam.findIndex((s: any) => size === s)
         this.sizesParam.splice(index, 1);
@@ -270,8 +270,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
     } else {
       this.sizesParam.push(size)
     }
-    console.log(size, this.sizesParam);
-    this.router.navigate(['/product'], { relativeTo: this.route, queryParams: { size: this.sizesParam }, queryParamsHandling: 'merge' })
-
+    this.router.navigate(['/product'], { relativeTo: this.route, queryParams: { sizes: this.sizesParam }, queryParamsHandling: 'merge' })
   }
 }
