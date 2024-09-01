@@ -1,0 +1,40 @@
+<div class="container-fluid">
+  <div class="row px-xl-5">
+    <div class="col-12 text-center mb-4">
+      <h1 class="display-4">Frequently Asked Questions</h1>
+      <p class="lead text-muted">Find answers to common questions about our services.</p>
+    </div>
+  </div>
+
+  <div class="row px-xl-5">
+    <div class="col-md-4">
+      <div class="list-group mb-3 rounded custom-scrollbar">
+        <ng-container *ngFor="let item of categoryList">
+          <button type="button" class="list-group-item list-group-item-action" (click)="getFaqData(item._id)"
+            [ngClass]="{'bg-primary text-secondary': item._id == selectedCategory}">
+            <span class="fw-semibold">{{item.name | titlecase}}</span>
+          </button>
+        </ng-container>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div id="faqAccordion">
+        <div ngbAccordion [closeOthers]="true">
+          <div ngbAccordionItem [collapsed]="isFirst ? false : true" class="mb-2"
+            *ngFor="let faq of faqs; first as isFirst">
+            <h2 ngbAccordionHeader>
+              <button ngbAccordionButton>{{ faq.question }}</button>
+            </h2>
+            <div ngbAccordionCollapse>
+              <div ngbAccordionBody>
+                <ng-template>
+                  {{ faq.answer }}
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

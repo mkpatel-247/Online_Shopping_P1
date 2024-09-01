@@ -1,0 +1,13 @@
+.product-list-image {
+    object-fit: contain;
+    width: 100%;
+    height: 50px;
+    min-width: 100%;
+    min-height: 250px;
+}
+
+@media (max-width: 767px) {
+    .grid-image {
+        max-height: 150px;
+    }
+}

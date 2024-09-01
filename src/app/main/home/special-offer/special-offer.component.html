@@ -1,0 +1,32 @@
+<div class="container-fluid pt-5" *ngIf="specialOfferData.length">
+
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Special
+            Offers</span></h2>
+    <div id="header-carousel" class="px-xl-5 row carousel" data-ride="carousel">
+        <ng-container *ngFor="let offer of specialOfferData; index as i">
+            <div class="carousel-inner col-xl-4 col-lg-6 col-md-6 col-sm-12 justify-content-center align-items-center">
+                <div class="carousel-item active position-relative mb-3" style="height: 200px;">
+                    <img class="position-absolute w-100 h-100" [src]="offer?.image" style="object-fit: cover;"
+                        onerror="'/assets/img/no-image.webp';">
+                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                        <div class="p-3">
+                            <h1 class="text-white animate__animated animate__fadeInDown" style="font-size: 2rem;">
+                                {{offer?.title}}
+                            </h1>
+                            <p class="mx-md-5 px-xl-5 animate__animated animate__bounceIn">
+                                {{offer?.description}}
+                            </p>
+                            <p class="mx-md-5 px-xl-5 animate__animated animate__bounceIn">
+                                {{offer?.startDate | date }} - {{offer?.endDate | date }}
+                            </p>
+                            <a class="btn btn-outline-light py-1 px-2 animate__animated animate__fadeInUp"
+                                routerLink="/product">
+                                Shop Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>

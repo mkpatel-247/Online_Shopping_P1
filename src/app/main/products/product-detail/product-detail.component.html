@@ -1,0 +1,159 @@
+<div class="container-fluid pb-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-5 mb-30">
+            <div class="bg-light">
+                <ngb-carousel [showNavigationIndicators]="false" [showNavigationArrows]="products?.images?.length > 1"
+                    class="carousel-container">
+                    <ng-container *ngFor="let item of products?.images">
+                        <ng-template ngbSlide>
+                            <img class="d-block w-100 product-detail-image" [src]="item" alt="Image">
+                        </ng-template>
+                    </ng-container>
+                </ngb-carousel>
+            </div>
+        </div>
+
+        <div class="col-lg-7 h-auto mb-30">
+            <div class="h-100 bg-light p-30">
+                <!-- Product Name -->
+                <h3>{{ products?.name }}</h3>
+                <!-- Rating -->
+                <div class="d-flex mb-3">
+                    <div class="text-primary">
+                        <ngb-rating [rate]="products?.avgStars || 0" [max]="5" [readonly]="true">
+                            <ng-template let-fill="fill" let-index="index">
+                                <small>
+                                    <i class="{{fill === 100 ? 'fas fa-star':'far fa-star'}} mr-1"></i>
+                                </small>
+                            </ng-template>
+                        </ngb-rating>
+                    </div>
+                    <small class="pt-1 px-sm-1">({{products?.totalReview}} Reviews)</small>
+                </div>
+                <h3 class="font-weight-semi-bold mb-4">{{ products?.price | currency : '$ ' }}</h3>
+                <p class="mb-4">{{ productDescription?.short }}</p>
+                <form [formGroup]="colorSizeForm" (ngSubmit)="addToCart()">
+                    <div class="d-flex flex-wrap mb-4">
+                        <strong class="text-dark mr-3 mb-2 mb-md-0">Sizes:</strong>
+                        <div class="d-flex flex-wrap">
+                            <div class="custom-control custom-radio custom-control-inline mr-2 mb-2"
+                                *ngFor="let item of products?.sizes">
+
+                                <input type="radio" class="custom-control-input" [id]="item" [value]="item" name="size"
+                                    formControlName="size">
+
+                                <label class="custom-control-label" [for]="item">
+                                    {{ item }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-wrap mb-4">
+                        <strong class="text-dark mr-3 mb-2 mb-md-0">Colors:</strong>
+                        <div class="d-flex flex-wrap">
+                            <div class="custom-control custom-radio custom-control-inline mr-2 mb-2"
+                                *ngFor="let item of products?.colors; index as i">
+                                <input type="radio" class="custom-control-input" [id]="item" [value]="item" name="color"
+                                    formControlName="color">
+                                <label class="custom-control-label" [for]="item">{{ item }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-4 pt-2">
+                        <div class="input-group quantity mr-3" style="width: 130px;">
+                            <div class="input-group-btn">
+                                <button class="btn btn-primary btn-minus" type="button"
+                                    (click)="colorSizeForm.get('quantity')?.setValue(colorSizeForm.get('quantity')?.value-1)"
+                                    [disabled]="!(colorSizeForm.get('quantity')?.value > 1)">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            <input type="text" class="form-control bg-secondary border-0 text-center"
+                                [value]="colorSizeForm.get('quantity')?.value" formControlName="quantity" readonly>
+                            <div class="input-group-btn">
+                                <button class="btn btn-primary btn-plus" type="button"
+                                    (click)="colorSizeForm.get('quantity')?.setValue(colorSizeForm.get('quantity')?.value+1)"
+                                    [disabled]="!(products?.quantity > colorSizeForm.get('quantity')?.value)">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary px-3" *ngIf="!isItemInCart(); else alreadyInCart"
+                            [disabled]="!(colorSizeForm.get('size')?.value && colorSizeForm.get('color')?.value)"><i
+                                class="fa fa-shopping-cart mr-1"></i>
+                            <span class="add-to-cart-text">
+                                Add To Cart
+                            </span>
+                        </button>
+                        <ng-template #alreadyInCart>
+                            <h6 class="text-success p-0 m-0">Already in cart</h6>
+                        </ng-template>
+                    </div>
+                </form>
+                <div class="d-flex pt-2">
+                    <button class="btn btn-primary px-3 " data-bs-toggle="dropdown" aria-expanded="false">
+                        <strong class="text-dark mr-2">
+                            Share <i class="bi bi-box-arrow-up-right"></i>
+                        </strong>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <div class="container">
+                            <div class="d-flex flex-row justify-content-between">
+                                <div *ngFor="let item of socialMediaLinks">
+                                    <a class="text-dark px-3" href="//{{item.link}}" target="_blank">
+                                        <i class="fab fa-{{item.icon}}"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [value]="'domain.com'+router.url"
+                                        name="link" id="link" [readOnly]="true">
+                                </div>
+                                <div class="col ps-0">
+                                    <button type="button" class="btn btn-block btn-primary"
+                                        (click)="copyUrl('domain.com'+router.url)">
+                                        Copy Url
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row px-xl-5">
+        <div class="col">
+            <div class="bg-light p-30">
+                <div class="nav nav-tabs mb-4" ngbNav #nav="ngbNav" [activeId]="productDescription.long ? 1 : 2">
+                    <ng-container [ngbNavItem]="1" *ngIf="productDescription.long">
+                        <button class="nav-item nav-link text-dark" ngbNavLink>Description</button>
+                        <ng-template ngbNavContent class="tab-pane fade show">
+                            <app-product-description
+                                [longProductDescription]="productDescription.long"></app-product-description>
+                        </ng-template>
+                    </ng-container>
+                    <ng-container [ngbNavItem]="2" *ngIf="products.additionalInfo">
+                        <button class="nav-item nav-link text-dark" ngbNavLink>Information</button>
+                        <ng-template ngbNavContent>
+                            <app-product-additional-info
+                                [information]="products.additionalInfo"></app-product-additional-info>
+                        </ng-template>
+                    </ng-container>
+                    <ng-container [ngbNavItem]="3">
+                        <button class="nav-item nav-link text-dark" ngbNavLink>Reviews</button>
+                        <ng-template ngbNavContent>
+                            <app-product-reviews [productId]="proID"
+                                [productName]="products.name"></app-product-reviews>
+                        </ng-template>
+                    </ng-container>
+                </div>
+                <div [ngbNavOutlet]="nav" class="tab-pane fade show mt-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-related-product [listOfRelatedProduct]="listOfRelatedProduct"
+    *ngIf="listOfRelatedProduct.length"></app-related-product>

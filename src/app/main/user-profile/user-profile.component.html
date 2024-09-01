@@ -1,0 +1,138 @@
+<section class="container-fluid">
+    <div class="row p-3">
+        <div class="col-xl-4">
+            <div class="card border-0 shadow bg-light">
+                <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                    <img class="mb-2 rounded-circle" [src]="profileImage" height="150" width="150" alt="profile img">
+
+                    <h2>{{userName}}</h2>
+                    <p>{{userEmail}}</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-xl-8">
+            <div class="card border-0 shadow bg-light">
+                <div class="card-body pt-3">
+                    <ul class="nav nav-tabs">
+
+                        <li class="nav-item">
+                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-edit">
+                                Profile
+                            </button>
+                        </li>
+
+                        <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#your-orders">
+                                Your Orders
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="tab-content pt-2">
+
+                        <div class="tab-pane fade show active profile-edit pt-3" id="profile-edit">
+
+                            <form [formGroup]="userProfileForm" (ngSubmit)="handleSubmit()" method="put">
+                                <div class="row mb-3">
+                                    <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">
+                                        Profile Image</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <div class="pt-2">
+                                            <div class="form-group">
+                                                <div class="d-flex flex-row">
+                                                    <input type="file" class="form-control"
+                                                        accept="image/png, image/jpeg, image/jpg"
+                                                        (change)="getProfilePhoto($event)">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="firstName" class="col-md-4 col-lg-3 col-form-label">First Name</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="firstName" type="text" class="form-control" id="firstName"
+                                            formControlName="firstName" appContainSpace>
+                                        <span
+                                            *ngIf="(fc.firstName.touched || submitted ) && fc.firstName.hasError('required')"
+                                            class="text-danger"
+                                            [ngClass]="{'border-danger':(fc.firstName.touched || submitted ) && fc.firstName.hasError('required')}">
+                                            First name is required.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="lastName" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="lastName" type="text" class="form-control" id="lastName"
+                                            formControlName="lastName" appContainSpace
+                                            [ngClass]="{'border-danger':(fc.lastName.touched || submitted ) && fc.lastName.hasError('required')}">
+                                        <span
+                                            *ngIf="(fc.lastName.touched || submitted ) && fc.lastName.hasError('required')"
+                                            class="text-danger">
+                                            Last name is required.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="phone" class="col-md-4 col-lg-3 col-form-label">Phone NUmber</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="phone" type="text" class="form-control" id="phone"
+                                            formControlName="phone" maxlength="10"
+                                            [ngClass]="{'border-danger':(fc.phone.touched || submitted ) && fc.phone.hasError('required')}">
+                                        <span *ngIf="(fc.phone.touched || submitted ) && fc.phone.hasError('required')"
+                                            class="text-danger">
+                                            Phone Number is required.
+                                        </span>
+                                        <span *ngIf="fc.phone.hasError('pattern')" class="text-danger">
+                                            Phone must be between 0-9.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <input name="email" type="email" class="form-control" id="Email"
+                                            formControlName="email">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="Password" class="col-md-4 col-lg-3 col-form-label">Gender</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <select class="form-select" formControlName="gender">
+                                            <option value="">Please Select Gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="Password" class="col-md-4 col-lg-3 col-form-label">Date of Birth</label>
+                                    <div class="col-md-8 col-lg-9">
+                                        <div class="d-flex flex-row">
+                                            <input name="dob" type="date" class="form-control" id="dob"
+                                                formControlName="dob">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </div>
+                            </form>
+
+                        </div>
+
+                        <div class="tab-pane fade profile-edit p-3 custom-scrollbar overflow-y-scroll fix-width"
+                            id="your-orders">
+                            <app-orders></app-orders>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

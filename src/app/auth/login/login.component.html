@@ -1,1 +1,40 @@
-<p>login works!</p>
+<section class="container-fluid gradient-bg d-flex flex-column justify-content-center align-items-center rounded-lg ">
+    <form class="position-relative bg-light shadow rounded-lg form-bg" [formGroup]="loginForm"
+        (ngSubmit)="handleLogin()">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-sm p-5">
+                <p>Welcome back !</p>
+                <h2 class="mb-3  mr-auto text-color">Login</h2>
+                <hr class="border-2 border-black">
+                <div class="my-3">
+                    <label for="email" class="form-label">Email address<span class="text-danger">*</span></label>
+                    <input type="email" class="form-control rounded" id="email" placeholder="Enter your email"
+                        formControlName="email"
+                        [ngClass]="{'border-danger':(fc.email.touched || submitted ) && fc.email.hasError('required')}">
+                    <span *ngIf="(fc.email.touched || submitted ) && fc.email.hasError('required')"
+                        class="text-danger">Email is required.</span>
+                </div>
+                <div class="">
+                    <label for="password" class="form-label">Password<span class="text-danger">*</span></label>
+                    <div class="d-flex flex-row">
+                        <input [type]="!showPassword ? 'password' : 'text'" class="form-control rounded" id="password"
+                            placeholder="Enter your password" formControlName="password"
+                            [ngClass]="{'border-danger':(fc.password.touched || submitted ) && fc.password.hasError('required')}">
+                        <span class="btn btn-color bi" [ngClass]="!showPassword ? 'bi-eye-slash' : 'bi-eye'"
+                            (click)="showPassword = !showPassword"></span>
+                    </div>
+                    <span class="text-danger"
+                        *ngIf="(fc.password.touched || submitted ) && fc.password.hasError('required')">
+                        Password is Required.</span>
+                    <p class="text-right"><small><a routerLink="/auth/forgot-password" class="text-blue ">Forgot
+                                Password?</a></small></p>
+                </div>
+                <button type="submit" class="btn btn-color rounded w-100 my-3">Login</button>
+                <p>Don't have an account?<a class="text-blue" routerLink="/auth/register"> Register</a></p>
+            </div>
+            <div class="col-sm hide-img">
+                <img src="/assets/img/login.png" alt="login svg" class="img-fluid">
+            </div>
+        </div>
+    </form>
+</section>

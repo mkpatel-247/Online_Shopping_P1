@@ -1,1 +1,16 @@
-<p>newsletter works!</p>
+<form [formGroup]="newsLetterForm" (ngSubmit)="handleSubmit()">
+    <div class="input-group">
+        <input type="text" class="form-control" formControlName="email" placeholder="Your Email Address">
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+        </div>
+    </div>
+    <span class="text-danger"
+        *ngIf="newsLetterForm.get('email')?.hasError('required') && newsLetterForm.get('email')?.touched">
+        * Enter your email.
+    </span>
+    <span class="text-danger"
+        *ngIf="(!newsLetterForm.get('email')?.hasError('required') && newsLetterForm.get('email')?.hasError('email')) && newsLetterForm.get('email')?.touched">
+        * Enter a valid email.
+    </span>
+</form>

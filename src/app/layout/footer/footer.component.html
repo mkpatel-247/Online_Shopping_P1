@@ -1,1 +1,57 @@
-<p>footer works!</p>
+<!-- footer -->
+<div class="container-fluid bg-dark text-secondary mt-5 pt-5">
+    <div class="row px-xl-5 pt-5">
+        <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
+            <h5 class="text-secondary text-uppercase mb-4">Get In Touch</h5>
+            <p class="mb-4">No dolore ipsum accusam no lorem. Invidunt sed clita kasd clita et et dolor sed dolor. Rebum
+                tempor no vero est magna amet no</p>
+            <app-address></app-address>
+        </div>
+        <div class="col-lg-8 col-md-12">
+            <div class="row">
+                <div class="col-md-4 mb-5">
+                    <h5 class="text-secondary text-uppercase mb-4">Quick Shop</h5>
+                    <div class="d-flex flex-column justify-content-start">
+                        <ng-container *ngFor="let item of quickShopLinks; last as isLast">
+                            <a class="text-secondary" [ngClass]="{'mb-2': !isLast}" routerLink="{{item.link}}">
+                                <i class="fa fa-angle-right mr-2"></i>{{item.label}}</a>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-5">
+                    <h5 class="text-secondary text-uppercase mb-4">My Account</h5>
+                    <div class="d-flex flex-column justify-content-start">
+                        <ng-container *ngFor="let item of profileLinks; last as isLast">
+                            <a class="text-secondary" [ngClass]="{'mb-2': !isLast}" routerLink="{{item.link}}">
+                                <i class="fa fa-angle-right mr-2"></i>{{item.label}}</a>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-5">
+                    <h5 class="text-secondary text-uppercase mb-4">Newsletter</h5>
+                    <p>Duo stet tempor ipsum sit amet magna ipsum tempor est</p>
+                    <app-newsletter></app-newsletter>
+                    <h6 class="text-secondary text-uppercase mt-4 mb-3">Follow Us</h6>
+                    <div class="d-flex">
+                        <ng-container *ngFor="let item of socialLinks">
+                            <a class="btn btn-primary btn-square mr-2" routerLink="{{item.link}}"><i
+                                    class="fab fa-{{item.icon}}"></i></a>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row border-top mx-xl-5 py-4 border-white border-opacity-25">
+        <div class="col-md-6 px-xl-0">
+            <p class="mb-md-0 text-center text-md-left text-secondary">
+                &copy; <a class="text-primary" routerLink="#">Domain</a>. All Rights Reserved. Designed
+                by
+                <a class="text-primary" routerLink="https://htmlcodex.com">HTML Codex</a>
+            </p>
+        </div>
+        <div class="col-md-6 px-xl-0 text-center text-md-right">
+            <img class="img-fluid" src="./assets/img/payments.png" alt="">
+        </div>
+    </div>
+</div>

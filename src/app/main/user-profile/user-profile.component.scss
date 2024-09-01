@@ -1,0 +1,14 @@
+.fix-width {
+    height: 500px !important;
+}
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+    color: var(--primary) !important;
+    background-color: #fff;
+    border-color: var(--primary) var(--primary) #dee2e6 var(--primary) !important;
+}
+
+.nav-tabs .nav-link:hover {
+    color: var(--primary) !important;
+}

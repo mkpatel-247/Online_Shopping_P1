@@ -1,0 +1,7 @@
+.carousel-item {
+    transition: transform 0.3s ease;
+}
+
+.carousel-item:hover {
+    transform: translateY(-5px);
+}

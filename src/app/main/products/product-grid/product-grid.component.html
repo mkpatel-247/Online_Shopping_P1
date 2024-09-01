@@ -1,0 +1,35 @@
+<div class="product-item bg-light mb-4">
+    <div class="product-img position-relative overflow-hidden">
+        <ng-container *ngIf="products.images?.length; else defaultImage">
+            <img src="{{products.images[0]}}" alt="product-image" appProductGridImage>
+        </ng-container>
+        <ng-template #defaultImage>
+            <img src="/assets/img/no-image.webp" alt="item" appProductGridImage>
+        </ng-template>
+        <div class="product-action">
+            <a class="btn btn-outline-dark btn-square"
+                (click)="wishlist.emit({isWishlist: products.isWishList, id: products._id})"><i
+                    class="fa-heart {{ products.isWishList ? 'fas' : 'far'}}"></i></a>
+            <a class="btn btn-outline-dark btn-square" routerLink="/product/details/{{products._id}}"><i
+                    class="fa fa-search"></i></a>
+        </div>
+    </div>
+    <div class="text-center py-4">
+        <a class="h6 text-decoration-none text-truncate" routerLink="/product/details/{{products._id}}">{{ products.name
+            }}</a>
+        <div class="d-flex align-items-center justify-content-center mt-2">
+            <h5>{{products.price | currency : '$ '}}</h5>
+            <h6 class="text-muted ml-2"><del>$123.00</del></h6>
+        </div>
+        <div class="d-flex align-items-center justify-content-center mb-1">
+            <ngb-rating [rate]="products.avgStars || 0" [max]="5" [readonly]="true">
+                <ng-template let-fill="fill" let-index="index">
+                    <small>
+                        <i class="fa fa-star {{fill === 100 ? 'text-primary':'text-muted'}} mr-1"></i>
+                    </small>
+                </ng-template>
+            </ngb-rating>
+            <small>({{products.totalReview}})</small>
+        </div>
+    </div>
+</div>

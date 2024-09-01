@@ -1,0 +1,9 @@
+.product-detail-image {
+  height: 500px;
+}
+
+@media (max-width: 382px) {
+  .add-to-cart-text {
+    display: none;
+  }
+}

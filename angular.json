@@ -37,9 +37,15 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/animate.css/animate.min.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.carousel.min.css",
+              "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.theme.default.min.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -72,10 +78,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Online-Shopping-p1:build:production"
+              "buildTarget": "Online-Shopping-p1:build:production"
             },
             "development": {
-              "browserTarget": "Online-Shopping-p1:build:development"
+              "buildTarget": "Online-Shopping-p1:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +89,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Online-Shopping-p1:build"
+            "buildTarget": "Online-Shopping-p1:build"
           }
         },
         "test": {
@@ -99,13 +105,14 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "styles": [],
             "scripts": []
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "4e56ff92-c36d-4470-8fa9-8e83ec3b4c61"
   }
 }
